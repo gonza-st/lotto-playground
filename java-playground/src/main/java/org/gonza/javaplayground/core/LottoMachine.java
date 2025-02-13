@@ -15,7 +15,10 @@ public class LottoMachine {
                 .divide(BigDecimal.valueOf(PURCHASE_PRICE_UNIT))
                 .intValue();
 
-        // todo 1000원으로 안 나눠떨어지면? 즉 천원 단위가 아닐 때 검증
+        if (purchasePrice.getValue().remainder(BigDecimal.valueOf(PURCHASE_PRICE_UNIT)).compareTo(BigDecimal.ZERO) != 0) {
+            throw new IllegalArgumentException("로또 구매 금액은 1000원 단위여야 합니다.");
+        }
+
         return value;
     }
 }
