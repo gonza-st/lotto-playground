@@ -15,6 +15,7 @@ public class LottoMachine {
                 .divide(BigDecimal.valueOf(PURCHASE_PRICE_UNIT))
                 .intValue();
 
+        // todo 1000원으로 안 나눠떨어지면? 즉 천원 단위가 아닐 때 검증
         return value;
     }
 }
