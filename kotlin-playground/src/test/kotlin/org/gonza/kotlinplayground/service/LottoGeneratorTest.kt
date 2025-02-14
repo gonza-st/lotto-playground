@@ -4,16 +4,16 @@ import org.gonza.kotlinplayground.domain.lotto.NumberRange
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class OneToNineNumberRange : NumberRange {
+class OneToSixNumberRange : NumberRange {
     override fun getMin(): Int = 1
 
-    override fun getMax(): Int = 9
+    override fun getMax(): Int = 6
 }
 
 class LottoGeneratorTest {
     @Test
     fun `생성된 숫자는 중복되지 않는다`() {
-        val randomNumberGenerator = RandomNumberGenerator(OneToNineNumberRange())
+        val randomNumberGenerator = RandomNumberGenerator(OneToSixNumberRange())
         val lottoGenerator = LottoGenerator(randomNumberGenerator)
 
         val result = lottoGenerator.generate()
@@ -28,7 +28,7 @@ class LottoGeneratorTest {
 
     @Test
     fun `생성된 숫자는 비어있을 수 없다`() {
-        val randomNumberGenerator = RandomNumberGenerator(OneToNineNumberRange())
+        val randomNumberGenerator = RandomNumberGenerator(OneToSixNumberRange())
         val lottoGenerator = LottoGenerator(randomNumberGenerator)
 
         val result = lottoGenerator.generate()
