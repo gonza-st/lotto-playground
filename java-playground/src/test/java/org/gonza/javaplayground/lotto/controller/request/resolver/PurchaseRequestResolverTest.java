@@ -39,6 +39,6 @@ public class PurchaseRequestResolverTest {
         LottoRequest stringBody = LottoRequestTestFixtures.createRequestWithNumberBody();
         PurchaseReq req = sut.resolve(stringBody);
 
-        assertEquals(stringBody.getBody().get(), req.amount().toString());
+        assertEquals(stringBody.getBody().get(), req.payment().toString());
     }
 }
