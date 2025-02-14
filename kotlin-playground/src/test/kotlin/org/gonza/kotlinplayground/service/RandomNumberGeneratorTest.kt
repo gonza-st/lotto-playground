@@ -10,23 +10,23 @@ class TestNumberRange : NumberRange {
     override fun getMax(): Int = 0
 }
 
-class LottoNumberGeneratorTest {
+class RandomNumberGeneratorTest {
     @Test
     fun `최대값과 최소값을 넘지 않는 값을 생성할 수 있다`() {
         // given
         val testNumberRange = TestNumberRange()
-        val lottoNumberGenerator = LottoNumberGenerator(testNumberRange)
+        val randomNumberGenerator = RandomNumberGenerator(testNumberRange)
 
         // when
         val result =
             listOf(
-                lottoNumberGenerator.get(),
-                lottoNumberGenerator.get(),
-                lottoNumberGenerator.get(),
-                lottoNumberGenerator.get(),
-                lottoNumberGenerator.get(),
-                lottoNumberGenerator.get(),
-                lottoNumberGenerator.get(),
+                randomNumberGenerator.get(),
+                randomNumberGenerator.get(),
+                randomNumberGenerator.get(),
+                randomNumberGenerator.get(),
+                randomNumberGenerator.get(),
+                randomNumberGenerator.get(),
+                randomNumberGenerator.get(),
             )
 
         // then
