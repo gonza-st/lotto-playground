@@ -8,7 +8,7 @@ public class Purchase {
 
     private final Price price;
 
-    public Purchase(Price price) {
+    private Purchase(Price price) {
         this.price = price;
     }
 }

@@ -3,7 +3,7 @@ package org.gonza.javaplayground.purchase.domain;
 public class Price {
     private final Long value;
 
-    public Price(Long price) {
+    private Price(Long price) {
         this.value = price;
     }
 
