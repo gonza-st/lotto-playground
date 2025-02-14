@@ -1,5 +1,7 @@
 package org.gonza.javaplayground.core;
 
+import java.util.Arrays;
+
 public enum Ranking {
     FIRST(6, 2_000_000_000),
     SECOND(5, 30_000_000),
@@ -15,11 +17,10 @@ public enum Ranking {
         this.prize = prize;
     }
 
-    public int getMatchCount() {
-        return matchCount;
-    }
-
-    public int getPrize() {
-        return prize;
+    public static Ranking valueOf(int matchCount) {
+        return Arrays.stream(values())
+                .filter(ranking -> ranking.matchCount == matchCount)
+                .findFirst()
+                .orElse(NONE);
     }
 }
