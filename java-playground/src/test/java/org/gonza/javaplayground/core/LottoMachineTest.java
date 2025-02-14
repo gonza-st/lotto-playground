@@ -1,5 +1,6 @@
 package org.gonza.javaplayground.core;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -11,18 +12,25 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class LottoMachineTest {
+
+    private LottoMachine lottoMachine;
+
+    @BeforeEach
+    void setUp() {
+        lottoMachine = new LottoMachine(new LottoNumberGenerator());
+    }
+
     @Test
     @DisplayName("구입 금액에 맞게 로또 티켓을 생성할 수 있다.")
     void generateLottoTicketTest() throws Exception {
         BigDecimal purchasePrice1 = new BigDecimal(14000);
         BigDecimal purchasePrice2 = BigDecimal.valueOf(1000);
-        LottoMachine lottoMachine = new LottoMachine();
 
-        int purchasedTicket1 = lottoMachine.generateLottoTicket(new Money(purchasePrice1));
-        int purchasedTicket2 = lottoMachine.generateLottoTicket(new Money(purchasePrice2));
+        LottoTicket purchasedTicket1 = lottoMachine.generateLottoTicket(new Money(purchasePrice1));
+        LottoTicket purchasedTicket2 = lottoMachine.generateLottoTicket(new Money(purchasePrice2));
 
-        assertThat(purchasedTicket1).isEqualTo(14);
-        assertThat(purchasedTicket2).isEqualTo(1);
+        assertThat(purchasedTicket1.lottoNumbers().size()).isEqualTo(14);
+        assertThat(purchasedTicket2.lottoNumbers().size()).isEqualTo(1);
     }
 
     @ParameterizedTest
@@ -30,7 +38,6 @@ class LottoMachineTest {
     @DisplayName("로또 구매 가격이 1000원 미만일 경우 예외 발생")
     void generateLottoTicketFailTest_under1000(int invalidValue) throws Exception {
         Money invalidMoney = new Money(new BigDecimal(invalidValue));
-        LottoMachine lottoMachine = new LottoMachine();
 
         assertThatThrownBy(() -> lottoMachine.generateLottoTicket(invalidMoney))
                 .isInstanceOf(IllegalArgumentException.class)
@@ -42,11 +49,18 @@ class LottoMachineTest {
     @DisplayName("로또 구매 가격이 1000원 단위가 아닐 경우 예외 발생")
     void generateLottoTicketFailTest_invalidPriceUnit(int invalidValue) throws Exception {
         Money invalidMoney = new Money(new BigDecimal(invalidValue));
-        LottoMachine lottoMachine = new LottoMachine();
 
         assertThatThrownBy(() -> lottoMachine.generateLottoTicket(invalidMoney))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("로또 구매 금액은 1000원 단위여야 합니다.");
+    }
 
+    @Test
+    @DisplayName("당첨 숫자를 뽑을 수 있다.")
+    void generateWinningLottoNumberSuccess() throws Exception {
+        LottoNumber winningLottoNumber = lottoMachine.generateWinningLottoNumber();
+
+        assertThat(winningLottoNumber).isNotNull();
+        winningLottoNumber.lottoNumbers().forEach(number -> assertThat(number).isBetween(1, 45));
     }
 }
