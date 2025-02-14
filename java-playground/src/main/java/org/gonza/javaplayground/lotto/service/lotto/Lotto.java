@@ -33,4 +33,10 @@ public class Lotto {
     public Integer countLottoLines() {
         return lottoLines.size();
     }
+
+    public List<List<Integer>> getAllLottoNumbers() {
+        return lottoLines.stream()
+                .map(LottoLine::getAllNumbers)
+                .toList();
+    }
 }

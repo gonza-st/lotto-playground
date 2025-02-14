@@ -15,6 +15,10 @@ class LottoLine {
         this.line = line;
     }
 
+    public List<Integer> getAllNumbers() {
+        return line;
+    }
+
     public List<Integer> match(List<Integer> numbers) {
         validate(numbers);
 
