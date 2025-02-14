@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.service.domain;
+package org.gonza.javaplayground.lotto.service.lotto;
 
 import java.util.List;
 import java.util.Objects;
