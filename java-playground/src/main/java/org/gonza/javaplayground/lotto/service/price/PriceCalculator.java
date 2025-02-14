@@ -12,8 +12,16 @@ public class PriceCalculator {
     }
 
     public Integer getAvailableAmount(Integer givenPrice) {
+        validatePrice(givenPrice);
+
         Integer amount = givenPrice / price;
         return amount;
+    }
+
+    private void validatePrice(Integer givenPrice) {
+        if (givenPrice <= 0) {
+            throw new IllegalArgumentException("Price must be greater than zero");
+        }
     }
 
     public Integer getWinningPrice(Integer point) {
