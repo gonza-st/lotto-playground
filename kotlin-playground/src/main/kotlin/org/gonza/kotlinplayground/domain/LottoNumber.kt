@@ -12,6 +12,6 @@ class LottoNumber(
 
     private fun validLottoNumber() {
         require(this.number > 0) { "로또 번호는 양수만 가능합니다." }
-        require(this.number <= limit) { "로또 번호는 양수만 가능합니다." }
+        require(this.number <= limit) { "로또 번호는 ${limit}을(를) 초과할 수 없습니다." }
     }
 }
