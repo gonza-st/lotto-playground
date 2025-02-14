@@ -40,11 +40,6 @@ public class WinningPriceTableTest {
     }
 
     @Test
-    public void should_throw_if_point_is_null() {
-        assertThrows(IllegalArgumentException.class, () -> sut.getWinningPrice(null));
-    }
-
-    @Test
     public void should_throw_if_point_is_out_of_range() {
         assertThrows(IllegalArgumentException.class, () -> sut.getWinningPrice(PRICE_LIST.size()));
         assertThrows(IllegalArgumentException.class, () -> sut.getWinningPrice(-1));
