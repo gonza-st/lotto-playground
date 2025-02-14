@@ -3,7 +3,7 @@ package org.gonza.kotlinplayground.domain.lotto
 import org.gonza.kotlinplayground.domain.lotto.exception.InvalidLottoNumberException
 
 class LottoNumber(
-    private val number: Int,
+    val number: Int,
 ) {
     init {
         Range(number)

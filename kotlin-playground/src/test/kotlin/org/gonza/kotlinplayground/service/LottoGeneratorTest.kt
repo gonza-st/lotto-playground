@@ -20,9 +20,9 @@ class LottoGeneratorTest {
         val numberList = result.numberList
 
         val testedList: MutableList<Int> = mutableListOf()
-        numberList.forEach { number ->
-            assertFalse(number in testedList)
-            testedList.add(number)
+        numberList.forEach {
+            assertFalse(it.number in testedList)
+            testedList.add(it.number)
         }
     }
 

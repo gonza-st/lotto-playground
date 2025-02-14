@@ -1,5 +1,6 @@
 package org.gonza.kotlinplayground.service
 
+import org.gonza.kotlinplayground.domain.lotto.LottoNumber
 import org.gonza.kotlinplayground.service.dto.GeneratedNumberResult
 
 class LottoGenerator(
@@ -10,10 +11,11 @@ class LottoGenerator(
     }
 
     fun generate(): GeneratedNumberResult {
-        val result: MutableSet<Int> = mutableSetOf()
+        val result: MutableSet<LottoNumber> = mutableSetOf()
 
         while (shouldGenerate(result.size)) {
-            result.add(numberGenerator.get())
+            val number = numberGenerator.get()
+            result.add(LottoNumber(number))
         }
 
         return GeneratedNumberResult(
