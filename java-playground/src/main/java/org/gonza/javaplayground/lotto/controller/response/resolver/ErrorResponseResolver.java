@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.controller.resolver;
+package org.gonza.javaplayground.lotto.controller.response.resolver;
 
 import org.gonza.javaplayground.lotto.controller.response.ErrorRes;
 import org.gonza.javaplayground.lotto.mapper.ResponseResolver;
