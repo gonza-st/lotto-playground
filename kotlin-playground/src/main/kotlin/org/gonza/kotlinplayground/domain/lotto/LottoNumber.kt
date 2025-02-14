@@ -8,7 +8,7 @@ class LottoNumber(private val number: Int) {
         Range(number)
     }
 
-    class Range(number: Int) {
+    class Range(number: Int) : NumberRange {
         companion object {
             private const val MAX_NUMBER_LENGTH = 45
             private const val MIN_NUMBER_LENGTH = 0
@@ -23,5 +23,9 @@ class LottoNumber(private val number: Int) {
                 throw InvalidLottoNumberException()
             }
         }
+
+        override fun getMin(): Int = MIN_NUMBER_LENGTH
+
+        override fun getMax(): Int = MAX_NUMBER_LENGTH
     }
 }
