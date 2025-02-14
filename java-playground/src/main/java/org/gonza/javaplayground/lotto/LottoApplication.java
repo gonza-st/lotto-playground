@@ -1,8 +1,8 @@
 package org.gonza.javaplayground.lotto;
 
 import org.gonza.javaplayground.framework.BenefitProgram;
-import org.gonza.javaplayground.lotto.mapper.RouteMap;
-import org.gonza.javaplayground.lotto.mapper.RouteMapper;
+import org.gonza.javaplayground.framework.mapper.RouteMap;
+import org.gonza.javaplayground.framework.mapper.RouteMapper;
 import org.gonza.javaplayground.lotto.ui.LottoRequest;
 import org.gonza.javaplayground.lotto.ui.LottoResponse;
 import org.gonza.javaplayground.lotto.ui.Screen;

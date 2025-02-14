@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.ui;
 
-import org.gonza.javaplayground.lotto.mapper.Option;
+import org.gonza.javaplayground.framework.mapper.Option;
 
 import java.util.Optional;
 

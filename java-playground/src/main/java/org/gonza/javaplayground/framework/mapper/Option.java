@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.mapper;
+package org.gonza.javaplayground.framework.mapper;
 
 import java.util.Arrays;
 import java.util.Objects;

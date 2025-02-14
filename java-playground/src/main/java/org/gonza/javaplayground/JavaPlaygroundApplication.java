@@ -6,7 +6,7 @@ import org.gonza.javaplayground.framework.server.ConsoleServer;
 import org.gonza.javaplayground.framework.server.ServerProperties;
 import org.gonza.javaplayground.lotto.LottoApplication;
 import org.gonza.javaplayground.lotto.controller.LottoKiosk;
-import org.gonza.javaplayground.lotto.mapper.RouteMapper;
+import org.gonza.javaplayground.framework.mapper.RouteMapper;
 
 import java.io.IOException;
 

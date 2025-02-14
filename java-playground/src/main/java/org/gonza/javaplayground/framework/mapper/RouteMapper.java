@@ -1,6 +1,5 @@
-package org.gonza.javaplayground.lotto.mapper;
+package org.gonza.javaplayground.framework.mapper;
 
-import org.gonza.javaplayground.lotto.controller.LottoKiosk;
 import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
 import org.gonza.javaplayground.lotto.controller.response.resolver.ErrorResponseResolver;
@@ -16,36 +15,36 @@ import static java.util.Map.entry;
 public class RouteMapper {
     private final Map<Option, RouteMap> optionHandlerMap;
 
-    public RouteMapper(LottoKiosk kiosk) throws NoSuchMethodException {
-        this.optionHandlerMap = mapHandlerToEndpoint(kiosk);
+    public RouteMapper(Controller controller) throws NoSuchMethodException {
+        this.optionHandlerMap = mapHandlerToEndpoint(controller);
     }
 
-    private Map<Option, RouteMap> mapHandlerToEndpoint(LottoKiosk kiosk) throws NoSuchMethodException {
+    private Map<Option, RouteMap> mapHandlerToEndpoint(Controller controller) throws NoSuchMethodException {
         return Map.ofEntries(
                 entry(
                         Option.PURCHASE,
                         new RouteMap(
-                                kiosk,
+                                controller,
                                 new PurchaseRequestResolver(),
-                                kiosk.getClass().getMethod("handlePurchase", PurchaseReq.class),
+                                controller.getClass().getMethod("handlePurchase", PurchaseReq.class),
                                 new PurchaseResponseResolver()
                         )
                 ),
                 entry(
                         Option.MATCH,
                         new RouteMap(
-                                kiosk,
+                                controller,
                                 new MatchRequestResolver(),
-                                kiosk.getClass().getMethod("handleMatchNumbers", MatchReq.class),
+                                controller.getClass().getMethod("handleMatchNumbers", MatchReq.class),
                                 new MatchResponseResolver()
                         )
                 ),
                 entry(
                         Option.ERROR,
                         new RouteMap(
-                                kiosk,
+                                controller,
                                 null,
-                                kiosk.getClass().getMethod("handleInvalidRequest"),
+                                controller.getClass().getMethod("handleInvalidRequest"),
                                 new ErrorResponseResolver()
                         )
                 )
