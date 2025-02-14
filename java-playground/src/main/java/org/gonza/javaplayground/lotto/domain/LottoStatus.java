@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto;
+package org.gonza.javaplayground.lotto.domain;
 
 public enum LottoStatus {
     ISSUED,

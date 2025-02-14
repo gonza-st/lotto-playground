@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto;
+package org.gonza.javaplayground.lotto.domain;
 
 public class Lotto {
     private final LottoNumbers numbers;
