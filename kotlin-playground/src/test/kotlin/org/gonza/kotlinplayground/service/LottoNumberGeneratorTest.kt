@@ -1,18 +1,13 @@
 package org.gonza.kotlinplayground.service
 
 import org.gonza.kotlinplayground.domain.lotto.NumberRange
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class TestNumberRange : NumberRange {
-    override fun getMin(): Int {
-        return 0
-    }
+    override fun getMin(): Int = 0
 
-    override fun getMax(): Int {
-        return 0
-    }
+    override fun getMax(): Int = 0
 }
 
 class LottoNumberGeneratorTest {
@@ -23,15 +18,16 @@ class LottoNumberGeneratorTest {
         val lottoNumberGenerator = LottoNumberGenerator(testNumberRange)
 
         // when
-        val result = listOf(
-            lottoNumberGenerator.get(),
-            lottoNumberGenerator.get(),
-            lottoNumberGenerator.get(),
-            lottoNumberGenerator.get(),
-            lottoNumberGenerator.get(),
-            lottoNumberGenerator.get(),
-            lottoNumberGenerator.get(),
-        )
+        val result =
+            listOf(
+                lottoNumberGenerator.get(),
+                lottoNumberGenerator.get(),
+                lottoNumberGenerator.get(),
+                lottoNumberGenerator.get(),
+                lottoNumberGenerator.get(),
+                lottoNumberGenerator.get(),
+                lottoNumberGenerator.get(),
+            )
 
         // then
         result.forEach {
