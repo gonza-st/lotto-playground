@@ -5,8 +5,8 @@ import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
 
 public class LottoKiosk {
 
-    public void handlePurchase(PurchaseReq req) {
-        System.out.println("You purchased a lotto.");
+    public String handlePurchase(PurchaseReq req) {
+        return "You purchased a lotto.";
     }
 
     public void handleMatchNumbers(MatchReq req) {

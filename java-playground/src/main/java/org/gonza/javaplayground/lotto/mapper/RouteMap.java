@@ -7,11 +7,11 @@ import java.lang.reflect.Method;
 
 public record RouteMap(
         Object clazz,
-        Resolver<?> resolver,
+        RequestResolver<?> requestResolver,
         Method method
 ) {
     public void invokeHandler(LottoRequest request) throws InvocationTargetException, IllegalAccessException {
-        if (resolver != null) {
+        if (requestResolver != null) {
             withResolver(request);
         } else {
             withoutResolver();
@@ -19,8 +19,8 @@ public record RouteMap(
     }
 
     private void withResolver(LottoRequest request) throws InvocationTargetException, IllegalAccessException {
-        Object req = resolver.resolve(request);
-        method.invoke(clazz, req);
+        Object req = requestResolver.resolve(request);
+        Object result = method.invoke(clazz, req);
     }
 
     private void withoutResolver() throws InvocationTargetException, IllegalAccessException {
