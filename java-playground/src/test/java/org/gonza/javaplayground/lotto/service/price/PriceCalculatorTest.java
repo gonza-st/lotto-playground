@@ -9,8 +9,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PriceCalculatorTest {
-    private static final Integer PRICE = 1000;
-    private static final List<Integer> PRICE_LIST = List.of(0, 0, 0, 5000, 50000, 1500000, 2000000000);
+    private static final Integer PRICE = PriceTestFixtures.PRICE;
+    private static final List<Integer> PRICE_LIST = PriceTestFixtures.WINNING_PRICE_RANGE;
 
     private PriceCalculator sut;
 
