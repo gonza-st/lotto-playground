@@ -3,8 +3,6 @@ package org.gonza.javaplayground.lotto.service.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -23,10 +21,7 @@ public class LottoFactoryTest {
         Integer count = 2;
         Lotto lotto = sut.createLotto(count);
 
-        List<Integer> matchingNumber = List.of(1,2,3,4,5,6);
-        List<List<Integer>> result = lotto.match(matchingNumber);
-
-        assertEquals(count, result.size());
+        assertEquals(count, lotto.countLottoLines());
     }
 
     @Test
