@@ -1,12 +1,11 @@
 package org.gonza.javaplayground.framework.server;
 
-import org.gonza.javaplayground.framework.BenefitProgram;
+import org.gonza.javaplayground.framework.Application;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 
 import java.net.Socket;
@@ -26,12 +25,12 @@ public class ConsoleServer implements Server {
         }
     }
 
-    public void execute(BenefitProgram program) throws IOException {
+    public void execute(Application program) throws IOException {
         Socket clientSocket = serverSocket.accept();
         connectionPool.submit(() -> handleRequest(clientSocket, program));
     }
 
-    private void handleRequest(Socket clientSocket, BenefitProgram program) {
+    private void handleRequest(Socket clientSocket, Application program) {
         try (
                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true);

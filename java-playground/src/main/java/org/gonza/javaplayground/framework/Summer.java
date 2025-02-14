@@ -4,12 +4,12 @@ import org.gonza.javaplayground.framework.server.Server;
 
 import java.io.*;
 
-public class Government {
-    private final BenefitProgram program;
+public class Summer {
+    private final Application program;
     private final Server server;
     private Boolean isReady = true;
 
-    public Government(Server server, BenefitProgram program) {
+    public Summer(Server server, Application program) {
         this.server = server;
         this.program = program;
     }

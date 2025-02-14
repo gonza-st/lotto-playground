@@ -1,7 +1,7 @@
 package org.gonza.javaplayground;
 
-import org.gonza.javaplayground.framework.BenefitProgram;
-import org.gonza.javaplayground.framework.Government;
+import org.gonza.javaplayground.framework.Application;
+import org.gonza.javaplayground.framework.Summer;
 import org.gonza.javaplayground.framework.server.ConsoleServer;
 import org.gonza.javaplayground.framework.server.ServerProperties;
 import org.gonza.javaplayground.lotto.LottoApplication;
@@ -19,12 +19,12 @@ public class JavaPlaygroundApplication {
 
         LottoKiosk lottoKiosk = new LottoKiosk();
         RouteMapper routeMapper = new RouteMapper(lottoKiosk);
-        BenefitProgram lotto = new LottoApplication(routeMapper);
+        Application lotto = new LottoApplication(routeMapper);
 
         ServerProperties properties = new ServerProperties(PORT, POOL_SIZE);
         ConsoleServer console = new ConsoleServer(properties);
 
-        Government government = new Government(console, lotto);
-        government.work();
+        Summer summer = new Summer(console, lotto);
+        summer.work();
     }
 }

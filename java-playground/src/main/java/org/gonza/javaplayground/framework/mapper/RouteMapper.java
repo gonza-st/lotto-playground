@@ -51,7 +51,7 @@ public class RouteMapper {
         );
     }
 
-    public RouteMap getRouteMap(Option option) {
+    public RouteMap getMethod(Option option) {
         RouteMap routeMap = optionHandlerMap.get(option);
 
         if (routeMap == null) {

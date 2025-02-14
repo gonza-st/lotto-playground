@@ -13,7 +13,7 @@ public record RouteMap(
         Method method,
         ResponseResolver responseResolver
 ) {
-    public LottoResponse invokeHandler(LottoRequest request) throws InvocationTargetException, IllegalAccessException {
+    public LottoResponse invoke(LottoRequest request) throws InvocationTargetException, IllegalAccessException {
         Object req = resolveRequest(request);
 
         Object result = Objects.nonNull(req)
