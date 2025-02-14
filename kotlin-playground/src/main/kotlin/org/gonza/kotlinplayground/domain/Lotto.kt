@@ -1,5 +1,6 @@
 package org.gonza.kotlinplayground.domain
 
+import org.gonza.kotlinplayground.enum.LottoStatus
 import org.gonza.kotlinplayground.utils.LottoConstants
 
 class Lotto(
@@ -8,6 +9,14 @@ class Lotto(
 ) {
     init {
         validateLottoNumberList()
+    }
+
+    var status: LottoStatus = LottoStatus.UNKNOWN
+        private set
+
+    fun updateStatus(status: LottoStatus) {
+        require(this.status == LottoStatus.UNKNOWN) { "변경된 상태는 다시 수정할 수 없습니다." }
+        this.status = status
     }
 
     private fun validateLottoNumberList() {
