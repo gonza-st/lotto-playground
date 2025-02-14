@@ -5,6 +5,8 @@ import org.gonza.javaplayground.framework.Government;
 import org.gonza.javaplayground.framework.server.ConsoleServer;
 import org.gonza.javaplayground.framework.server.ServerProperties;
 import org.gonza.javaplayground.lotto.LottoApplication;
+import org.gonza.javaplayground.lotto.controller.LottoKiosk;
+import org.gonza.javaplayground.lotto.mapper.RouteMapper;
 
 import java.io.IOException;
 
@@ -12,9 +14,12 @@ public class JavaPlaygroundApplication {
     private static final Integer PORT = 3001;
     private static final Integer POOL_SIZE = 10;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoSuchMethodException {
         System.out.println("Java Application Started");
-        BenefitProgram lotto = new LottoApplication();
+
+        LottoKiosk lottoKiosk = new LottoKiosk();
+        RouteMapper routeMapper = new RouteMapper(lottoKiosk);
+        BenefitProgram lotto = new LottoApplication(routeMapper);
 
         ServerProperties properties = new ServerProperties(PORT, POOL_SIZE);
         ConsoleServer console = new ConsoleServer(properties);

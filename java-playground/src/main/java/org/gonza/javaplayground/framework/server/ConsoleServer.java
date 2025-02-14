@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.lang.reflect.InvocationTargetException;
 import java.net.ServerSocket;
 
 import java.net.Socket;
@@ -38,6 +39,8 @@ public class ConsoleServer implements Server {
             program.run(in, out);
         } catch (IOException e) {
             System.err.println("Error handling client: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         } finally {
             try {
                 clientSocket.close();
