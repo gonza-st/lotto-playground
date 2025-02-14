@@ -7,6 +7,10 @@ import org.gonza.javaplayground.lotto.ui.LottoRequest;
 public class PurchaseRequestRequestResolver implements RequestResolver<PurchaseReq> {
     @Override
     public PurchaseReq resolve(LottoRequest lottoRequest) {
-        return null;
+
+        Object body = lottoRequest.getBody();
+        PurchaseReq req = new PurchaseReq("1");
+
+        return req;
     }
 }

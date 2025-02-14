@@ -1,4 +1,7 @@
 package org.gonza.javaplayground.lotto.ui;
 
-public class LottoResponse {
+public record LottoResponse(
+        Integer status,
+        String data
+) {
 }

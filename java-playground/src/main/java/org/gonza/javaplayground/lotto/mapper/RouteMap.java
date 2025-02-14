@@ -1,29 +1,42 @@
 package org.gonza.javaplayground.lotto.mapper;
 
 import org.gonza.javaplayground.lotto.ui.LottoRequest;
+import org.gonza.javaplayground.lotto.ui.LottoResponse;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 public record RouteMap(
         Object clazz,
         RequestResolver<?> requestResolver,
-        Method method
+        Method method,
+        ResponseResolver responseResolver
 ) {
-    public void invokeHandler(LottoRequest request) throws InvocationTargetException, IllegalAccessException {
-        if (requestResolver != null) {
-            withResolver(request);
-        } else {
-            withoutResolver();
+    public LottoResponse invokeHandler(LottoRequest request) throws InvocationTargetException, IllegalAccessException {
+        Object req = resolveRequest(request);
+
+        Object result = Objects.nonNull(req)
+                ? method.invoke(clazz, req)
+                : method.invoke(clazz);
+
+        return resolveResponse(result);
+    }
+
+    private Object resolveRequest(LottoRequest request) {
+
+        if (Objects.isNull(requestResolver)) {
+            return null;
         }
+
+        return requestResolver.resolve(request);
     }
 
-    private void withResolver(LottoRequest request) throws InvocationTargetException, IllegalAccessException {
-        Object req = requestResolver.resolve(request);
-        Object result = method.invoke(clazz, req);
-    }
+    private LottoResponse resolveResponse(Object result) {
+        if (Objects.isNull(responseResolver)) {
+            return new LottoResponse(204, "");
+        }
 
-    private void withoutResolver() throws InvocationTargetException, IllegalAccessException {
-        method.invoke(clazz);
+        return responseResolver.resolve(result);
     }
 }

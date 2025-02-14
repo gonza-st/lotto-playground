@@ -17,12 +17,15 @@ public class Screen {
 
     public void showWelcomeMsg() {
         printer.println("Welcome to Lotto!");
+        printer.println();
     }
 
     public LottoRequest showSelections() {
+        printer.println("==============================");
         printer.println("What would you like to do?");
         printer.println("1. Purchase");
         printer.println("2. Match Numbers");
+        printer.println("==============================");
 
         Integer selectedType = scanner.nextInt();
         Option option = Option.fromCode(selectedType);
@@ -36,5 +39,11 @@ public class Screen {
             default:
                 throw new IllegalArgumentException("Invalid endpoint type");
         }
+    }
+
+    public void showResult(LottoResponse response) {
+        printer.println();
+        printer.println(response.data());
+        printer.println();
     }
 }

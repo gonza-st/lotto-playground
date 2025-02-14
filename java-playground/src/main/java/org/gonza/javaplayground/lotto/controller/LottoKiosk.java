@@ -2,11 +2,13 @@ package org.gonza.javaplayground.lotto.controller;
 
 import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
+import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 
 public class LottoKiosk {
 
-    public String handlePurchase(PurchaseReq req) {
-        return "You purchased a lotto.";
+    public PurchaseRes handlePurchase(PurchaseReq req) {
+        PurchaseRes res = new PurchaseRes("You purchased a lotto.");
+        return res;
     }
 
     public void handleMatchNumbers(MatchReq req) {

@@ -4,8 +4,7 @@ import org.gonza.javaplayground.lotto.controller.LottoKiosk;
 import org.gonza.javaplayground.lotto.controller.Option;
 import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
-import org.gonza.javaplayground.lotto.controller.resolver.MatchRequestRequestResolver;
-import org.gonza.javaplayground.lotto.controller.resolver.PurchaseRequestRequestResolver;
+import org.gonza.javaplayground.lotto.controller.resolver.*;
 
 import java.util.Map;
 
@@ -25,7 +24,8 @@ public class RouteMapper {
                         new RouteMap(
                                 kiosk,
                                 new PurchaseRequestRequestResolver(),
-                                kiosk.getClass().getMethod("handlePurchase", PurchaseReq.class)
+                                kiosk.getClass().getMethod("handlePurchase", PurchaseReq.class),
+                                new PurchaseResponseResolver()
                         )
                 ),
                 entry(
@@ -33,7 +33,8 @@ public class RouteMapper {
                         new RouteMap(
                                 kiosk,
                                 new MatchRequestRequestResolver(),
-                                kiosk.getClass().getMethod("handleMatchNumbers", MatchReq.class)
+                                kiosk.getClass().getMethod("handleMatchNumbers", MatchReq.class),
+                                new MatchResponseResolver()
                         )
                 ),
                 entry(
@@ -41,7 +42,8 @@ public class RouteMapper {
                         new RouteMap(
                                 kiosk,
                                 null,
-                                kiosk.getClass().getMethod("handleInvalidRequest")
+                                kiosk.getClass().getMethod("handleInvalidRequest"),
+                                new ErrorResponseResolver()
                         )
                 )
         );
