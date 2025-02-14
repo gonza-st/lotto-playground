@@ -1,14 +1,14 @@
 package org.gonza.javaplayground.lotto.domain;
 
 public class Lotto {
-    private final LottoNumbers numbers;
+    private final LottoNumber numbers;
     private final LottoStatus status;
 
-    public static Lotto of(LottoNumbers numbers) {
+    public static Lotto of(LottoNumber numbers) {
         return new Lotto(numbers);
     }
 
-    public Lotto(LottoNumbers numbers) {
+    private Lotto(LottoNumber numbers) {
         this.numbers = numbers;
         this.status = LottoStatus.ISSUED;
     }
