@@ -3,9 +3,9 @@ package org.gonza.javaplayground.lotto.service.domain;
 import java.util.*;
 
 class LottoLine {
-    private static final Integer SIZE = 6;
-    private static final Integer MAX_NUMBER = 45;
-    private static final Integer MIN_NUMBER = 1;
+    public static final Integer SIZE = 6;
+    public static final Integer MAX_NUMBER = 45;
+    public static final Integer MIN_NUMBER = 1;
 
     private List<Integer> line;
 
