@@ -9,13 +9,13 @@ public class LottoNumberGenerator {
     public static final int MAX_NUMBER = 45;
     public static final int MIN_NUMBER = 1;
 
-    public List<Integer> generateLottoNumber() {
+    public LottoNumber generateLottoNumber() {
         List<Integer> lottoNumbers = new ArrayList<>();
         for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
             lottoNumbers.add(i);
         }
         Collections.shuffle(lottoNumbers);
 
-        return lottoNumbers.subList(0, 6);
+        return new LottoNumber(lottoNumbers.subList(0, 6));
     }
 }

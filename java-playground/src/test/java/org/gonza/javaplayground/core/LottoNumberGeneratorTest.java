@@ -3,8 +3,6 @@ package org.gonza.javaplayground.core;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -18,10 +16,10 @@ class LottoNumberGeneratorTest {
         LottoNumberGenerator lottoNumberGenerator = new LottoNumberGenerator();
 
         // when
-        List<Integer> lottoNumbers = lottoNumberGenerator.generateLottoNumber();
+        LottoNumber lottoNumber = lottoNumberGenerator.generateLottoNumber();
 
         // then
-        assertNotNull(lottoNumbers);
-        assertEquals(6, lottoNumbers.size());
+        assertNotNull(lottoNumber);
+        assertEquals(6, lottoNumber.lottoNumbers().size());
     }
 }
