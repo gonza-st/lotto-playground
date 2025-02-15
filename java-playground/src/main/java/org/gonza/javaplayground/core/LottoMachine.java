@@ -26,7 +26,7 @@ public class LottoMachine {
     }
 
     private int calculateNumberOfTickets(Money purchasePrice) {
-        int numberOfPurchasedTicket = purchasePrice.getValue()
+        int numberOfPurchasedTicket = purchasePrice.value()
                 .divide(BigDecimal.valueOf(PURCHASE_PRICE_UNIT))
                 .intValue();
         return numberOfPurchasedTicket;
@@ -38,11 +38,11 @@ public class LottoMachine {
     }
 
     private void validatePurchasePrice(Money purchasePrice) {
-        if (purchasePrice.getValue().compareTo(BigDecimal.valueOf(PURCHASE_PRICE_UNIT)) < 0) {
+        if (purchasePrice.value().compareTo(BigDecimal.valueOf(PURCHASE_PRICE_UNIT)) < 0) {
             throw new IllegalArgumentException("로또는 1000원 이상부터 구매할 수 있습니다.");
         }
 
-        if (purchasePrice.getValue().remainder(BigDecimal.valueOf(PURCHASE_PRICE_UNIT)).compareTo(BigDecimal.ZERO) != 0) {
+        if (purchasePrice.value().remainder(BigDecimal.valueOf(PURCHASE_PRICE_UNIT)).compareTo(BigDecimal.ZERO) != 0) {
             throw new IllegalArgumentException("로또 구매 금액은 1000원 단위여야 합니다.");
         }
     }

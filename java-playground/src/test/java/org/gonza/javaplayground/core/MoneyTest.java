@@ -18,7 +18,7 @@ class MoneyTest {
 
         Money money = new Money(new BigDecimal(1000));
 
-        assertThat(money.getValue()).isEqualTo(BigDecimal.valueOf(1000));
+        assertThat(money.value()).isEqualTo(BigDecimal.valueOf(1000));
     }
 
     @ParameterizedTest

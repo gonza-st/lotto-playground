@@ -2,16 +2,9 @@ package org.gonza.javaplayground.core;
 
 import java.math.BigDecimal;
 
-public class Money {
-    private final BigDecimal value;
-
-    public Money(BigDecimal value) {
+public record Money(BigDecimal value) {
+    public Money {
         validate(value);
-        this.value = value;
-    }
-
-    public BigDecimal getValue() {
-        return value;
     }
 
     private void validate(BigDecimal value) {
