@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.service.lotto;
+package org.gonza.javaplayground.lotto.domain.lotto;
 
 import java.util.*;
 
