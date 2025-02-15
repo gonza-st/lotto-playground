@@ -11,16 +11,21 @@ public record RouteMap(
         Object clazz,
         RequestResolver<?> requestResolver,
         Method method,
-        ResponseResolver responseResolver
+        ResponseResolver responseResolver,
+        Advice errorHandler
 ) {
-    public LottoResponse invoke(LottoRequest request) throws InvocationTargetException, IllegalAccessException {
-        Object req = resolveRequest(request);
+    public LottoResponse invoke(LottoRequest request) {
+        try {
+            Object req = resolveRequest(request);
 
-        Object result = Objects.nonNull(req)
-                ? method.invoke(clazz, req)
-                : method.invoke(clazz);
+            Object result = Objects.nonNull(req)
+                    ? method.invoke(clazz, req)
+                    : method.invoke(clazz);
 
-        return resolveResponse(result);
+            return resolveResponse(result);
+        } catch (Exception e) {
+            return errorHandler.advice(e);
+        }
     }
 
     private Object resolveRequest(LottoRequest request) {
