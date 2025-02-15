@@ -11,15 +11,18 @@ import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
 public class LottoKiosk implements Controller {
     private final LottoFactory lottoFactory;
     private final PriceCalculator priceCalculator;
+    private final Storage usb;
 
-    public LottoKiosk(LottoFactory lottoFactory, PriceCalculator priceCalculator) {
+    public LottoKiosk(LottoFactory lottoFactory, PriceCalculator priceCalculator, Storage usb) {
         this.lottoFactory = lottoFactory;
         this.priceCalculator = priceCalculator;
+        this.usb = usb;
     }
 
     public PurchaseRes handlePurchase(PurchaseReq req) {
         Integer count = priceCalculator.getAvailableAmount(req.payment());
         Lotto lotto = lottoFactory.createLotto(count);
+        usb.save(lotto);
 
         return PurchaseRes.of(count, lotto.getAllLottoNumbers());
     }
@@ -28,5 +31,6 @@ public class LottoKiosk implements Controller {
         System.out.println("You got a match number!");
     }
 
-    public void handleInvalidRequest() {}
+    public void handleInvalidRequest() {
+    }
 }
