@@ -1,7 +1,5 @@
 package org.gonza.javaplayground.lotto.controller.response;
 
-import org.gonza.javaplayground.lotto.service.lotto.Lotto;
-
 import java.util.List;
 
 public class PurchaseRes {
@@ -21,7 +19,7 @@ public class PurchaseRes {
         return lottoNumbers;
     }
 
-    public static PurchaseRes of(Integer count, Lotto lotto) {
-        return new PurchaseRes(count, lotto.getAllLottoNumbers());
+    public static PurchaseRes of(Integer count, List<List<Integer>> lottoNumbers) {
+        return new PurchaseRes(count, lottoNumbers);
     }
 }
