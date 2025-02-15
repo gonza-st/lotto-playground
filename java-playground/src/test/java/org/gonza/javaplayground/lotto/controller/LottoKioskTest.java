@@ -8,6 +8,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;
 import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
 import org.gonza.javaplayground.lotto.domain.price.PriceTestFixtures;
 import org.gonza.javaplayground.lotto.domain.price.WinningPriceTable;
+import org.gonza.javaplayground.lotto.repository.USB;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -28,7 +29,9 @@ public class LottoKioskTest {
 
         NumberGenerator numberGenerator = new NumberGeneratorStub();
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
-        this.sut = new LottoKiosk(lottoFactory, priceCalculator);
+
+        Storage usb = new USB();
+        this.sut = new LottoKiosk(lottoFactory, priceCalculator, usb);
     }
 
     @Test

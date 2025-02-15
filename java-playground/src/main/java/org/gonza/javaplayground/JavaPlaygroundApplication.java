@@ -8,11 +8,13 @@ import org.gonza.javaplayground.framework.server.ServerProperties;
 import org.gonza.javaplayground.lotto.LottoApplication;
 import org.gonza.javaplayground.lotto.controller.LottoKiosk;
 import org.gonza.javaplayground.framework.mapper.RouteMapper;
+import org.gonza.javaplayground.lotto.controller.Storage;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
 import org.gonza.javaplayground.lotto.domain.price.WinningPriceTable;
 import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
+import org.gonza.javaplayground.lotto.repository.USB;
 
 import java.io.IOException;
 import java.util.List;
@@ -39,7 +41,9 @@ public class JavaPlaygroundApplication {
         NumberGenerator numberGenerator = new RandomNumberGenerator();
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
 
-        LottoKiosk lottoKiosk = new LottoKiosk(lottoFactory, priceCalculator);
+        Storage usb = new USB();
+
+        LottoKiosk lottoKiosk = new LottoKiosk(lottoFactory, priceCalculator, usb);
         RouteMapper routeMapper = new RouteMapper(lottoKiosk);
         return new LottoApplication(routeMapper);
     }
