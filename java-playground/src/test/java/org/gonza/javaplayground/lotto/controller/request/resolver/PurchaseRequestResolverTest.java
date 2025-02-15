@@ -29,16 +29,16 @@ public class PurchaseRequestResolverTest {
     @Test
     public void should_throw_if_request_body_is_not_number_value() {
         LottoRequest sentenceBody = LottoRequestTestFixtures.createRequestWithNotNumberBody();
-        assertThrows(NumberFormatException.class,
+        assertThrows(ClassCastException.class,
                 () -> sut.resolve(sentenceBody)
         );
     }
 
     @Test
-    public void should_return_PurchaseRequest_when_body_is_number_value_string() {
-        LottoRequest stringBody = LottoRequestTestFixtures.createRequestWithNumberBody();
+    public void should_return_PurchaseRequest_when_body_is_integer_value() {
+        LottoRequest stringBody = LottoRequestTestFixtures.createRequestWithIntegerBody();
         PurchaseReq req = sut.resolve(stringBody);
 
-        assertEquals(stringBody.getBody().get(), req.payment().toString());
+        assertEquals(stringBody.getBody().get(), req.payment());
     }
 }

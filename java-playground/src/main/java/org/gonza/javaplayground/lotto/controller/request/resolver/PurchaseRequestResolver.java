@@ -8,26 +8,18 @@ public class PurchaseRequestResolver implements RequestResolver<PurchaseReq> {
     @Override
     public PurchaseReq resolve(LottoRequest lottoRequest) {
         Integer amount = lottoRequest.getBody()
-                .map(this::castToString)
-                .map(this::parseStringToInteger)
+                .map(this::castToInteger)
                 .orElseThrow();
 
         PurchaseReq req = new PurchaseReq(amount);
         return req;
     }
 
-    private String castToString(Object body) {
+    private Integer castToInteger(Object body) {
         try {
-            return (String) body;
+            return (Integer) body;
         } catch (ClassCastException e) {
-            throw e;
-        }
-    }
-
-    private Integer parseStringToInteger(String value) {
-        try {
-            return Integer.valueOf(value);
-        } catch (NumberFormatException e) {
+            System.out.println("Cast Error: >> " + e);
             throw e;
         }
     }

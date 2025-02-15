@@ -7,8 +7,8 @@ public class LottoRequestTestFixtures {
         return new LottoRequest(Option.PURCHASE, "it is string");
     }
 
-    public static LottoRequest createRequestWithNumberBody() {
-        return new LottoRequest(Option.PURCHASE, "1000");
+    public static LottoRequest createRequestWithIntegerBody() {
+        return new LottoRequest(Option.PURCHASE, 1000);
     }
 
     public static LottoRequest createRequestWithBooleanBody() {
