@@ -19,7 +19,7 @@ public class LottoFactory {
         validate(count);
 
         List<List<Integer>> numbers = IntStream.range(0, count)
-                .mapToObj((i) -> numberGenerator.generate(SIZE, MAX_NUMBER, MIN_NUMBER))
+                .mapToObj((i) -> numberGenerator.generate(SIZE, MIN_NUMBER, MAX_NUMBER))
                 .toList();
 
         return new Lotto(numbers);
