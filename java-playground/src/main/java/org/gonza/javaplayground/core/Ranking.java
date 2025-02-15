@@ -4,8 +4,8 @@ import java.util.Arrays;
 
 public enum Ranking {
     FIRST(6, 2_000_000_000),
-    SECOND(5, 30_000_000),
-    THIRD(4, 500_000),
+    SECOND(5, 1_500_000),
+    THIRD(4, 50_000),
     FOURTH(3, 5_000),
     NONE(2, 0);
 
@@ -22,5 +22,13 @@ public enum Ranking {
                 .filter(ranking -> ranking.matchCount == matchCount)
                 .findFirst()
                 .orElse(NONE);
+    }
+
+    public int getPrize() {
+        return prize;
+    }
+
+    public int getMatchCount() {
+        return matchCount;
     }
 }
