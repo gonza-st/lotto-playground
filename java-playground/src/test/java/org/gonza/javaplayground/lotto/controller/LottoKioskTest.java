@@ -2,12 +2,12 @@ package org.gonza.javaplayground.lotto.controller;
 
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
 import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
-import org.gonza.javaplayground.lotto.service.lotto.LottoFactory;
-import org.gonza.javaplayground.lotto.service.lotto.NumberGenerator;
-import org.gonza.javaplayground.lotto.service.lotto.NumberGeneratorStub;
-import org.gonza.javaplayground.lotto.service.price.PriceCalculator;
-import org.gonza.javaplayground.lotto.service.price.PriceTestFixtures;
-import org.gonza.javaplayground.lotto.service.price.WinningPriceTable;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
+import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;
+import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
+import org.gonza.javaplayground.lotto.domain.price.PriceTestFixtures;
+import org.gonza.javaplayground.lotto.domain.price.WinningPriceTable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

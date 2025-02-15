@@ -1,6 +1,6 @@
-package org.gonza.javaplayground.lotto.service.utils;
+package org.gonza.javaplayground.lotto.domain.utils;
 
-import org.gonza.javaplayground.lotto.service.lotto.NumberGenerator;
+import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 
 import java.util.Collections;
 import java.util.List;
