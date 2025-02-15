@@ -4,9 +4,9 @@ import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
 import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 import org.gonza.javaplayground.framework.mapper.Controller;
-import org.gonza.javaplayground.lotto.service.lotto.Lotto;
-import org.gonza.javaplayground.lotto.service.lotto.LottoFactory;
-import org.gonza.javaplayground.lotto.service.price.PriceCalculator;
+import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
 
 public class LottoKiosk implements Controller {
     private final LottoFactory lottoFactory;

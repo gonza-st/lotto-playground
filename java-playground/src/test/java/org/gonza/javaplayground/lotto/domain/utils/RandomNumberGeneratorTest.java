@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.service.utils;
+package org.gonza.javaplayground.lotto.domain.utils;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

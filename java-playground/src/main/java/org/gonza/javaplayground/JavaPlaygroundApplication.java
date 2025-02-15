@@ -8,11 +8,11 @@ import org.gonza.javaplayground.framework.server.ServerProperties;
 import org.gonza.javaplayground.lotto.LottoApplication;
 import org.gonza.javaplayground.lotto.controller.LottoKiosk;
 import org.gonza.javaplayground.framework.mapper.RouteMapper;
-import org.gonza.javaplayground.lotto.service.lotto.LottoFactory;
-import org.gonza.javaplayground.lotto.service.lotto.NumberGenerator;
-import org.gonza.javaplayground.lotto.service.price.PriceCalculator;
-import org.gonza.javaplayground.lotto.service.price.WinningPriceTable;
-import org.gonza.javaplayground.lotto.service.utils.RandomNumberGenerator;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
+import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
+import org.gonza.javaplayground.lotto.domain.price.WinningPriceTable;
+import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
 
 import java.io.IOException;
 import java.util.List;

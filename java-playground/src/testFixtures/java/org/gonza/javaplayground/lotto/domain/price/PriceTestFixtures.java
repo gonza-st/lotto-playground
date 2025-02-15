@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.service.price;
+package org.gonza.javaplayground.lotto.domain.price;
 
 import java.util.List;
 
