@@ -7,6 +7,21 @@ import org.gonza.javaplayground.lotto.ui.LottoResponse;
 public class PurchaseResponseResolver implements ResponseResolver<PurchaseRes> {
     @Override
     public LottoResponse resolve(PurchaseRes response) {
-        return new LottoResponse(200, response.data());
+
+        Integer status = 200;
+        String data = format(response);
+
+        return new LottoResponse(status, data);
+    }
+
+    private String format(PurchaseRes response) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(response.getCount()).append("개를 구매했습니다.\n");
+
+        response.getLottoNumbers().forEach((lottoNumber) -> {
+            stringBuilder.append(lottoNumber).append("\n");
+        });
+
+        return stringBuilder.toString().trim();
     }
 }

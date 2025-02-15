@@ -7,10 +7,20 @@ import org.gonza.javaplayground.lotto.ui.LottoRequest;
 public class PurchaseRequestResolver implements RequestResolver<PurchaseReq> {
     @Override
     public PurchaseReq resolve(LottoRequest lottoRequest) {
+        Integer amount = lottoRequest.getBody()
+                .map(this::castToInteger)
+                .orElseThrow();
 
-        Object body = lottoRequest.getBody();
-        PurchaseReq req = new PurchaseReq("1");
-
+        PurchaseReq req = new PurchaseReq(amount);
         return req;
+    }
+
+    private Integer castToInteger(Object body) {
+        try {
+            return (Integer) body;
+        } catch (ClassCastException e) {
+            System.out.println("Cast Error: >> " + e);
+            throw e;
+        }
     }
 }
