@@ -17,10 +17,9 @@ class LottoLine {
         return line;
     }
 
-    public List<Integer> match(List<Integer> numbers) {
-        validate(numbers);
+    public List<Integer> match(LottoLine candidate) {
 
-        Set<Integer> input = new HashSet<>(numbers);
+        Set<Integer> input = new HashSet<>(candidate.line);
         Set<Integer> resultSet = new HashSet<>(line);
         resultSet.retainAll(input);
 

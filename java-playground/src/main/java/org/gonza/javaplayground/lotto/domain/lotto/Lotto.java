@@ -21,8 +21,10 @@ public class Lotto {
     }
 
     public List<List<Integer>> match(List<Integer> numbers) {
+        LottoLine candidate = LottoLine.of(numbers);
+
         return lottoLines.stream()
-                .map(line -> line.match(numbers))
+                .map(line -> line.match(candidate))
                 .toList();
     }
 

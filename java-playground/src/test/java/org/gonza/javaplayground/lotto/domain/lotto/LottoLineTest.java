@@ -26,24 +26,27 @@ public class LottoLineTest {
         @Test
         public void should_return_all_numbers_when_every_number_matches() {
             List<Integer> allMatchingNumbers = List.of(1, 2, 3, 4, 5, 6);
+            LottoLine line = LottoLine.of(allMatchingNumbers);
 
-            List<Integer> matchedNumber = sut.match(allMatchingNumbers);
+            List<Integer> matchedNumber = sut.match(line);
             assertEquals(allMatchingNumbers, matchedNumber);
         }
 
         @Test
         public void should_return_matched_number_list() {
             List<Integer> someMatchingNumbers = List.of(1, 2, 3, 7, 8, 9);
+            LottoLine line = LottoLine.of(someMatchingNumbers);
 
-            List<Integer> matchedNumber = sut.match(someMatchingNumbers);
+            List<Integer> matchedNumber = sut.match(line);
             assertEquals(List.of(1, 2, 3), matchedNumber);
         }
 
         @Test
         public void should_return_empty_list_if_nothing_matches() {
-            List<Integer> someMatchingNumbers = List.of(7, 8, 9, 10, 11, 12);
+            List<Integer> nothingMatchingNumbers = List.of(7, 8, 9, 10, 11, 12);
+            LottoLine line = LottoLine.of(nothingMatchingNumbers);
 
-            List<Integer> matchedNumber = sut.match(someMatchingNumbers);
+            List<Integer> matchedNumber = sut.match(line);
             assertEquals(List.of(), matchedNumber);
         }
     }
