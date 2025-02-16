@@ -16,7 +16,7 @@ public class Lotto {
         this.id = UUID.randomUUID().toString();
 
         this.lottoLines = numbers.stream()
-                .map(LottoLine::new)
+                .map(LottoLine::of)
                 .toList();
     }
 
