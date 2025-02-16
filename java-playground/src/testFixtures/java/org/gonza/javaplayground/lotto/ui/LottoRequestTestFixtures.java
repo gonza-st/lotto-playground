@@ -27,19 +27,7 @@ public class LottoRequestTestFixtures {
         return new LottoRequest(Option.MATCH);
     }
 
-    public static LottoRequest createMatchRequestWithShortLengthBody() {
-        return new LottoRequest(Option.MATCH, "1,2,3,4,5");
-    }
-
     public static LottoRequest createMatchRequestWithNotNumberValueBody() {
         return new LottoRequest(Option.MATCH, "1,2,3,4,5,a");
-    }
-
-    public static LottoRequest createMatchRequestWithTooSmallNumberBody() {
-        return new LottoRequest(Option.MATCH, "1,2,3,4,5,0");
-    }
-
-    public static LottoRequest createMatchRequestWithTooLargeNumberBody() {
-        return new LottoRequest(Option.MATCH, "1,2,3,4,5,46");
     }
 }

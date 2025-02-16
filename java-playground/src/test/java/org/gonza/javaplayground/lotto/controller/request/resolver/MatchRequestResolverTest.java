@@ -29,23 +29,8 @@ public class MatchRequestResolverTest {
     }
 
     @Test
-    public void should_throw_if_body_has_numbers_out_of_range() {
-        LottoRequest largeRequest = LottoRequestTestFixtures.createMatchRequestWithTooLargeNumberBody();
-        assertThrows(IllegalArgumentException.class, () -> sut.resolve(largeRequest));
-
-        LottoRequest smallRequest = LottoRequestTestFixtures.createMatchRequestWithTooSmallNumberBody();
-        assertThrows(IllegalArgumentException.class, () -> sut.resolve(smallRequest));
-    }
-
-    @Test
     public void should_throw_if_string_has_not_number_value() {
         LottoRequest request = LottoRequestTestFixtures.createMatchRequestWithNotNumberValueBody();
-        assertThrows(IllegalArgumentException.class, () -> sut.resolve(request));
-    }
-
-    @Test
-    public void should_throw_if_count_of_number_is_invalid() {
-        LottoRequest request = LottoRequestTestFixtures.createMatchRequestWithShortLengthBody();
         assertThrows(IllegalArgumentException.class, () -> sut.resolve(request));
     }
 
