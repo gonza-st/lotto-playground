@@ -8,6 +8,8 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import kotlin.test.assertEquals
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 class LottoTest {
     @Test
@@ -56,5 +58,52 @@ class LottoTest {
         assertThrows<IllegalArgumentException> {
             lotto.updateStatus(LottoStatus.UNKNOWN)
         }
+    }
+
+    @Test
+    fun `로또 결과를 확인하지 않은 경우 당첨 번호를 알 수 없다`() {
+        val validLottoNumberList = mutableListOf<LottoNumber>()
+        val answer = mutableListOf<LottoNumber>()
+        repeat(LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT) {
+            validLottoNumberList.add(LottoNumber(number = it + 1))
+            answer.add(LottoNumber(number = it + 1))
+        }
+
+        val lotto = Lotto(lottoNumberList = validLottoNumberList)
+
+        assertThrows<IllegalArgumentException> { lotto.winnerNumberList }
+        assertEquals(LottoStatus.UNKNOWN, lotto.status)
+    }
+
+    @Test
+    fun `로또 번호가 3개 이상 일치하는 경우 당첨이 된다`() {
+        val validLottoNumberList = mutableListOf<LottoNumber>()
+        val answer = mutableListOf<LottoNumber>()
+        repeat(LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT) {
+            validLottoNumberList.add(LottoNumber(number = it + 1))
+            answer.add(LottoNumber(number = it + 1))
+        }
+
+        val lotto = Lotto(lottoNumberList = validLottoNumberList)
+
+        assertTrue { lotto.compareAll(target = answer) }
+        assertTrue { lotto.winnerNumberList.all { it in answer } }
+        assertEquals(LottoStatus.WIN, lotto.status)
+    }
+
+    @Test
+    fun `로또 번호가 3개 이상 일치하지 않는 경우 낙첨이 된다`() {
+        val validLottoNumberList = mutableListOf<LottoNumber>()
+        val answer = mutableListOf<LottoNumber>()
+        repeat(LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT) {
+            validLottoNumberList.add(LottoNumber(number = it + 1))
+            answer.add(LottoNumber(number = it + 6))
+        }
+
+        val lotto = Lotto(lottoNumberList = validLottoNumberList)
+
+        assertFalse { lotto.compareAll(target = answer) }
+        assertTrue { lotto.winnerNumberList.size < LottoConstants.WINNER_CRITERIA }
+        assertEquals(LottoStatus.LOSE, lotto.status)
     }
 }
