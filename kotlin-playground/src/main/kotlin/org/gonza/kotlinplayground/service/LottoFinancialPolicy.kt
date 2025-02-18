@@ -1,8 +1,10 @@
 package org.gonza.kotlinplayground.service
 
+import org.gonza.kotlinplayground.domain.payment.Payment
+
 class LottoFinancialPolicy : FinancialPolicy {
     override fun calculateReturnOnInvestment(
-        totalInvestment: Double,
-        profitAmount: Double,
-    ): Double = profitAmount / totalInvestment
+        totalInvestment: Payment,
+        profitAmount: Payment,
+    ): Double = profitAmount.getPaidMoney() / totalInvestment.getPaidMoney()
 }

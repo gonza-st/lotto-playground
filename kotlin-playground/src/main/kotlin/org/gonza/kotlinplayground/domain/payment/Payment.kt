@@ -1,6 +1,6 @@
-package org.gonza.kotlinplayground.domain.money
+package org.gonza.kotlinplayground.domain.payment
 
-class Money(
+class Payment(
     private val paidMoney: Int,
 ) {
     companion object {
@@ -8,4 +8,6 @@ class Money(
     }
 
     fun getPaidTicketCount() = paidMoney / PRICE
+
+    fun getPaidMoney() = paidMoney.toDouble()
 }
