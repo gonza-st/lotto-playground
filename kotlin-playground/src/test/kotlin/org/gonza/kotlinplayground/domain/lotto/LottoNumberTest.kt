@@ -18,4 +18,12 @@ class LottoNumberTest {
             LottoNumber(46)
         }
     }
+
+    @Test
+    fun `번호는 값이 같다면 같은 번호이다`() {
+        val number = LottoNumber(1)
+        val other = LottoNumber(1)
+
+        assertEquals(number, other)
+    }
 }

@@ -9,6 +9,14 @@ class LottoNumber(
         Range(number)
     }
 
+    override fun equals(other: Any?): Boolean {
+        if (other == null) return false
+        if (other !is LottoNumber) return false
+        return other.number == number
+    }
+
+    override fun hashCode(): Int = javaClass.hashCode()
+
     class Range(
         number: Int,
     ) : NumberRange {

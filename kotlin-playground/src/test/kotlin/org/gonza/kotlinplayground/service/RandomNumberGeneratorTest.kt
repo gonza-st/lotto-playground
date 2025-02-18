@@ -13,11 +13,9 @@ class TestNumberRange : NumberRange {
 class RandomNumberGeneratorTest {
     @Test
     fun `최대값과 최소값을 넘지 않는 값을 생성할 수 있다`() {
-        // given
         val testNumberRange = TestNumberRange()
         val randomNumberGenerator = RandomNumberGenerator(testNumberRange)
 
-        // when
         val result =
             listOf(
                 randomNumberGenerator.get(),
@@ -29,7 +27,6 @@ class RandomNumberGeneratorTest {
                 randomNumberGenerator.get(),
             )
 
-        // then
         result.forEach {
             assertTrue(it >= testNumberRange.getMin())
             assertTrue(it <= testNumberRange.getMax())
