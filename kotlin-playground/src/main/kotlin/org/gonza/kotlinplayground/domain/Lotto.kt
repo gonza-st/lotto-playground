@@ -41,4 +41,14 @@ class Lotto(
     private fun validateLottoNumberList() {
         require(lottoNumberList.size <= limit) { "로또 번호 개수는 ${limit}개를 초과할 수 없습니다." }
     }
+
+    override fun toString(): String {
+        return lottoNumberList.joinToString(
+            prefix = "[",
+            separator = ", ",
+            postfix = "]"
+        ) {
+            it.number.toString()
+        }
+    }
 }

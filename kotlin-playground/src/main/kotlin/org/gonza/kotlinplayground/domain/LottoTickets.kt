@@ -11,4 +11,10 @@ class LottoTickets(val lottoList: List<Lotto>) {
                 lotto.winnerNumberList.size
             }
     }
+
+    override fun toString(): String {
+        return lottoList.joinToString("\n") { lotto->
+            lotto.toString()
+        }
+    }
 }
