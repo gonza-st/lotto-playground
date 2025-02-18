@@ -15,7 +15,7 @@ class LottoNumber(
         return other.number == number
     }
 
-    override fun hashCode(): Int = javaClass.hashCode()
+    override fun hashCode(): Int = number.hashCode()
 
     class Range(
         number: Int,

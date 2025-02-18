@@ -56,4 +56,41 @@ class LottoTicketTest {
             LottoTicket(lottoNumberList)
         }
     }
+
+    @Test
+    fun `로또 티켓은 비어있다면 예외가 발생한다`() {
+        val lottoNumberList = emptyList<LottoNumber>()
+
+        assertThrows(InvalidSizeLottoTicketException::class.java) {
+            LottoTicket(lottoNumberList)
+        }
+    }
+
+    @Test
+    fun `로또 티켓은 같은 숫자가 모두 존재하는 티켓이 있다면 같은 로또 티켓이다`() {
+        val lottoTicket =
+            LottoTicket(
+                listOf(
+                    LottoNumber(1),
+                    LottoNumber(2),
+                    LottoNumber(3),
+                    LottoNumber(4),
+                    LottoNumber(5),
+                    LottoNumber(6),
+                ),
+            )
+        val other =
+            LottoTicket(
+                listOf(
+                    LottoNumber(1),
+                    LottoNumber(2),
+                    LottoNumber(3),
+                    LottoNumber(4),
+                    LottoNumber(5),
+                    LottoNumber(6),
+                ),
+            )
+
+        assertEquals(lottoTicket, other)
+    }
 }

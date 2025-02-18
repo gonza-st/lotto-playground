@@ -1,15 +1,12 @@
 package org.gonza.kotlinplayground.service
 
 import org.gonza.kotlinplayground.domain.lotto.LottoNumber
+import org.gonza.kotlinplayground.domain.lotto.LottoTicket
 import org.gonza.kotlinplayground.service.dto.GeneratedNumberResult
 
 class LottoGenerator(
     private val numberGenerator: NumberGenerator,
 ) {
-    companion object {
-        private const val MAX_LENGTH = 6
-    }
-
     fun generate(): GeneratedNumberResult {
         val result: MutableSet<LottoNumber> = mutableSetOf()
 
@@ -19,9 +16,9 @@ class LottoGenerator(
         }
 
         return GeneratedNumberResult(
-            numberList = result.toList(),
+            ticket = LottoTicket(result.toList()),
         )
     }
 
-    private fun shouldGenerate(size: Int): Boolean = size > MAX_LENGTH
+    private fun shouldGenerate(size: Int): Boolean = size < LottoTicket.MAX_LENGTH
 }
