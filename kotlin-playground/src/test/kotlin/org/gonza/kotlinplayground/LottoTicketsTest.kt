@@ -29,22 +29,17 @@ class LottoTicketsTest {
     @Test
     fun `로또의 당첨 결과를 가질 수 있다`() {
         val validLottoNumberList = mutableListOf<LottoNumber>()
-        val validLottoNumberList2 = mutableListOf<LottoNumber>()
         val answer = mutableListOf<LottoNumber>()
         val expectedPrize = 1
         repeat(LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT) {
             validLottoNumberList.add(LottoNumber(number = it + 1))
-            validLottoNumberList2.add(LottoNumber(number = it + 3))
             answer.add(LottoNumber(number = it + 1))
         }
-        val lottoList = listOf(
-            Lotto(lottoNumberList = validLottoNumberList),
-            Lotto(lottoNumberList = validLottoNumberList2)
-        )
+        val lottoList = listOf(Lotto(lottoNumberList = validLottoNumberList))
         val lottoTickets = LottoTickets(lottoList = lottoList)
 
-        val winner = lottoTickets.findWinner(answer = answer)
+        val winner = lottoTickets.findWinLotto(answer = answer)
 
-//        assertEquals(expectedPrize, winner)
+        assertEquals(expectedPrize, winner[6]?.size)
     }
 }
