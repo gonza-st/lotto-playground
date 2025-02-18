@@ -32,4 +32,10 @@ class LottoTicket(
     }
 
     override fun hashCode(): Int = lottoNumberList.hashCode()
+
+    fun getMatchedNumber(other: LottoTicket): List<LottoNumber> =
+        lottoNumberList
+            .toSet()
+            .intersect(other.lottoNumberList.toSet())
+            .toList()
 }

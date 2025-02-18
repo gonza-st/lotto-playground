@@ -93,4 +93,40 @@ class LottoTicketTest {
 
         assertEquals(lottoTicket, other)
     }
+
+    @Test
+    fun `로또 티켓은 다른 로또 티켓과 같은 숫자를 판단할 수 있다`() {
+        val lottoTicket =
+            LottoTicket(
+                listOf(
+                    LottoNumber(1),
+                    LottoNumber(2),
+                    LottoNumber(3),
+                    LottoNumber(4),
+                    LottoNumber(5),
+                    LottoNumber(6),
+                ),
+            )
+        val other =
+            LottoTicket(
+                listOf(
+                    LottoNumber(1),
+                    LottoNumber(2),
+                    LottoNumber(3),
+                    LottoNumber(9),
+                    LottoNumber(8),
+                    LottoNumber(7),
+                ),
+            )
+
+        val result = lottoTicket.getMatchedNumber(other)
+
+        val expected =
+            listOf(
+                LottoNumber(1),
+                LottoNumber(2),
+                LottoNumber(3),
+            )
+        assertEquals(expected, result)
+    }
 }

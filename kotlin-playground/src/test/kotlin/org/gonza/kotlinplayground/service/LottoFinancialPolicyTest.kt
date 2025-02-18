@@ -20,4 +20,13 @@ class LottoFinancialPolicyTest {
         val expect = 0.3571
         assertEquals(result, expect, 0.001)
     }
+
+    @Test
+    fun `당첨숫자와 뽑은 숫자를 가지고 당첨된 통계를 가져올 수 있다`() {
+        // given
+
+        // when
+
+        // then
+    }
 }
