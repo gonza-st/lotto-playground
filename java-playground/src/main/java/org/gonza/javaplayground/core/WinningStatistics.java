@@ -16,6 +16,18 @@ public class WinningStatistics {
         this.totalTicketCount = purchasedNumbers.size();
     }
 
+    public double calculateReturnRate() {
+        int totalPrize = rankingCounts.entrySet().stream()
+                .mapToInt(entry -> entry.getKey().getPrize() * entry.getValue())
+                .sum();
+
+        return (double) totalPrize / (totalTicketCount * 1000);
+    }
+
+    public int getCountByRanking(Ranking ranking) {
+        return rankingCounts.get(ranking);
+    }
+
     private Map<Ranking, Integer> initializeRankingCounts() {
         return Arrays.stream(Ranking.values())
                 .collect(Collectors.toMap(
@@ -28,18 +40,6 @@ public class WinningStatistics {
         purchasedNumbers.stream()
                 .map(number -> WinningComparator.compareWinningNumber(number, winningNumber))
                 .forEach(ranking -> rankingCounts.merge(ranking, 1, Integer::sum));
-    }
-
-    public double calculateReturnRate() {
-        int totalPrize = rankingCounts.entrySet().stream()
-                .mapToInt(entry -> entry.getKey().getPrize() * entry.getValue())
-                .sum();
-
-        return (double) totalPrize / (totalTicketCount * 1000);
-    }
-
-    public int getCountByRanking(Ranking ranking) {
-        return rankingCounts.get(ranking);
     }
 
     @Override
