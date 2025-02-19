@@ -1,45 +1,33 @@
 package org.gonza.javaplayground;
 
-import org.gonza.javaplayground.core.*;
-import org.gonza.javaplayground.view.Printer;
-import org.gonza.javaplayground.view.Reader;
-
-import java.math.BigDecimal;
-import java.util.List;
+import org.gonza.javaplayground.controller.LottoGameController;
+import org.gonza.javaplayground.core.LottoMachine;
+import org.gonza.javaplayground.core.LottoNumberGenerator;
+import org.gonza.javaplayground.util.InputValidator;
+import org.gonza.javaplayground.view.ConsoleInputView;
+import org.gonza.javaplayground.view.ConsoleOutputView;
+import org.gonza.javaplayground.view.LottoInputView;
+import org.gonza.javaplayground.view.LottoOutputView;
 
 public class JavaPlaygroundApplication {
 
     public static void main(String[] args) {
-        Reader reader = new Reader();
-        Printer printer = new Printer();
+        InputValidator validator = new InputValidator();
+
+        LottoInputView inputView = new ConsoleInputView(validator);
+        LottoOutputView outputView = new ConsoleOutputView();
         LottoMachine lottoMachine = new LottoMachine(new LottoNumberGenerator());
 
+        LottoGameController gameController = new LottoGameController(
+                inputView,
+                outputView,
+                lottoMachine
+        );
+
         try {
-            // 구매 금액 입력
-            printer.printPurchaseAmountRequest();
-            BigDecimal purchaseAmount = reader.readPurchaseAmount();
-            Money money = new Money(purchaseAmount);
-
-            // 로또 티켓 생성
-            LottoTicket ticket = lottoMachine.generateLottoTicket(money);
-
-            // 구매 정보 출력
-            printer.printPurchasedTicketCount(ticket.lottoNumbers().size());
-            printer.printLottoNumbers(ticket.lottoNumbers());
-
-            // 당첨 번호 입력
-            printer.printWinningNumberRequest();
-            List<Integer> winningNumberList = reader.readWinningNumbers();
-
-            // 당첨 통계 생성 및 출력
-            LottoNumber winningNumber = new LottoNumber(winningNumberList);
-            WinningStatistics statistics = new WinningStatistics(ticket.lottoNumbers(), winningNumber);
-            printer.printStatistics(statistics);
-
-        } catch (IllegalArgumentException e) {
-            printer.printError(e.getMessage());
+            gameController.play();
         } finally {
-            reader.close();
+            inputView.close();
         }
     }
 }
