@@ -27,6 +27,6 @@ public class ReceiptFactory {
 
     private Item createReceiptItem(Integer matchingNumberCount, Integer count) {
         Integer price = winningPriceTable.getWinningPrice(matchingNumberCount);
-        return new Item(matchingNumberCount, count, price);
+        return new Item(matchingNumberCount, price, count);
     }
 }

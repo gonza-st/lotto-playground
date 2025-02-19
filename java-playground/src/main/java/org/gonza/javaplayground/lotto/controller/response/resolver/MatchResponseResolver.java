@@ -21,7 +21,7 @@ public class MatchResponseResolver implements ResponseResolver<MatchRes> {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append("당첨 통계 \n")
-                .append("---------");
+                .append("---------\n");
 
         response.statistics().forEach((statistics) -> {
             Integer matchCount = statistics.get("winningNumberCount");
@@ -33,8 +33,8 @@ public class MatchResponseResolver implements ResponseResolver<MatchRes> {
 
             stringBuilder
                     .append(matchCount).append("개 일치").append(" ")
-                    .append("(").append(formattedPrice).append(")")
-                    .append("-").append(count).append("개")
+                    .append("(").append(formattedPrice).append("원)")
+                    .append(" - ").append(count).append("개")
                     .append("\n");
         });
 
