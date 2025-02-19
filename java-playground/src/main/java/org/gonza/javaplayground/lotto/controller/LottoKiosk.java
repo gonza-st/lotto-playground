@@ -30,9 +30,10 @@ public class LottoKiosk implements Controller {
 
     public PurchaseRes handlePurchase(PurchaseReq req) {
         Purchase purchase = new Purchase(req.payment());
+
         Coin coin = coinFactory.issueCoin(purchase);
         Lotto lotto = lottoFactory.createLotto(coin);
-        usb.save(lotto);
+        usb.savePurchaseHistory(purchase, lotto);
 
         return PurchaseRes.of(coin.count(), lotto.getAllLottoNumbers());
     }

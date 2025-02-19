@@ -1,6 +1,7 @@
 package org.gonza.javaplayground.lotto.repository;
 
 import org.gonza.javaplayground.lotto.controller.Storage;
+import org.gonza.javaplayground.lotto.domain.coin.Purchase;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.coin.Coin;
@@ -8,7 +9,7 @@ import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
 
 public class UsbStub implements Storage {
     @Override
-    public void save(Lotto lotto) {
+    public void savePurchaseHistory(Purchase purchase, Lotto lotto) {
 
     }
 
