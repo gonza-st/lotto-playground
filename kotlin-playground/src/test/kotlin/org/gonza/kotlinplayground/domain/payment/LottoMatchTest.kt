@@ -73,7 +73,7 @@ class LottoMatchTest {
     }
 
     @Test
-    fun `숫자 중 5개만 일치할 경우 FOUR_MATCH 값이 된다`() {
+    fun `숫자 중 5개만 일치할 경우 FIVE_MATCH 값이 된다`() {
         val result =
             LottoTicket(
                 listOf(
@@ -92,7 +92,7 @@ class LottoMatchTest {
                     LottoNumber(2),
                     LottoNumber(3),
                     LottoNumber(4),
-                    LottoNumber(8),
+                    LottoNumber(5),
                     LottoNumber(7),
                 ),
             )
@@ -101,7 +101,40 @@ class LottoMatchTest {
         val matchedResult = LottoMatch.matchWith(result, ticket)
 
         assertNotNull(matchedResult)
-        assertEquals(4, matchedResult?.matchedCount)
-        assertEquals(LottoMatch.FOUR_MATCHED, matchedResult)
+        assertEquals(5, matchedResult?.matchedCount)
+        assertEquals(LottoMatch.FIVE_MATCHED, matchedResult)
+    }
+
+    @Test
+    fun `숫자 중 모두 일치할 경우 ALL_MATCH 값이 된다`() {
+        val result =
+            LottoTicket(
+                listOf(
+                    LottoNumber(1),
+                    LottoNumber(2),
+                    LottoNumber(3),
+                    LottoNumber(4),
+                    LottoNumber(5),
+                    LottoNumber(6),
+                ),
+            )
+        val ticket =
+            LottoTicket(
+                listOf(
+                    LottoNumber(1),
+                    LottoNumber(2),
+                    LottoNumber(3),
+                    LottoNumber(4),
+                    LottoNumber(5),
+                    LottoNumber(6),
+                ),
+            )
+
+        // when
+        val matchedResult = LottoMatch.matchWith(result, ticket)
+
+        assertNotNull(matchedResult)
+        assertEquals(6, matchedResult?.matchedCount)
+        assertEquals(LottoMatch.ALL_MATCHED, matchedResult)
     }
 }
