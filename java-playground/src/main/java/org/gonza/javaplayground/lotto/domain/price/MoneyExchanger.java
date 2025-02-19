@@ -2,11 +2,11 @@ package org.gonza.javaplayground.lotto.domain.price;
 
 import java.util.Objects;
 
-public class PriceCalculator {
+public class MoneyExchanger {
     private final Integer price;
     private final WinningPriceTable winningPriceTable;
 
-    public PriceCalculator(Integer price, WinningPriceTable winningPriceTable) {
+    public MoneyExchanger(Integer price, WinningPriceTable winningPriceTable) {
         this.price = price;
         this.winningPriceTable = winningPriceTable;
     }

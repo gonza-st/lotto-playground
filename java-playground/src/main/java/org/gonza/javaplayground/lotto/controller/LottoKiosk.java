@@ -6,21 +6,21 @@ import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 import org.gonza.javaplayground.framework.mapper.Controller;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
-import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
+import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
 
 public class LottoKiosk implements Controller {
     private final LottoFactory lottoFactory;
-    private final PriceCalculator priceCalculator;
+    private final MoneyExchanger moneyExchanger;
     private final Storage usb;
 
-    public LottoKiosk(LottoFactory lottoFactory, PriceCalculator priceCalculator, Storage usb) {
+    public LottoKiosk(LottoFactory lottoFactory, MoneyExchanger moneyExchanger, Storage usb) {
         this.lottoFactory = lottoFactory;
-        this.priceCalculator = priceCalculator;
+        this.moneyExchanger = moneyExchanger;
         this.usb = usb;
     }
 
     public PurchaseRes handlePurchase(PurchaseReq req) {
-        Integer count = priceCalculator.getAvailableAmount(req.payment());
+        Integer count = moneyExchanger.getAvailableAmount(req.payment());
         Lotto lotto = lottoFactory.createLotto(count);
         usb.save(lotto);
 

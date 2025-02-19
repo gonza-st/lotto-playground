@@ -9,16 +9,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class PriceCalculatorTest {
+public class MoneyExchangerTest {
     private static final Integer PRICE = PriceTestFixtures.PRICE;
     private static final List<Integer> PRICE_LIST = PriceTestFixtures.WINNING_PRICE_RANGE;
 
-    private PriceCalculator sut;
+    private MoneyExchanger sut;
 
     @BeforeEach
     public void setUp() {
         WinningPriceTable table = new WinningPriceTable(PRICE_LIST);
-        this.sut = new PriceCalculator(PRICE, table);
+        this.sut = new MoneyExchanger(PRICE, table);
     }
 
     @Nested
