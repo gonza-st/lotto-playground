@@ -5,7 +5,7 @@ import org.gonza.kotlinplayground.domain.lotto.LottoTicket
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
-class LottoMatchTest {
+class LottoStatisticsSheetTest {
     @Test
     fun `숫자 중 3개만 일치할 경우 THREE_MATCH 값이 된다`() {
         val result =
@@ -31,11 +31,11 @@ class LottoMatchTest {
                 ),
             )
 
-        val matchedResult = LottoMatch.matchWith(result, ticket)
+        val matchedResult = LottoStatisticsSheet.matchWith(result, ticket)
 
         assertNotNull(matchedResult)
         assertEquals(3, matchedResult?.matchedCount)
-        assertEquals(LottoMatch.THREE_MATCHED, matchedResult)
+        assertEquals(LottoStatisticsSheet.THREE_MATCHED, matchedResult)
     }
 
     @Test
@@ -63,11 +63,11 @@ class LottoMatchTest {
                 ),
             )
 
-        val matchedResult = LottoMatch.matchWith(result, ticket)
+        val matchedResult = LottoStatisticsSheet.matchWith(result, ticket)
 
         assertNotNull(matchedResult)
         assertEquals(4, matchedResult?.matchedCount)
-        assertEquals(LottoMatch.FOUR_MATCHED, matchedResult)
+        assertEquals(LottoStatisticsSheet.FOUR_MATCHED, matchedResult)
     }
 
     @Test
@@ -95,11 +95,11 @@ class LottoMatchTest {
                 ),
             )
 
-        val matchedResult = LottoMatch.matchWith(result, ticket)
+        val matchedResult = LottoStatisticsSheet.matchWith(result, ticket)
 
         assertNotNull(matchedResult)
         assertEquals(5, matchedResult?.matchedCount)
-        assertEquals(LottoMatch.FIVE_MATCHED, matchedResult)
+        assertEquals(LottoStatisticsSheet.FIVE_MATCHED, matchedResult)
     }
 
     @Test
@@ -127,10 +127,10 @@ class LottoMatchTest {
                 ),
             )
 
-        val matchedResult = LottoMatch.matchWith(result, ticket)
+        val matchedResult = LottoStatisticsSheet.matchWith(result, ticket)
 
         assertNotNull(matchedResult)
         assertEquals(6, matchedResult?.matchedCount)
-        assertEquals(LottoMatch.ALL_MATCHED, matchedResult)
+        assertEquals(LottoStatisticsSheet.ALL_MATCHED, matchedResult)
     }
 }

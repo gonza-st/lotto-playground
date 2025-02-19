@@ -2,7 +2,7 @@ package org.gonza.kotlinplayground.domain.payment
 
 import org.gonza.kotlinplayground.domain.lotto.LottoTicket
 
-enum class LottoMatch(
+enum class LottoStatisticsSheet(
     val amount: Int,
     val matchedCount: Int,
 ) {
@@ -16,7 +16,7 @@ enum class LottoMatch(
         fun matchWith(
             result: LottoTicket,
             ticket: LottoTicket,
-        ): LottoMatch? = values().sortedByDescending { it.matchedCount }.find { it.isMatched(result, ticket) }
+        ): LottoStatisticsSheet? = values().sortedByDescending { it.matchedCount }.find { it.isMatched(result, ticket) }
     }
 
     fun isMatched(

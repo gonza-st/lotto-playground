@@ -1,6 +1,6 @@
 package org.gonza.kotlinplayground.service
 
-import org.gonza.kotlinplayground.domain.payment.LottoMatch
+import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
 import org.gonza.kotlinplayground.domain.payment.Payment
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -48,10 +48,10 @@ class LottoFinancialPolicyTest {
 
         val expected =
             listOf(
-                LottoMatch.THREE_MATCHED,
-                LottoMatch.FOUR_MATCHED,
-                LottoMatch.FIVE_MATCHED,
-                LottoMatch.ALL_MATCHED,
+                LottoStatisticsSheet.THREE_MATCHED,
+                LottoStatisticsSheet.FOUR_MATCHED,
+                LottoStatisticsSheet.FIVE_MATCHED,
+                LottoStatisticsSheet.ALL_MATCHED,
             )
         matchedList.forEach {
             assertContains(expected, it)
