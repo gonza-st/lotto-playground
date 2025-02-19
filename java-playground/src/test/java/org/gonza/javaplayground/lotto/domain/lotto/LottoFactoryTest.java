@@ -1,5 +1,6 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
+import org.gonza.javaplayground.lotto.domain.price.Coin;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -17,9 +18,9 @@ public class LottoFactoryTest {
 
     @Test
     public void should_create_lotto_with_specific_count() {
-        Integer count = 2;
-        Lotto lotto = sut.createLotto(count);
+        Coin coin = new Coin(2);
+        Lotto lotto = sut.createLotto(coin);
 
-        assertEquals(count, lotto.countLottoLines());
+        assertEquals(coin.count(), lotto.countLottoLines());
     }
 }

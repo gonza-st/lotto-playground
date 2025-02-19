@@ -22,7 +22,7 @@ public class LottoKiosk implements Controller {
 
     public PurchaseRes handlePurchase(PurchaseReq req) {
         Coin coin = moneyExchanger.exchangeMoney(req.payment());
-        Lotto lotto = lottoFactory.createLotto(coin.count());
+        Lotto lotto = lottoFactory.createLotto(coin);
         usb.save(lotto);
 
         return PurchaseRes.of(coin.count(), lotto.getAllLottoNumbers());

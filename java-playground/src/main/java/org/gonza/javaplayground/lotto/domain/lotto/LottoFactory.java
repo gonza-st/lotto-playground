@@ -1,7 +1,8 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
+import org.gonza.javaplayground.lotto.domain.price.Coin;
+
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.IntStream;
 
 public class LottoFactory {
@@ -15,23 +16,11 @@ public class LottoFactory {
         this.numberGenerator = numberGenerator;
     }
 
-    public Lotto createLotto(Integer count) {
-        validate(count);
-
-        List<List<Integer>> numbers = IntStream.range(0, count)
+    public Lotto createLotto(Coin coin) {
+        List<List<Integer>> numbers = IntStream.range(0, coin.count())
                 .mapToObj((i) -> numberGenerator.generate(SIZE, MIN_NUMBER, MAX_NUMBER))
                 .toList();
 
         return new Lotto(numbers);
-    }
-
-    private void validate(Integer count) {
-        if (Objects.isNull(count)) {
-            throw new IllegalArgumentException("Number cannot be null");
-        }
-
-        if (count <= 0) {
-            throw new IllegalArgumentException("Number must be greater than zero");
-        }
     }
 }
