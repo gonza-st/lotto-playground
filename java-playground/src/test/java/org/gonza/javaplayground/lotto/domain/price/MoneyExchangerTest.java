@@ -26,15 +26,15 @@ public class MoneyExchangerTest {
         @Test
         public void should_return_amount_when_price_is_provided() {
             Integer price = 14000;
-            Integer amount = sut.getAvailableAmount(price);
-            assertEquals(14, amount);
+            Coin coin = sut.exchangeMoney(price);
+            assertEquals(14, coin.count());
         }
 
         @Test
         public void should_return_max_amount_when_change_exists() {
             Integer price = 3500;
-            Integer amount = sut.getAvailableAmount(price);
-            assertEquals(3, amount);
+            Coin coin = sut.exchangeMoney(price);
+            assertEquals(3, coin.count());
         }
 
         @Test
@@ -42,7 +42,7 @@ public class MoneyExchangerTest {
             Integer negativePrice = -1;
 
             assertThrows(IllegalArgumentException.class, () -> {
-                sut.getAvailableAmount(negativePrice);
+                sut.exchangeMoney(negativePrice);
             });
         }
     }

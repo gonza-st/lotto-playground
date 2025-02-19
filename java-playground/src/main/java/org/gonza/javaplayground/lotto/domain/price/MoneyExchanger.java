@@ -11,15 +11,15 @@ public class MoneyExchanger {
         this.winningPriceTable = winningPriceTable;
     }
 
-    public Integer getAvailableAmount(Integer givenPrice) {
-        validatePrice(givenPrice);
+    public Coin exchangeMoney(Integer money) {
+        validatePrice(money);
 
-        Integer amount = givenPrice / price;
-        return amount;
+        Integer amount = money / price;
+        return new Coin(amount);
     }
 
-    private void validatePrice(Integer givenPrice) {
-        if (givenPrice <= 0) {
+    private void validatePrice(Integer money) {
+        if (money <= 0) {
             throw new IllegalArgumentException("Price must be greater than zero");
         }
     }

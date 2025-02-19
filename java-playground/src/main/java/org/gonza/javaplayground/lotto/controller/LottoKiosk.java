@@ -6,6 +6,7 @@ import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 import org.gonza.javaplayground.framework.mapper.Controller;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.price.Coin;
 import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
 
 public class LottoKiosk implements Controller {
@@ -20,15 +21,15 @@ public class LottoKiosk implements Controller {
     }
 
     public PurchaseRes handlePurchase(PurchaseReq req) {
-        Integer count = moneyExchanger.getAvailableAmount(req.payment());
-        Lotto lotto = lottoFactory.createLotto(count);
+        Coin coin = moneyExchanger.exchangeMoney(req.payment());
+        Lotto lotto = lottoFactory.createLotto(coin.count());
         usb.save(lotto);
 
-        return PurchaseRes.of(count, lotto.getAllLottoNumbers());
+        return PurchaseRes.of(coin.count(), lotto.getAllLottoNumbers());
     }
 
     public void handleMatchNumbers(MatchReq req) {
-        System.out.println("You got a match number!");
+          System.out.println("You got a match number!");
     }
 
     public void handleInvalidRequest() {
