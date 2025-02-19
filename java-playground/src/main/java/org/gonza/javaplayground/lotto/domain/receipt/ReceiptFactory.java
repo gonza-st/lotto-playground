@@ -2,10 +2,10 @@ package org.gonza.javaplayground.lotto.domain.receipt;
 
 import java.util.Objects;
 
-public class MoneyExchanger {
+public class ReceiptFactory {
     private final WinningPriceTable winningPriceTable;
 
-    public MoneyExchanger(WinningPriceTable winningPriceTable) {
+    public ReceiptFactory(WinningPriceTable winningPriceTable) {
         this.winningPriceTable = winningPriceTable;
     }
 

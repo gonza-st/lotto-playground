@@ -11,19 +11,19 @@ import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoLine;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
 import org.gonza.javaplayground.lotto.domain.coin.Coin;
-import org.gonza.javaplayground.lotto.domain.receipt.MoneyExchanger;
+import org.gonza.javaplayground.lotto.domain.receipt.ReceiptFactory;
 import org.gonza.javaplayground.lotto.domain.coin.Purchase;
 
 public class LottoKiosk implements Controller {
     private final LottoFactory lottoFactory;
     private final CoinFactory coinFactory;
-    private final MoneyExchanger moneyExchanger;
+    private final ReceiptFactory receiptFactory;
     private final Storage usb;
 
-    public LottoKiosk(LottoFactory lottoFactory, CoinFactory coinFactory, MoneyExchanger moneyExchanger, Storage usb) {
+    public LottoKiosk(LottoFactory lottoFactory, CoinFactory coinFactory, ReceiptFactory receiptFactory, Storage usb) {
         this.lottoFactory = lottoFactory;
         this.coinFactory = coinFactory;
-        this.moneyExchanger = moneyExchanger;
+        this.receiptFactory = receiptFactory;
         this.usb = usb;
     }
 
