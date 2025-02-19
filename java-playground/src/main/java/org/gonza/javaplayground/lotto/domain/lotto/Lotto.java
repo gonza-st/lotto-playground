@@ -1,5 +1,7 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
+import org.gonza.javaplayground.lotto.domain.price.Receipt;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -20,10 +22,12 @@ public class Lotto {
                 .toList();
     }
 
-    public List<List<Integer>> match(LottoLine candidate) {
-        return lottoLines.stream()
+    public LottoResult match(LottoLine candidate) {
+        List<LottoLineResult> results =  lottoLines.stream()
                 .map(line -> line.match(candidate))
                 .toList();
+
+        return new Receipt(results);
     }
 
     public String getId() {

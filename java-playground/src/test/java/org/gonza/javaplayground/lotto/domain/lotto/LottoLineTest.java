@@ -28,8 +28,8 @@ public class LottoLineTest {
             List<Integer> allMatchingNumbers = List.of(1, 2, 3, 4, 5, 6);
             LottoLine line = LottoLine.of(allMatchingNumbers);
 
-            List<Integer> matchedNumber = sut.match(line);
-            assertEquals(allMatchingNumbers, matchedNumber);
+            LottoLineResult matchedNumber = sut.match(line);
+            assertEquals(allMatchingNumbers, matchedNumber.getResult());
         }
 
         @Test
@@ -37,8 +37,8 @@ public class LottoLineTest {
             List<Integer> someMatchingNumbers = List.of(1, 2, 3, 7, 8, 9);
             LottoLine line = LottoLine.of(someMatchingNumbers);
 
-            List<Integer> matchedNumber = sut.match(line);
-            assertEquals(List.of(1, 2, 3), matchedNumber);
+            LottoLineResult matchedNumber = sut.match(line);
+            assertEquals(List.of(1, 2, 3), matchedNumber.getResult());
         }
 
         @Test
@@ -46,8 +46,8 @@ public class LottoLineTest {
             List<Integer> nothingMatchingNumbers = List.of(7, 8, 9, 10, 11, 12);
             LottoLine line = LottoLine.of(nothingMatchingNumbers);
 
-            List<Integer> matchedNumber = sut.match(line);
-            assertEquals(List.of(), matchedNumber);
+            LottoLineResult matchedNumber = sut.match(line);
+            assertEquals(List.of(), matchedNumber.getResult());
         }
     }
 

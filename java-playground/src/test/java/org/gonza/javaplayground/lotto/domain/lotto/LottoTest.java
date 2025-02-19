@@ -41,10 +41,10 @@ public class LottoTest {
         List<Integer> matchingNumber = List.of(1, 2, 13, 14, 25, 33);
         LottoLine matchingLine = LottoLine.of(matchingNumber);
 
-        List<List<Integer>> result = sut.match(matchingLine);
+        LottoResult result = sut.match(matchingLine);
 
         List<List<Integer>> expected = List.of(List.of(1, 2), List.of(13, 14));
-        assertEquals(expected, result);
+        assertEquals(expected, result.getResults());
     }
 
     @Test
