@@ -7,10 +7,6 @@ class OutputView {
         println("구입금액을 입력해 주세요.")
     }
 
-    fun printPurchasePrice(purchasePrice: String) {
-        println(purchasePrice)
-    }
-
     fun printPurchaseLottoTicketCount(ticketCount: Int) {
         println("$ticketCount 개를 구매했습니다")
     }
@@ -21,10 +17,6 @@ class OutputView {
 
     fun printRequestResultLottoTicket() {
         println("당첨 번호를 입력해 주세요.")
-    }
-
-    fun printResultLottoTicket(resultLottoTicket: String) {
-        println(resultLottoTicket)
     }
 
     fun printNoticeStatisticSheet() {

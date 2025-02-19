@@ -6,7 +6,7 @@ class LottoNumber(
     val number: Int,
 ) {
     init {
-        Range(number)
+        validate(number)
     }
 
     override fun equals(other: Any?): Boolean {
@@ -17,22 +17,18 @@ class LottoNumber(
 
     override fun hashCode(): Int = number.hashCode()
 
-    class Range(
-        number: Int,
-    ) : NumberRange {
+
+    private fun validate(number: Int) {
+        val range = Range()
+        if (number < range.getMin() || number > range.getMax()) {
+            throw InvalidLottoNumberException()
+        }
+    }
+
+    class Range : NumberRange {
         companion object {
             private const val MAX_NUMBER_LENGTH = 45
-            private const val MIN_NUMBER_LENGTH = 0
-        }
-
-        init {
-            validate(number)
-        }
-
-        private fun validate(number: Int) {
-            if (number < MIN_NUMBER_LENGTH || number > MAX_NUMBER_LENGTH) {
-                throw InvalidLottoNumberException()
-            }
+            private const val MIN_NUMBER_LENGTH = 1
         }
 
         override fun getMin(): Int = MIN_NUMBER_LENGTH
