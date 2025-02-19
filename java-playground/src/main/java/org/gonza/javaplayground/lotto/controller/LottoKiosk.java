@@ -8,6 +8,8 @@ import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
 
+import java.util.List;
+
 public class LottoKiosk implements Controller {
     private final LottoFactory lottoFactory;
     private final PriceCalculator priceCalculator;
@@ -28,6 +30,10 @@ public class LottoKiosk implements Controller {
     }
 
     public void handleMatchNumbers(MatchReq req) {
+        Lotto lastLotto = usb.readLast();
+        List<List<Integer>> matchedNumbers = lastLotto.match(req.numbers());
+
+
         System.out.println("You got a match number!");
     }
 
