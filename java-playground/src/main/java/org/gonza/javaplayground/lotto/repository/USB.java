@@ -17,7 +17,18 @@ public class USB implements Storage {
     }
 
     @Override
-    public Lotto readLast() {
+    public Lotto findRecentLotto() {
         return lottoFolder.peek();
+    }
+
+    @Override
+    public Purchase findLottoPurchase(String lottoId) {
+        Purchase purchase = purchaseFolder.getOrDefault(lottoId, null);
+
+        if (Objects.isNull(purchase)) {
+            throw new IllegalArgumentException("Purchase with id " + lottoId + " not found");
+        }
+
+        return purchase;
     }
 }

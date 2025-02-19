@@ -6,5 +6,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 public interface Storage {
     void savePurchaseHistory(Purchase purchase, Lotto lotto);
 
-    Lotto readLast();
+    Lotto findRecentLotto();
+
+    Purchase findLottoPurchase(String lottoId);
 }

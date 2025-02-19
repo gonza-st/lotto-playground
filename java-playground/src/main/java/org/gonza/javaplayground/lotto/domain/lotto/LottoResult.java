@@ -1,16 +1,15 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
 import java.util.List;
-import java.util.UUID;
 
 public class LottoResult {
-    private final String id;
+    private final String lottoId;
     private final List<LottoLineResult> lineResult;
 
-    public LottoResult(List<LottoLineResult> lineResult) {
+    public LottoResult(String lottoId, List<LottoLineResult> lineResult) {
         validate(lineResult);
 
-        this.id = UUID.randomUUID().toString();
+        this.lottoId = lottoId;
         this.lineResult = lineResult;
     }
 
@@ -18,6 +17,10 @@ public class LottoResult {
         if (items.isEmpty()) {
             throw new IllegalArgumentException("No items found");
         }
+    }
+
+    public String getLottoId() {
+        return lottoId;
     }
 
     public List<List<Integer>> getResults() {

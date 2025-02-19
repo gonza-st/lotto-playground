@@ -14,12 +14,17 @@ public class UsbStub implements Storage {
     }
 
     @Override
-    public Lotto readLast() {
+    public Lotto findRecentLotto() {
         RandomNumberGenerator generator = new RandomNumberGenerator();
         LottoFactory factory = new LottoFactory(generator);
         Coin coin = new Coin(1000);
         Lotto lotto = factory.createLotto(coin);
 
         return lotto;
+    }
+
+    @Override
+    public Purchase findLottoPurchase(String lottoId) {
+        return null;
     }
 }

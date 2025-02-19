@@ -41,13 +41,13 @@ public class LottoKiosk implements Controller {
     public MatchRes handleMatchNumbers(MatchReq req) {
         LottoLine winningLine = LottoLine.of(req.numbers());
 
-        Lotto lastLotto = usb.readLast();
+        Lotto lastLotto = usb.findRecentLotto();
+        Purchase lottoPurchase = usb.findLottoPurchase(lastLotto.getId());
+
         LottoResult matchedNumbers = lastLotto.match(winningLine);
+        Receipt receipt = receiptFactory.printReceipt(lottoPurchase, matchedNumbers);
 
-        Receipt receipt = receiptFactory.printReceipt(matchedNumbers);
-
-        System.out.println("You got a match number!");
-        return new MatchRes(1.1, "1");
+        return new MatchRes(receipt.getProfit(), receipt.getStatistics());
     }
 
     public void handleInvalidRequest() {
