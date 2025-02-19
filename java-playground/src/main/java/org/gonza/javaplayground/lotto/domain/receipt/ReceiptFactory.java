@@ -1,6 +1,10 @@
 package org.gonza.javaplayground.lotto.domain.receipt;
 
-import java.util.Objects;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
+
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class ReceiptFactory {
     private final WinningPriceTable winningPriceTable;
@@ -9,19 +13,19 @@ public class ReceiptFactory {
         this.winningPriceTable = winningPriceTable;
     }
 
-    public Integer getWinningPrice(Integer point) {
-        validate(point);
+    public Receipt printReceipt(LottoResult lottoResult) {
+        Map<Integer, List<List<Integer>>> mapByMatchingCount = lottoResult.getResults().stream()
+                .collect(Collectors.groupingBy(List::size));
 
-        return winningPriceTable.getWinningPrice(point);
+        List<Item> receiptItems = mapByMatchingCount.entrySet().stream()
+                .map(entry -> this.createReceiptItem(entry.getKey(), entry.getValue().size()))
+                .toList();
+
+        return new Receipt(receiptItems);
     }
 
-    private void validate(Integer point) {
-        if (Objects.isNull(point)) {
-            throw new IllegalArgumentException("point cannot be null");
-        }
-
-        if (point < 0) {
-            throw new IllegalArgumentException("point is less than zero");
-        }
+    private Item createReceiptItem(Integer matchingNumberCount, Integer count) {
+        Integer price = winningPriceTable.getWinningPrice(matchingNumberCount);
+        return new Item(matchingNumberCount, count, price);
     }
 }

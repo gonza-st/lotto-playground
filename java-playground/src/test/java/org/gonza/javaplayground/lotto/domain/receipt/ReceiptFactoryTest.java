@@ -1,7 +1,8 @@
 package org.gonza.javaplayground.lotto.domain.receipt;
 
+import org.gonza.javaplayground.lotto.domain.lotto.LottoLineResult;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
@@ -20,23 +21,13 @@ public class ReceiptFactoryTest {
         this.sut = new ReceiptFactory(table);
     }
 
-    @Nested
-    class WinningPriceTest {
-        @Test
-        public void should_return_winning_price() {
-            Integer matchedPoint = 3;
-            Integer winning = sut.getWinningPrice(matchedPoint);
-            assertEquals(PRICE_LIST.get(3), winning);
-        }
-
-        @Test
-        public void should_throw_if_point_is_null() {
-            assertThrows(IllegalArgumentException.class, () -> sut.getWinningPrice(null));
-        }
-
-        @Test
-        public void should_throw_if_point_is_negative_number() {
-            assertThrows(IllegalArgumentException.class, () -> sut.getWinningPrice(-1));
-        }
-    }
+//    @Test
+//    public void should_return_winning_Receipt() {
+//        LottoLineResult lineResult = new LottoLineResult(List.of(1,2,3));
+//        List<LottoLineResult> lineResults = List.of(lineResult);
+//        LottoResult result = new LottoResult(lineResults);
+//
+//        Receipt receipt = sut.printReceipt(result);
+//        assertEquals(PRICE_LIST.get(3), winning);
+//    }
 }

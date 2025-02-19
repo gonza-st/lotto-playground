@@ -11,6 +11,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoLine;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
 import org.gonza.javaplayground.lotto.domain.coin.Coin;
+import org.gonza.javaplayground.lotto.domain.receipt.Receipt;
 import org.gonza.javaplayground.lotto.domain.receipt.ReceiptFactory;
 import org.gonza.javaplayground.lotto.domain.coin.Purchase;
 
@@ -41,6 +42,8 @@ public class LottoKiosk implements Controller {
 
         Lotto lastLotto = usb.readLast();
         LottoResult matchedNumbers = lastLotto.match(winningLine);
+
+        Receipt receipt = receiptFactory.printReceipt(matchedNumbers);
 
         System.out.println("You got a match number!");
         return new MatchRes(1.1, "1");

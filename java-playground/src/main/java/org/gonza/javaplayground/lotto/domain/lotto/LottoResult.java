@@ -5,13 +5,13 @@ import java.util.UUID;
 
 public class LottoResult {
     private final String id;
-    private final List<LottoLineResult> items;
+    private final List<LottoLineResult> lineResult;
 
-    public LottoResult(List<LottoLineResult> items) {
-        validate(items);
+    public LottoResult(List<LottoLineResult> lineResult) {
+        validate(lineResult);
 
         this.id = UUID.randomUUID().toString();
-        this.items = items;
+        this.lineResult = lineResult;
     }
 
     private void validate(List<LottoLineResult> items) {
@@ -21,7 +21,7 @@ public class LottoResult {
     }
 
     public List<List<Integer>> getResults() {
-        return items.stream()
+        return lineResult.stream()
                 .map(LottoLineResult::getResult)
                 .toList();
     }
