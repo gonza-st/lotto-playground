@@ -9,5 +9,5 @@ class Payment(
 
     fun getPaidTicketCount() = paidMoney / PRICE
 
-    fun getPaidMoney() = paidMoney.toDouble()
+    fun getPaidMoney() = paidMoney
 }

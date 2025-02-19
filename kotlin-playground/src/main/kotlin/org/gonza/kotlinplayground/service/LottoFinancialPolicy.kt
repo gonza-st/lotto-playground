@@ -8,7 +8,7 @@ class LottoFinancialPolicy : FinancialPolicy {
     override fun calculateReturnOnInvestment(
         totalInvestment: Payment,
         profitAmount: Payment,
-    ): Double = profitAmount.getPaidMoney() / totalInvestment.getPaidMoney()
+    ): Double = profitAmount.getPaidMoney().toDouble() / totalInvestment.getPaidMoney()
 
     override fun getLottoMatchListByResult(
         result: LottoTicket,
