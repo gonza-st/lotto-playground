@@ -16,13 +16,15 @@ public class Lotto {
         this.id = UUID.randomUUID().toString();
 
         this.lottoLines = numbers.stream()
-                .map(LottoLine::new)
+                .map(LottoLine::of)
                 .toList();
     }
 
     public List<List<Integer>> match(List<Integer> numbers) {
+        LottoLine candidate = LottoLine.of(numbers);
+
         return lottoLines.stream()
-                .map(line -> line.match(numbers))
+                .map(line -> line.match(candidate))
                 .toList();
     }
 

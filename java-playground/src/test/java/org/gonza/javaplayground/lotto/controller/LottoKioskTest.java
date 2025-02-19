@@ -5,7 +5,7 @@ import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;
-import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
+import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
 import org.gonza.javaplayground.lotto.domain.price.PriceTestFixtures;
 import org.gonza.javaplayground.lotto.domain.price.WinningPriceTable;
 import org.gonza.javaplayground.lotto.repository.USB;
@@ -25,13 +25,13 @@ public class LottoKioskTest {
     @BeforeEach
     public void setUp() {
         WinningPriceTable winningPriceTable = new WinningPriceTable(WINNING_PRICE_RANGE);
-        PriceCalculator priceCalculator = new PriceCalculator(PRICE, winningPriceTable);
+        MoneyExchanger moneyExchanger = new MoneyExchanger(PRICE, winningPriceTable);
 
         NumberGenerator numberGenerator = new NumberGeneratorStub();
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
 
         Storage usb = new USB();
-        this.sut = new LottoKiosk(lottoFactory, priceCalculator, usb);
+        this.sut = new LottoKiosk(lottoFactory, moneyExchanger, usb);
     }
 
     @Test

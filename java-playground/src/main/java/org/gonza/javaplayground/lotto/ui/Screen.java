@@ -36,8 +36,7 @@ public class Screen {
             case PURCHASE:
                 return handlePurchase();
             case MATCH:
-                String inputNumbers = scanner.nextLine();
-                return new LottoRequest(option, inputNumbers);
+                return handleMatchNumbers();
             default:
                 throw new IllegalArgumentException("Invalid endpoint type");
         }
@@ -58,6 +57,15 @@ public class Screen {
 
         Integer amount = scanner.nextInt();
         return new LottoRequest(Option.PURCHASE, amount);
+    }
+
+    private LottoRequest handleMatchNumbers() {
+        printer.println("==============================");
+        printer.println("Enter your lotto line");
+        printer.println("==============================");
+
+        String inputNumbers = scanner.nextLine();
+        return new LottoRequest(Option.MATCH, inputNumbers);
     }
 
 }

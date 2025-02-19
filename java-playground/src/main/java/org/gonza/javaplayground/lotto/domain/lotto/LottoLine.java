@@ -9,9 +9,7 @@ class LottoLine {
 
     private List<Integer> line;
 
-    public LottoLine(List<Integer> line) {
-        validate(line);
-
+    private LottoLine(List<Integer> line) {
         this.line = line;
     }
 
@@ -19,17 +17,21 @@ class LottoLine {
         return line;
     }
 
-    public List<Integer> match(List<Integer> numbers) {
-        validate(numbers);
+    public List<Integer> match(LottoLine candidate) {
 
-        Set<Integer> input = new HashSet<>(numbers);
+        Set<Integer> input = new HashSet<>(candidate.line);
         Set<Integer> resultSet = new HashSet<>(line);
         resultSet.retainAll(input);
 
         return new ArrayList<>(resultSet);
     }
 
-    private void validate(List<Integer> numbers) {
+    public static LottoLine of(List<Integer> line) {
+        validate(line);
+        return new LottoLine(line);
+    }
+
+    private static void validate(List<Integer> numbers) {
         if (Objects.isNull(numbers)) {
             throw new IllegalArgumentException("The given number list is null");
         }

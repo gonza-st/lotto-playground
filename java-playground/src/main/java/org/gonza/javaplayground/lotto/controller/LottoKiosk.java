@@ -6,29 +6,32 @@ import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 import org.gonza.javaplayground.framework.mapper.Controller;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
-import org.gonza.javaplayground.lotto.domain.price.PriceCalculator;
+import org.gonza.javaplayground.lotto.domain.price.Coin;
+import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
+import org.gonza.javaplayground.lotto.domain.price.Purchase;
 
 public class LottoKiosk implements Controller {
     private final LottoFactory lottoFactory;
-    private final PriceCalculator priceCalculator;
+    private final MoneyExchanger moneyExchanger;
     private final Storage usb;
 
-    public LottoKiosk(LottoFactory lottoFactory, PriceCalculator priceCalculator, Storage usb) {
+    public LottoKiosk(LottoFactory lottoFactory, MoneyExchanger moneyExchanger, Storage usb) {
         this.lottoFactory = lottoFactory;
-        this.priceCalculator = priceCalculator;
+        this.moneyExchanger = moneyExchanger;
         this.usb = usb;
     }
 
     public PurchaseRes handlePurchase(PurchaseReq req) {
-        Integer count = priceCalculator.getAvailableAmount(req.payment());
-        Lotto lotto = lottoFactory.createLotto(count);
+        Purchase purchase = new Purchase(req.payment());
+        Coin coin = moneyExchanger.exchangeMoney(purchase);
+        Lotto lotto = lottoFactory.createLotto(coin);
         usb.save(lotto);
 
-        return PurchaseRes.of(count, lotto.getAllLottoNumbers());
+        return PurchaseRes.of(coin.count(), lotto.getAllLottoNumbers());
     }
 
     public void handleMatchNumbers(MatchReq req) {
-        System.out.println("You got a match number!");
+          System.out.println("You got a match number!");
     }
 
     public void handleInvalidRequest() {
