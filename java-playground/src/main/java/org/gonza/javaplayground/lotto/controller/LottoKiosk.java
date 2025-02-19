@@ -8,6 +8,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.price.Coin;
 import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
+import org.gonza.javaplayground.lotto.domain.price.Purchase;
 
 public class LottoKiosk implements Controller {
     private final LottoFactory lottoFactory;
@@ -21,7 +22,8 @@ public class LottoKiosk implements Controller {
     }
 
     public PurchaseRes handlePurchase(PurchaseReq req) {
-        Coin coin = moneyExchanger.exchangeMoney(req.payment());
+        Purchase purchase = new Purchase(req.payment());
+        Coin coin = moneyExchanger.exchangeMoney(purchase);
         Lotto lotto = lottoFactory.createLotto(coin);
         usb.save(lotto);
 

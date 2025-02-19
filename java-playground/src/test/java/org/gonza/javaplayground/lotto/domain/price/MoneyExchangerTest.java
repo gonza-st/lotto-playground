@@ -25,25 +25,16 @@ public class MoneyExchangerTest {
     class GetAvailableAmountTest {
         @Test
         public void should_return_amount_when_price_is_provided() {
-            Integer price = 14000;
-            Coin coin = sut.exchangeMoney(price);
+            Purchase purchase = new Purchase(14000);
+            Coin coin = sut.exchangeMoney(purchase);
             assertEquals(14, coin.count());
         }
 
         @Test
         public void should_return_max_amount_when_change_exists() {
-            Integer price = 3500;
-            Coin coin = sut.exchangeMoney(price);
+            Purchase purchase = new Purchase(3500);
+            Coin coin = sut.exchangeMoney(purchase);
             assertEquals(3, coin.count());
-        }
-
-        @Test
-        public void should_throw_an_exception_when_price_is_out_of_range() {
-            Integer negativePrice = -1;
-
-            assertThrows(IllegalArgumentException.class, () -> {
-                sut.exchangeMoney(negativePrice);
-            });
         }
     }
 
