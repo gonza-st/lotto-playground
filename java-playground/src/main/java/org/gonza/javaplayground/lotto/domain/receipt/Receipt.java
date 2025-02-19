@@ -19,6 +19,10 @@ public class Receipt {
                 .mapToDouble(Item::price)
                 .sum();
 
+        if (sumOfPrice == 0.0) {
+            return 0.0;
+        }
+
         return cost / sumOfPrice;
     }
 
