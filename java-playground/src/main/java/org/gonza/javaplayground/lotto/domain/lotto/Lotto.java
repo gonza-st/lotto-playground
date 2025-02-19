@@ -1,7 +1,5 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
-import org.gonza.javaplayground.lotto.domain.price.Receipt;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -27,7 +25,7 @@ public class Lotto {
                 .map(line -> line.match(candidate))
                 .toList();
 
-        return new Receipt(results);
+        return new LottoResult(results);
     }
 
     public String getId() {

@@ -1,7 +1,5 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
-import org.gonza.javaplayground.lotto.domain.price.Item;
-
 import java.util.*;
 
 public class LottoLine {
@@ -27,7 +25,7 @@ public class LottoLine {
 
         List<Integer> result = new ArrayList<>(resultSet);
 
-        return new Item(result);
+        return new LottoLineResult(result);
     }
 
     public static LottoLine of(List<Integer> line) {

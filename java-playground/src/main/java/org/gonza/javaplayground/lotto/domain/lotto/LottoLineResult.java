@@ -2,6 +2,14 @@ package org.gonza.javaplayground.lotto.domain.lotto;
 
 import java.util.List;
 
-public interface LottoLineResult {
-    List<Integer> getResult();
+public class LottoLineResult {
+    private final List<Integer> result;
+
+    public LottoLineResult(List<Integer> results) {
+        this.result = results;
+    }
+
+    public List<Integer> getResult() {
+        return result;
+    }
 }
