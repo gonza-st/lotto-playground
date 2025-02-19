@@ -69,5 +69,4 @@ public class Screen {
         String inputNumbers = scanner.nextLine();
         return new LottoRequest(Option.MATCH, inputNumbers);
     }
-
 }

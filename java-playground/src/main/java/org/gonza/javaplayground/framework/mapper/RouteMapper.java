@@ -3,7 +3,6 @@ package org.gonza.javaplayground.framework.mapper;
 import org.gonza.javaplayground.lotto.controller.ErrorHandler;
 import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
-import org.gonza.javaplayground.lotto.controller.response.resolver.ErrorResponseResolver;
 import org.gonza.javaplayground.lotto.controller.request.resolver.MatchRequestResolver;
 import org.gonza.javaplayground.lotto.controller.request.resolver.PurchaseRequestResolver;
 import org.gonza.javaplayground.lotto.controller.response.resolver.MatchResponseResolver;
@@ -39,16 +38,6 @@ public class RouteMapper {
                                 new MatchRequestResolver(),
                                 controller.getClass().getMethod("handleMatchNumbers", MatchReq.class),
                                 new MatchResponseResolver(),
-                                new ErrorHandler()
-                        )
-                ),
-                entry(
-                        Option.ERROR,
-                        new RouteMap(
-                                controller,
-                                null,
-                                controller.getClass().getMethod("handleInvalidRequest"),
-                                new ErrorResponseResolver(),
                                 new ErrorHandler()
                         )
                 )

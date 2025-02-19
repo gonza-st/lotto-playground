@@ -53,7 +53,4 @@ public class LottoKiosk implements Controller {
                 receipt.getStatistics()
         );
     }
-
-    public void handleInvalidRequest() {
-    }
 }
