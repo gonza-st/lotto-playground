@@ -3,17 +3,10 @@ package org.gonza.javaplayground.lotto.domain.price;
 import java.util.Objects;
 
 public class MoneyExchanger {
-    private final Integer price;
     private final WinningPriceTable winningPriceTable;
 
-    public MoneyExchanger(Integer price, WinningPriceTable winningPriceTable) {
-        this.price = price;
+    public MoneyExchanger(WinningPriceTable winningPriceTable) {
         this.winningPriceTable = winningPriceTable;
-    }
-
-    public Coin exchangeMoney(Purchase purchase) {
-        Integer amount = purchase.price() / price;
-        return new Coin(amount);
     }
 
     public Integer getWinningPrice(Integer point) {

@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class MoneyExchangerTest {
-    private static final Integer PRICE = PriceTestFixtures.PRICE;
     private static final List<Integer> PRICE_LIST = PriceTestFixtures.WINNING_PRICE_RANGE;
 
     private MoneyExchanger sut;
@@ -18,24 +17,7 @@ public class MoneyExchangerTest {
     @BeforeEach
     public void setUp() {
         WinningPriceTable table = new WinningPriceTable(PRICE_LIST);
-        this.sut = new MoneyExchanger(PRICE, table);
-    }
-
-    @Nested
-    class GetAvailableAmountTest {
-        @Test
-        public void should_return_amount_when_price_is_provided() {
-            Purchase purchase = new Purchase(14000);
-            Coin coin = sut.exchangeMoney(purchase);
-            assertEquals(14, coin.count());
-        }
-
-        @Test
-        public void should_return_max_amount_when_change_exists() {
-            Purchase purchase = new Purchase(3500);
-            Coin coin = sut.exchangeMoney(purchase);
-            assertEquals(3, coin.count());
-        }
+        this.sut = new MoneyExchanger(table);
     }
 
     @Nested

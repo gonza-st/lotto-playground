@@ -9,6 +9,7 @@ import org.gonza.javaplayground.lotto.LottoApplication;
 import org.gonza.javaplayground.lotto.controller.LottoKiosk;
 import org.gonza.javaplayground.framework.mapper.RouteMapper;
 import org.gonza.javaplayground.lotto.controller.Storage;
+import org.gonza.javaplayground.lotto.domain.coin.CoinFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
@@ -36,14 +37,16 @@ public class JavaPlaygroundApplication {
 
     private static Application initializeApplication() throws NoSuchMethodException {
         WinningPriceTable winningPriceTable = new WinningPriceTable(WINNING_PRICE_RANGE);
-        MoneyExchanger moneyExchanger = new MoneyExchanger(PRICE, winningPriceTable);
+        MoneyExchanger moneyExchanger = new MoneyExchanger(winningPriceTable);
+
+        CoinFactory coinFactory = new CoinFactory(PRICE);
 
         NumberGenerator numberGenerator = new RandomNumberGenerator();
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
 
         Storage usb = new USB();
 
-        LottoKiosk lottoKiosk = new LottoKiosk(lottoFactory, moneyExchanger, usb);
+        LottoKiosk lottoKiosk = new LottoKiosk(lottoFactory, coinFactory, moneyExchanger, usb);
         RouteMapper routeMapper = new RouteMapper(lottoKiosk);
         return new LottoApplication(routeMapper);
     }

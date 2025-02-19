@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
-import org.gonza.javaplayground.lotto.domain.price.Coin;
+import org.gonza.javaplayground.lotto.domain.coin.Coin;
 
 import java.util.List;
 import java.util.stream.IntStream;
