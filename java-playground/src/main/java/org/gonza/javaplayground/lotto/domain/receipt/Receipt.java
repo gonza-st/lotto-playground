@@ -23,11 +23,13 @@ public class Receipt {
             return 0.0;
         }
 
-        return cost / sumOfPrice;
+        return sumOfPrice / cost;
     }
 
     public List<Map<String, Integer>> getStatistics() {
-        return items.stream().map(Item::toMap).toList();
+        return items.stream()
+                .map(Item::toMap)
+                .toList();
     }
 
     public String getLottoId() {
