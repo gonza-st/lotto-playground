@@ -7,5 +7,5 @@ interface LottoMatcher {
     fun getMatchedStatisticSheetList(
         result: LottoTicket,
         ticket: LottoTicket,
-    ): LottoStatisticsSheet
+    ): LottoStatisticsSheet?
 }

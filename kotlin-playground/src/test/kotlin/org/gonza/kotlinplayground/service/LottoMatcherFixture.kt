@@ -11,6 +11,7 @@ class LottoMatcherFixture {
             )
 
         fun createLottoTicketList(numberList: List<List<Int>>): List<LottoTicket> =
+
             numberList.map {
                 LottoTicket(
                     it.map { LottoNumber(it) },

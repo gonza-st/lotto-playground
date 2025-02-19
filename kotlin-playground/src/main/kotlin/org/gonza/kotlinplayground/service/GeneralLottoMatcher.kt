@@ -7,5 +7,11 @@ class GeneralLottoMatcher : LottoMatcher {
     override fun getMatchedStatisticSheetList(
         result: LottoTicket,
         ticket: LottoTicket,
-    ): LottoStatisticsSheet = LottoStatisticsSheet.THREE_MATCHED
+    ): LottoStatisticsSheet? {
+        val matchedNumberList = result.getMatchedNumber(ticket)
+        val allStatisticSheetList = LottoStatisticsSheet.sortedByDescending()
+        return allStatisticSheetList.find {
+            it.isMatched(matchedNumberList.size)
+        }
+    }
 }

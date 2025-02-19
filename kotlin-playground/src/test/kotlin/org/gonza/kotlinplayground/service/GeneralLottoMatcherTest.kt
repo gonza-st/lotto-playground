@@ -3,7 +3,6 @@ package org.gonza.kotlinplayground.service
 import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
-import kotlin.test.assertContains
 
 class GeneralLottoMatcherTest {
     @Test
@@ -38,9 +37,7 @@ class GeneralLottoMatcherTest {
                 LottoStatisticsSheet.FIVE_MATCHED,
                 LottoStatisticsSheet.ALL_MATCHED,
             )
-        statisticSheetList.forEach {
-            assertContains(expected, it)
-        }
+        assertEquals(expected, statisticSheetList)
         assertEquals(statisticSheetList.size, expected.size)
     }
 }
