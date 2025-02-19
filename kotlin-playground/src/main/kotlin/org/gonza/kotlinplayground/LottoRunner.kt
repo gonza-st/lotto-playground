@@ -16,7 +16,7 @@ class LottoRunner(
         val lottoTickets: LottoTickets = getLottoTickets(amount = amount)
         printLotto(lottoTickets = lottoTickets)
         val winningLotto = getWinningLotto()
-        val result = lottoTickets.findWinLotto(answer = winningLotto.numbers)
+        val result = lottoTickets.findWinLotto(answer = winningLotto.numberList)
         lottoStatistics(result = result, purchase = amount.maxPurchase)
     }
 

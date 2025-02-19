@@ -13,10 +13,10 @@ class WinningNumberTest {
 
         val winningNumber = WinningNumber.from(validStr)
 
-        assertEquals(expectedSize, winningNumber.getNumbers().size)
+        assertEquals(expectedSize, winningNumber.numberList.size)
         assertEquals(
             listOf(1, 2, 3, 4, 5, 6),
-            winningNumber.getNumbers().map { it.number }
+            winningNumber.numberList.map { it.number }
         )
     }
 
@@ -37,7 +37,7 @@ class WinningNumberTest {
 
         assertEquals(
             listOf(1, 2, 3, 4, 5, 6),
-            winningNumber.getNumbers().map { it.number }
+            winningNumber.numberList.map { it.number }
         )
 
     }
