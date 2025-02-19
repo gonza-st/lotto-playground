@@ -1,8 +1,10 @@
 package org.gonza.kotlinplayground.service
 
+import org.gonza.kotlinplayground.domain.payment.LottoMatch
 import org.gonza.kotlinplayground.domain.payment.Payment
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
+import kotlin.test.assertContains
 
 class LottoFinancialPolicyTest {
     @Test
@@ -22,11 +24,38 @@ class LottoFinancialPolicyTest {
     }
 
     @Test
-    fun `당첨숫자와 뽑은 숫자를 가지고 당첨된 통계를 가져올 수 있다`() {
-        // given
+    fun `당첨 로또 티켓과 뽑은 로또 티켓들을 가지고 당첨된 통계를 가져올 수 있다`() {
+        val result =
+            LottoFinancialPolicyFixture.createLottoTicket(
+                listOf(1, 2, 3, 4, 5, 6),
+            )
+        val ticketList =
+            LottoFinancialPolicyFixture.createLottoTicketList(
+                listOf(
+                    listOf(1, 2, 3, 9, 8, 7),
+                    listOf(1, 2, 3, 4, 8, 7),
+                    listOf(1, 2, 3, 4, 5, 7),
+                    listOf(1, 2, 3, 4, 5, 6),
+                ),
+            )
+        val lottoFinancialPolicy = LottoFinancialPolicy()
 
-        // when
+        val matchedList =
+            lottoFinancialPolicy.getLottoMatchListByResult(
+                result = result,
+                ticketList = ticketList,
+            )
 
-        // then
+        val expected =
+            listOf(
+                LottoMatch.THREE_MATCHED,
+                LottoMatch.FOUR_MATCHED,
+                LottoMatch.FIVE_MATCHED,
+                LottoMatch.ALL_MATCHED,
+            )
+        matchedList.forEach {
+            assertContains(expected, it)
+        }
+        assertEquals(matchedList.size, expected.size)
     }
 }
