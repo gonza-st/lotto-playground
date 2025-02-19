@@ -31,7 +31,6 @@ class LottoMatchTest {
                 ),
             )
 
-        // when
         val matchedResult = LottoMatch.matchWith(result, ticket)
 
         assertNotNull(matchedResult)
@@ -64,7 +63,6 @@ class LottoMatchTest {
                 ),
             )
 
-        // when
         val matchedResult = LottoMatch.matchWith(result, ticket)
 
         assertNotNull(matchedResult)
@@ -97,7 +95,6 @@ class LottoMatchTest {
                 ),
             )
 
-        // when
         val matchedResult = LottoMatch.matchWith(result, ticket)
 
         assertNotNull(matchedResult)
@@ -130,7 +127,6 @@ class LottoMatchTest {
                 ),
             )
 
-        // when
         val matchedResult = LottoMatch.matchWith(result, ticket)
 
         assertNotNull(matchedResult)
