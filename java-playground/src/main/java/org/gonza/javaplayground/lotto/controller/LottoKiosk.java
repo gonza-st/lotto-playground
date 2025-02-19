@@ -2,13 +2,17 @@ package org.gonza.javaplayground.lotto.controller;
 
 import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
+import org.gonza.javaplayground.lotto.controller.response.MatchRes;
 import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 import org.gonza.javaplayground.framework.mapper.Controller;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoLine;
 import org.gonza.javaplayground.lotto.domain.price.Coin;
 import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
 import org.gonza.javaplayground.lotto.domain.price.Purchase;
+
+import java.util.List;
 
 public class LottoKiosk implements Controller {
     private final LottoFactory lottoFactory;
@@ -30,8 +34,14 @@ public class LottoKiosk implements Controller {
         return PurchaseRes.of(coin.count(), lotto.getAllLottoNumbers());
     }
 
-    public void handleMatchNumbers(MatchReq req) {
-          System.out.println("You got a match number!");
+    public MatchRes handleMatchNumbers(MatchReq req) {
+        LottoLine winningLine = LottoLine.of(req.numbers());
+
+        Lotto lastLotto = usb.readLast();
+        List<List<Integer>> matchedNumbers = lastLotto.match(winningLine);
+
+        System.out.println("You got a match number!");
+        return new MatchRes(1.1, "1");
     }
 
     public void handleInvalidRequest() {

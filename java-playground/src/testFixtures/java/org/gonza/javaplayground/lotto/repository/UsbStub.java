@@ -1,0 +1,24 @@
+package org.gonza.javaplayground.lotto.repository;
+
+import org.gonza.javaplayground.lotto.controller.Storage;
+import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.price.Coin;
+import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
+
+public class UsbStub implements Storage {
+    @Override
+    public void save(Lotto lotto) {
+
+    }
+
+    @Override
+    public Lotto readLast() {
+        RandomNumberGenerator generator = new RandomNumberGenerator();
+        LottoFactory factory = new LottoFactory(generator);
+        Coin coin = new Coin(1000);
+        Lotto lotto = factory.createLotto(coin);
+
+        return lotto;
+    }
+}

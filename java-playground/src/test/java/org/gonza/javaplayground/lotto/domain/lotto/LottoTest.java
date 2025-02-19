@@ -39,8 +39,9 @@ public class LottoTest {
     @Test
     public void should_return_matched_numbers_for_all_lines() {
         List<Integer> matchingNumber = List.of(1, 2, 13, 14, 25, 33);
+        LottoLine matchingLine = LottoLine.of(matchingNumber);
 
-        List<List<Integer>> result = sut.match(matchingNumber);
+        List<List<Integer>> result = sut.match(matchingLine);
 
         List<List<Integer>> expected = List.of(List.of(1, 2), List.of(13, 14));
         assertEquals(expected, result);

@@ -1,6 +1,8 @@
 package org.gonza.javaplayground.lotto.controller;
 
+import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
+import org.gonza.javaplayground.lotto.controller.response.MatchRes;
 import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
@@ -8,7 +10,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;
 import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
 import org.gonza.javaplayground.lotto.domain.price.PriceTestFixtures;
 import org.gonza.javaplayground.lotto.domain.price.WinningPriceTable;
-import org.gonza.javaplayground.lotto.repository.USB;
+import org.gonza.javaplayground.lotto.repository.UsbStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -30,7 +32,7 @@ public class LottoKioskTest {
         NumberGenerator numberGenerator = new NumberGeneratorStub();
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
 
-        Storage usb = new USB();
+        Storage usb = new UsbStub();
         this.sut = new LottoKiosk(lottoFactory, moneyExchanger, usb);
     }
 
@@ -43,5 +45,14 @@ public class LottoKioskTest {
 
         assertEquals(2, response.getCount());
         assertEquals(List.of(lottoNumbers, lottoNumbers), response.getLottoNumbers());
+    }
+
+    @Test
+    public void should_return_profit_by_percent_and_statistics() {
+        MatchReq req = new MatchReq(List.of(1, 2, 3, 4, 5, 6));
+        MatchRes res = sut.handleMatchNumbers(req);
+
+        assertEquals(1.1, res.profit());
+        assertEquals("1", res.statistics());
     }
 }

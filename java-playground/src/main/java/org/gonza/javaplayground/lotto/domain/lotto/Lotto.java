@@ -20,9 +20,7 @@ public class Lotto {
                 .toList();
     }
 
-    public List<List<Integer>> match(List<Integer> numbers) {
-        LottoLine candidate = LottoLine.of(numbers);
-
+    public List<List<Integer>> match(LottoLine candidate) {
         return lottoLines.stream()
                 .map(line -> line.match(candidate))
                 .toList();
