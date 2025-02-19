@@ -12,8 +12,8 @@ import org.gonza.javaplayground.lotto.controller.Storage;
 import org.gonza.javaplayground.lotto.domain.coin.CoinFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
-import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
-import org.gonza.javaplayground.lotto.domain.price.WinningPriceTable;
+import org.gonza.javaplayground.lotto.domain.receipt.MoneyExchanger;
+import org.gonza.javaplayground.lotto.domain.receipt.WinningPriceTable;
 import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
 import org.gonza.javaplayground.lotto.repository.USB;
 

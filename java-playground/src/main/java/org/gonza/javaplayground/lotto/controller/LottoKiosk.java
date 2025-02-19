@@ -11,7 +11,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoLine;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
 import org.gonza.javaplayground.lotto.domain.coin.Coin;
-import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
+import org.gonza.javaplayground.lotto.domain.receipt.MoneyExchanger;
 import org.gonza.javaplayground.lotto.domain.coin.Purchase;
 
 public class LottoKiosk implements Controller {
