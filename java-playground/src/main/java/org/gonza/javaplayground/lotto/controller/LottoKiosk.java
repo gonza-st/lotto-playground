@@ -47,7 +47,11 @@ public class LottoKiosk implements Controller {
         LottoResult matchedNumbers = lastLotto.match(winningLine);
         Receipt receipt = receiptFactory.printReceipt(lottoPurchase, matchedNumbers);
 
-        return new MatchRes(receipt.getProfit(), receipt.getStatistics());
+        return new MatchRes(
+                receipt.getLottoId(),
+                receipt.getProfit(),
+                receipt.getStatistics()
+        );
     }
 
     public void handleInvalidRequest() {

@@ -25,4 +25,8 @@ public class Receipt {
     public List<Map<String, Integer>> getStatistics() {
         return items.stream().map(Item::toMap).toList();
     }
+
+    public String getLottoId() {
+        return lottoId;
+    }
 }
