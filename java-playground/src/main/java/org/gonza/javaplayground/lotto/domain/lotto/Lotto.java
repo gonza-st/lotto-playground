@@ -8,13 +8,8 @@ public class Lotto {
     private final String id;
     private final List<LottoLine> lottoLines;
 
-    public Lotto(List<List<Integer>> numbers) {
-        if (Objects.isNull(numbers) || numbers.isEmpty()) {
-            throw new IllegalArgumentException("The given numbers list is empty");
-        }
-
+    private Lotto(List<List<Integer>> numbers) {
         this.id = UUID.randomUUID().toString();
-
         this.lottoLines = numbers.stream()
                 .map(LottoLine::of)
                 .toList();
@@ -40,5 +35,13 @@ public class Lotto {
         return lottoLines.stream()
                 .map(LottoLine::getAllNumbers)
                 .toList();
+    }
+
+    public static Lotto of(List<List<Integer>> numbers) {
+        if (Objects.isNull(numbers) || numbers.isEmpty()) {
+            throw new IllegalArgumentException("The given numbers list is empty");
+        }
+
+        return new Lotto(numbers);
     }
 }

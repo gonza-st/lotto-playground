@@ -21,6 +21,6 @@ public class LottoFactory {
                 .mapToObj((i) -> numberGenerator.generate(SIZE, MIN_NUMBER, MAX_NUMBER))
                 .toList();
 
-        return new Lotto(numbers);
+        return Lotto.of(numbers);
     }
 }

@@ -18,7 +18,7 @@ public class LottoTest {
                 List.of(11, 12, 13, 14, 15, 16)
         );
 
-        this.sut = new Lotto(givenNumbers);
+        this.sut = Lotto.of(givenNumbers);
     }
 
     @Test
@@ -28,12 +28,12 @@ public class LottoTest {
 
     @Test
     public void should_throw_if_null_is_provided_in_constructor() {
-        assertThrows(IllegalArgumentException.class, () -> new Lotto(null));
+        assertThrows(IllegalArgumentException.class, () -> Lotto.of(null));
     }
 
     @Test
     public void should_throw_if_empty_list_is_provided_in_constructor() {
-        assertThrows(IllegalArgumentException.class, () -> new Lotto(List.of()));
+        assertThrows(IllegalArgumentException.class, () -> Lotto.of(List.of()));
     }
 
     @Test
