@@ -9,6 +9,10 @@ public class LottoLineResult {
         this.result = results;
     }
 
+    public Integer getMatchedCount() {
+        return result.size();
+    }
+
     public List<Integer> getResult() {
         return result;
     }

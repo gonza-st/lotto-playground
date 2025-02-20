@@ -1,24 +1,25 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class LottoResult {
     private final String lottoId;
-    private final List<LottoLineResult> lineResult;
+    private final List<LottoLineResult> lineResults;
 
-    private LottoResult(String lottoId, List<LottoLineResult> lineResult) {
+    private LottoResult(String lottoId, List<LottoLineResult> lineResults) {
         this.lottoId = lottoId;
-        this.lineResult = lineResult;
+        this.lineResults = lineResults;
     }
 
     public String getLottoId() {
         return lottoId;
     }
 
-    public List<List<Integer>> getResults() {
-        return lineResult.stream()
-                .map(LottoLineResult::getResult)
-                .toList();
+    public Map<Integer, List<LottoLineResult>> getResults() {
+        return lineResults.stream()
+                .collect(Collectors.groupingBy(LottoLineResult::getMatchedCount));
     }
 
     public static LottoResult of(String lottoId, List<LottoLineResult> lineResult) {
