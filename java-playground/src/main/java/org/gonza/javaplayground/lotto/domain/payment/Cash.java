@@ -1,11 +1,11 @@
-package org.gonza.javaplayground.lotto.domain.coin;
+package org.gonza.javaplayground.lotto.domain.payment;
 
 import org.gonza.javaplayground.lotto.domain.lotto.Count;
 
-public class Purchase implements Count {
+public class Cash implements Count {
     private final Integer payment;
 
-    private Purchase(Integer payment) {
+    private Cash(Integer payment) {
         this.payment = payment;
     }
 
@@ -15,9 +15,9 @@ public class Purchase implements Count {
         return count;
     }
 
-    public static Purchase of(Integer payment) {
+    public static Cash of(Integer payment) {
         validatePrice(payment);
-        return new Purchase(payment);
+        return new Cash(payment);
     }
 
     private static void validatePrice(Integer payment) {

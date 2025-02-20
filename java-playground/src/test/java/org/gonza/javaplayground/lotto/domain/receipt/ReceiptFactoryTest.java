@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.domain.receipt;
 
-import org.gonza.javaplayground.lotto.domain.coin.Purchase;
+import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoLineResult;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,14 +24,14 @@ public class ReceiptFactoryTest {
 
     @Test
     public void should_return_winning_Receipt() {
-        Purchase purchase = Purchase.of(1000);
+        Cash cash = Cash.of(1000);
 
         String lottoId = UUID.randomUUID().toString();
         LottoLineResult lineResult = new LottoLineResult(List.of(1,2,3));
         List<LottoLineResult> lineResults = List.of(lineResult);
         LottoResult result = new LottoResult(lottoId, lineResults);
 
-        Receipt receipt = sut.printReceipt(purchase, result);
+        Receipt receipt = sut.printReceipt(cash, result);
 
         Double expectedProfit = PRICE_LIST.get(3) / 1000.0;
         assertEquals(expectedProfit, receipt.getProfit());

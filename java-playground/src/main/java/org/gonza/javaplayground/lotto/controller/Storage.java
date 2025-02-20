@@ -1,12 +1,12 @@
 package org.gonza.javaplayground.lotto.controller;
 
-import org.gonza.javaplayground.lotto.domain.coin.Purchase;
+import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 
 public interface Storage {
-    void savePurchaseHistory(Purchase purchase, Lotto lotto);
+    void savePurchaseHistory(Cash cash, Lotto lotto);
 
     Lotto findRecentLotto();
 
-    Purchase findLottoPurchase(String lottoId);
+    Cash findLottoPurchase(String lottoId);
 }

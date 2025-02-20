@@ -1,19 +1,19 @@
 package org.gonza.javaplayground.lotto.repository;
 
 import org.gonza.javaplayground.lotto.controller.Storage;
-import org.gonza.javaplayground.lotto.domain.coin.Purchase;
+import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 
 import java.util.*;
 
 public class USB implements Storage {
     private static final Stack<Lotto> lottoFolder = new Stack<>();
-    private static final Map<String, Purchase> purchaseFolder = new HashMap<>();
+    private static final Map<String, Cash> purchaseFolder = new HashMap<>();
 
     @Override
-    public void savePurchaseHistory(Purchase purchase, Lotto lotto) {
+    public void savePurchaseHistory(Cash cash, Lotto lotto) {
         lottoFolder.push(lotto);
-        purchaseFolder.put(lotto.getId(), purchase);
+        purchaseFolder.put(lotto.getId(), cash);
     }
 
     @Override
@@ -22,13 +22,13 @@ public class USB implements Storage {
     }
 
     @Override
-    public Purchase findLottoPurchase(String lottoId) {
-        Purchase purchase = purchaseFolder.getOrDefault(lottoId, null);
+    public Cash findLottoPurchase(String lottoId) {
+        Cash cash = purchaseFolder.getOrDefault(lottoId, null);
 
-        if (Objects.isNull(purchase)) {
+        if (Objects.isNull(cash)) {
             throw new IllegalArgumentException("Purchase with id " + lottoId + " not found");
         }
 
-        return purchase;
+        return cash;
     }
 }

@@ -11,7 +11,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PurchaseResponseResolverTest {
+public class CashResponseResolverTest {
 
     private PurchaseResponseResolver sut;
 
@@ -21,7 +21,7 @@ public class PurchaseResponseResolverTest {
     }
 
     @Nested
-    class HandlePurchaseTest {
+    class HandleCashTest {
         @Test
         public void should_return_format_purchase_response() {
             PurchaseRes res = new PurchaseRes(List.of(List.of(1,2,3)));

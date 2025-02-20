@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.domain.receipt;
 
-import org.gonza.javaplayground.lotto.domain.coin.Purchase;
+import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
 
 import java.util.List;
@@ -14,7 +14,7 @@ public class ReceiptFactory {
         this.winningPriceTable = winningPriceTable;
     }
 
-    public Receipt printReceipt(Purchase purchase, LottoResult lottoResult) {
+    public Receipt printReceipt(Cash cash, LottoResult lottoResult) {
         Map<Integer, List<List<Integer>>> mapByMatchingCount = lottoResult.getResults().stream()
                 .collect(Collectors.groupingBy(List::size));
 

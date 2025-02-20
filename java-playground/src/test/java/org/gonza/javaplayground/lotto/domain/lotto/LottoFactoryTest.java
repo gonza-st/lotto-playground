@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
-import org.gonza.javaplayground.lotto.domain.coin.Purchase;
+import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -18,9 +18,9 @@ public class LottoFactoryTest {
 
     @Test
     public void should_create_lotto_with_specific_count() {
-        Purchase purchase = Purchase.of(2000);
-        Lotto lotto = sut.createLotto(purchase);
+        Cash cash = Cash.of(2000);
+        Lotto lotto = sut.createLotto(cash);
 
-        assertEquals(purchase.calc(1000), lotto.countLottoLines());
+        assertEquals(cash.calc(1000), lotto.countLottoLines());
     }
 }
