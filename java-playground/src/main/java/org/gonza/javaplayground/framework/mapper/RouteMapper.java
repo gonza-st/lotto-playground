@@ -5,8 +5,8 @@ import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
 import org.gonza.javaplayground.lotto.controller.request.resolver.MatchRequestResolver;
 import org.gonza.javaplayground.lotto.controller.request.resolver.PurchaseRequestResolver;
-import org.gonza.javaplayground.lotto.ui.adapter.MatchResponseResolver;
-import org.gonza.javaplayground.lotto.ui.adapter.PurchaseResponseResolver;
+import org.gonza.javaplayground.lotto.ui.adapter.MatchUiAdapter;
+import org.gonza.javaplayground.lotto.ui.adapter.PurchaseUiAdapter;
 
 import java.util.Map;
 
@@ -27,7 +27,7 @@ public class RouteMapper {
                                 controller,
                                 new PurchaseRequestResolver(),
                                 controller.getClass().getMethod("handlePurchase", PurchaseReq.class),
-                                new PurchaseResponseResolver(),
+                                new PurchaseUiAdapter(),
                                 new ErrorHandler()
                         )
                 ),
@@ -37,7 +37,7 @@ public class RouteMapper {
                                 controller,
                                 new MatchRequestResolver(),
                                 controller.getClass().getMethod("handleMatchNumbers", MatchReq.class),
-                                new MatchResponseResolver(),
+                                new MatchUiAdapter(),
                                 new ErrorHandler()
                         )
                 )

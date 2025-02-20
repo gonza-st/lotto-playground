@@ -1,7 +1,7 @@
 package org.gonza.javaplayground.lotto.controller.response.resovler;
 
 import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
-import org.gonza.javaplayground.lotto.ui.adapter.PurchaseResponseResolver;
+import org.gonza.javaplayground.lotto.ui.adapter.PurchaseUiAdapter;
 import org.gonza.javaplayground.lotto.ui.LottoResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
@@ -13,11 +13,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CashResponseResolverTest {
 
-    private PurchaseResponseResolver sut;
+    private PurchaseUiAdapter sut;
 
     @BeforeEach
     public void setUp() {
-        this.sut = new PurchaseResponseResolver();
+        this.sut = new PurchaseUiAdapter();
     }
 
     @Nested
