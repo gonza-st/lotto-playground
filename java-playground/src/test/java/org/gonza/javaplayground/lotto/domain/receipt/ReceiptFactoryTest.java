@@ -18,7 +18,7 @@ public class ReceiptFactoryTest {
 
     @BeforeEach
     public void setUp() {
-        WinningPriceTable table = new WinningPriceTable(PRICE_LIST);
+        WinningPrizeTable table = new WinningPrizeTable(PRICE_LIST);
         this.sut = new ReceiptFactory(table);
     }
 

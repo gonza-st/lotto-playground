@@ -20,7 +20,7 @@ public class ItemTest {
         Map<String, Integer> map = sut.toMap();
 
         assertEquals(1, map.get("winningNumberCount"));
-        assertEquals(10, map.get("price"));
+        assertEquals(10, map.get("prize"));
         assertEquals(100, map.get("count"));
     }
 }

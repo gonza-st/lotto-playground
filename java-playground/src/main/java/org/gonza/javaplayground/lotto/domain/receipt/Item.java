@@ -4,13 +4,13 @@ import java.util.Map;
 
 public record Item(
         Integer winningNumberCount,
-        Integer price,
+        Integer prize,
         Integer count
 ) {
     public Map<String, Integer> toMap() {
         return Map.of(
                 "winningNumberCount", winningNumberCount,
-                "price", price,
+                "prize", prize,
                 "count", count
         );
     }

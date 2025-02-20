@@ -9,7 +9,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;
 import org.gonza.javaplayground.lotto.domain.receipt.ReceiptFactory;
 import org.gonza.javaplayground.lotto.domain.receipt.PriceTestFixtures;
-import org.gonza.javaplayground.lotto.domain.receipt.WinningPriceTable;
+import org.gonza.javaplayground.lotto.domain.receipt.WinningPrizeTable;
 import org.gonza.javaplayground.lotto.repository.UsbStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -25,8 +25,8 @@ public class LottoKioskTest {
 
     @BeforeEach
     public void setUp() {
-        WinningPriceTable winningPriceTable = new WinningPriceTable(WINNING_PRICE_RANGE);
-        ReceiptFactory receiptFactory = new ReceiptFactory(winningPriceTable);
+        WinningPrizeTable winningPrizeTable = new WinningPrizeTable(WINNING_PRICE_RANGE);
+        ReceiptFactory receiptFactory = new ReceiptFactory(winningPrizeTable);
 
         NumberGenerator numberGenerator = new NumberGeneratorStub();
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);

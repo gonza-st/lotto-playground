@@ -7,10 +7,10 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class ReceiptFactory {
-    private final WinningPriceTable winningPriceTable;
+    private final WinningPrizeTable winningPrizeTable;
 
-    public ReceiptFactory(WinningPriceTable winningPriceTable) {
-        this.winningPriceTable = winningPriceTable;
+    public ReceiptFactory(WinningPrizeTable winningPrizeTable) {
+        this.winningPrizeTable = winningPrizeTable;
     }
 
     public Receipt printReceipt(Payment payment, LottoResult lottoResult) {
@@ -25,7 +25,7 @@ public class ReceiptFactory {
     }
 
     private Item createReceiptItem(Integer matchingNumberCount, Integer count) {
-        Integer price = winningPriceTable.getWinningPrice(matchingNumberCount);
-        return new Item(matchingNumberCount, price, count);
+        Integer prize = winningPrizeTable.getWinningPrice(matchingNumberCount);
+        return new Item(matchingNumberCount, prize, count);
     }
 }

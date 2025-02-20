@@ -12,7 +12,7 @@ import org.gonza.javaplayground.lotto.controller.Storage;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.receipt.ReceiptFactory;
-import org.gonza.javaplayground.lotto.domain.receipt.WinningPriceTable;
+import org.gonza.javaplayground.lotto.domain.receipt.WinningPrizeTable;
 import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
 import org.gonza.javaplayground.lotto.repository.USB;
 
@@ -34,8 +34,8 @@ public class JavaPlaygroundApplication {
     private static final List<Integer> WINNING_PRICE_RANGE = List.of(0, 0, 0, 5000, 50000, 1500000, 2000000000);
 
     private static Application initializeApplication() throws NoSuchMethodException {
-        WinningPriceTable winningPriceTable = new WinningPriceTable(WINNING_PRICE_RANGE);
-        ReceiptFactory receiptFactory = new ReceiptFactory(winningPriceTable);
+        WinningPrizeTable winningPrizeTable = new WinningPrizeTable(WINNING_PRICE_RANGE);
+        ReceiptFactory receiptFactory = new ReceiptFactory(winningPrizeTable);
 
         NumberGenerator numberGenerator = new RandomNumberGenerator();
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);

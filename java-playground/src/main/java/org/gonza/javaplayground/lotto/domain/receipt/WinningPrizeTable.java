@@ -2,21 +2,21 @@ package org.gonza.javaplayground.lotto.domain.receipt;
 
 import java.util.List;
 
-public class WinningPriceTable {
-    private final List<Integer> priceList;
+public class WinningPrizeTable {
+    private final List<Integer> prizeList;
 
-    public WinningPriceTable(List<Integer> priceList) {
-        this.priceList = priceList;
+    public WinningPrizeTable(List<Integer> prizeList) {
+        this.prizeList = prizeList;
     }
 
     public Integer getWinningPrice(Integer point) {
         validate(point);
 
-        return priceList.get(point);
+        return prizeList.get(point);
     }
 
     private void validate(Integer point) {
-        if (point > priceList.size() - 1 || point < 0) {
+        if (point > prizeList.size() - 1 || point < 0) {
             throw new IllegalArgumentException("point is out of range");
         }
     }

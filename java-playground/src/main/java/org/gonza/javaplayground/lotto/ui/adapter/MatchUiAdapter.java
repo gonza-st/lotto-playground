@@ -15,7 +15,7 @@ public class MatchUiAdapter extends ResponseResolver<MatchRes> {
         response.statistics().forEach((statistics) -> {
             Integer matchCount = statistics.get("winningNumberCount");
 
-            Integer price = statistics.get("price");
+            Integer price = statistics.get("prize");
             String formattedPrice = String.format("%,d", price);
 
             Integer count = statistics.get("count");
