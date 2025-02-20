@@ -19,7 +19,7 @@ public class LottoTest {
                 List.of(11, 12, 13, 14, 15, 16)
         );
 
-        this.sut = Lotto.of(givenNumbers);
+        this.sut = new Lotto(givenNumbers);
     }
 
     @Test
@@ -29,18 +29,18 @@ public class LottoTest {
 
     @Test
     public void should_throw_if_null_is_provided_in_constructor() {
-        assertThrows(IllegalArgumentException.class, () -> Lotto.of(null));
+        assertThrows(IllegalArgumentException.class, () -> new Lotto(null));
     }
 
     @Test
     public void should_throw_if_empty_list_is_provided_in_constructor() {
-        assertThrows(IllegalArgumentException.class, () -> Lotto.of(List.of()));
+        assertThrows(IllegalArgumentException.class, () -> new Lotto(List.of()));
     }
 
     @Test
     public void should_return_matched_numbers_for_all_lines() {
         List<Integer> matchingNumber = List.of(1, 2, 13, 14, 25, 33);
-        LottoLine matchingLine = LottoLine.of(matchingNumber);
+        LottoLine matchingLine = new LottoLine(matchingNumber);
 
         LottoResult result = sut.match(matchingLine);
 

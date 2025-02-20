@@ -13,7 +13,8 @@ public class LottoFactoryTest {
     @BeforeEach
     public void setUp() {
         NumberGenerator numberGenerator = new NumberGeneratorStub();
-        this.sut = new LottoFactory(numberGenerator);
+        LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
+        this.sut = new LottoFactory(properties, numberGenerator);
     }
 
     @Test

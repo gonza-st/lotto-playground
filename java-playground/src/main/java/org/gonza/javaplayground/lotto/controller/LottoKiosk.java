@@ -35,7 +35,7 @@ public class LottoKiosk implements Controller {
     }
 
     public MatchRes handleMatchNumbers(MatchReq req) {
-        LottoLine winningLine = LottoLine.of(req.numbers());
+        LottoLine winningLine = new LottoLine(req.numbers());
 
         Lotto latestLotto = usb.findRecentLotto();
         LottoResult matchedNumbers = latestLotto.match(winningLine);
