@@ -11,4 +11,8 @@ public class Purchase {
     private Purchase(Price price) {
         this.price = price;
     }
+
+    public Long getPrice() {
+        return price.getValue();
+    }
 }

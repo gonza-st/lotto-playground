@@ -14,4 +14,8 @@ public class Price {
 
         return new Price(price);
     }
+
+    public Long getValue() {
+        return value;
+    }
 }
