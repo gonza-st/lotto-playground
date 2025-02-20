@@ -2,22 +2,11 @@ package org.gonza.javaplayground.lotto.ui.adapter;
 
 import org.gonza.javaplayground.lotto.controller.response.MatchRes;
 import org.gonza.javaplayground.framework.mapper.ResponseResolver;
-import org.gonza.javaplayground.lotto.ui.LottoResponse;
 
-public class MatchUiAdapter implements ResponseResolver<MatchRes> {
+public class MatchUiAdapter extends ResponseResolver<MatchRes> {
+
     @Override
-    public LottoResponse resolve(MatchRes response) {
-        try {
-            Integer status = 200;
-            String data = format(response);
-            return new LottoResponse(status, data);
-        } catch (Exception e) {
-            Integer status = 500;
-            return new LottoResponse(status, e.getMessage());
-        }
-    }
-
-    private String format(MatchRes response) {
+    protected String format(MatchRes response) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append("당첨 통계 \n")

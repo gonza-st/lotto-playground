@@ -2,19 +2,11 @@ package org.gonza.javaplayground.lotto.ui.adapter;
 
 import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 import org.gonza.javaplayground.framework.mapper.ResponseResolver;
-import org.gonza.javaplayground.lotto.ui.LottoResponse;
 
-public class PurchaseUiAdapter implements ResponseResolver<PurchaseRes> {
+public class PurchaseUiAdapter extends ResponseResolver<PurchaseRes> {
+
     @Override
-    public LottoResponse resolve(PurchaseRes response) {
-
-        Integer status = 200;
-        String data = format(response);
-
-        return new LottoResponse(status, data);
-    }
-
-    private String format(PurchaseRes response) {
+    protected String format(PurchaseRes response) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder.append(response.getLottoNumbers().size()).append("개를 구매했습니다.\n");
 
