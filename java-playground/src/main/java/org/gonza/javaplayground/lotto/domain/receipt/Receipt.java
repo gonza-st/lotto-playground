@@ -16,7 +16,7 @@ public class Receipt {
 
     public Double getProfit() {
         Double sumOfPrice = items.stream()
-                .mapToDouble(Item::price)
+                .mapToDouble(Item::prize)
                 .sum();
 
         if (sumOfPrice == 0.0) {
