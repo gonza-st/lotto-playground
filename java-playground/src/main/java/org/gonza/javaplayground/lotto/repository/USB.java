@@ -22,7 +22,7 @@ public class USB implements Storage {
     }
 
     @Override
-    public Cash findLottoPurchase(String lottoId) {
+    public Cash findLottoPayment(String lottoId) {
         Cash cash = purchaseFolder.getOrDefault(lottoId, null);
 
         if (Objects.isNull(cash)) {

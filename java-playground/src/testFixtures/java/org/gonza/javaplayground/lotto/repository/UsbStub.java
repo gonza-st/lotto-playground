@@ -24,7 +24,7 @@ public class UsbStub implements Storage {
     }
 
     @Override
-    public Cash findLottoPurchase(String lottoId) {
+    public Cash findLottoPayment(String lottoId) {
         return null;
     }
 }

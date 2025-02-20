@@ -8,5 +8,5 @@ public interface Storage {
 
     Lotto findRecentLotto();
 
-    Cash findLottoPurchase(String lottoId);
+    Cash findLottoPayment(String lottoId);
 }

@@ -20,7 +20,7 @@ public class Lotto {
                 .map(line -> line.match(candidate))
                 .toList();
 
-        return new LottoResult(id, results);
+        return LottoResult.of(id, results);
     }
 
     public String getId() {

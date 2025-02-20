@@ -9,6 +9,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoLine;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
+import org.gonza.javaplayground.lotto.domain.receipt.Payment;
 import org.gonza.javaplayground.lotto.domain.receipt.Receipt;
 import org.gonza.javaplayground.lotto.domain.receipt.ReceiptFactory;
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
@@ -36,11 +37,11 @@ public class LottoKiosk implements Controller {
     public MatchRes handleMatchNumbers(MatchReq req) {
         LottoLine winningLine = LottoLine.of(req.numbers());
 
-        Lotto lastLotto = usb.findRecentLotto();
-        Cash lottoCash = usb.findLottoPurchase(lastLotto.getId());
+        Lotto latestLotto = usb.findRecentLotto();
+        LottoResult matchedNumbers = latestLotto.match(winningLine);
 
-        LottoResult matchedNumbers = lastLotto.match(winningLine);
-        Receipt receipt = receiptFactory.printReceipt(lottoCash, matchedNumbers);
+        Payment payment = usb.findLottoPayment(latestLotto.getId());
+        Receipt receipt = receiptFactory.printReceipt(payment, matchedNumbers);
 
         return new MatchRes(
                 receipt.getLottoId(),

@@ -24,14 +24,14 @@ public class ReceiptFactoryTest {
 
     @Test
     public void should_return_winning_Receipt() {
-        Cash cash = Cash.of(1000);
+        Payment payment = Cash.of(1000);
 
         String lottoId = UUID.randomUUID().toString();
         LottoLineResult lineResult = new LottoLineResult(List.of(1,2,3));
         List<LottoLineResult> lineResults = List.of(lineResult);
-        LottoResult result = new LottoResult(lottoId, lineResults);
+        LottoResult result = LottoResult.of(lottoId, lineResults);
 
-        Receipt receipt = sut.printReceipt(cash, result);
+        Receipt receipt = sut.printReceipt(payment, result);
 
         Double expectedProfit = PRICE_LIST.get(3) / 1000.0;
         assertEquals(expectedProfit, receipt.getProfit());

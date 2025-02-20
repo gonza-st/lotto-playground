@@ -6,17 +6,9 @@ public class LottoResult {
     private final String lottoId;
     private final List<LottoLineResult> lineResult;
 
-    public LottoResult(String lottoId, List<LottoLineResult> lineResult) {
-        validate(lineResult);
-
+    private LottoResult(String lottoId, List<LottoLineResult> lineResult) {
         this.lottoId = lottoId;
         this.lineResult = lineResult;
-    }
-
-    private void validate(List<LottoLineResult> items) {
-        if (items.isEmpty()) {
-            throw new IllegalArgumentException("No items found");
-        }
     }
 
     public String getLottoId() {
@@ -27,5 +19,16 @@ public class LottoResult {
         return lineResult.stream()
                 .map(LottoLineResult::getResult)
                 .toList();
+    }
+
+    public static LottoResult of(String lottoId, List<LottoLineResult> lineResult) {
+        validate(lineResult);
+        return new LottoResult(lottoId, lineResult);
+    }
+
+    private static void validate(List<LottoLineResult> items) {
+        if (items.isEmpty()) {
+            throw new IllegalArgumentException("No items found");
+        }
     }
 }
