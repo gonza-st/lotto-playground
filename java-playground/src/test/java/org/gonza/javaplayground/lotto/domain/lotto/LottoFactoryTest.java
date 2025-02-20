@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
-import org.gonza.javaplayground.lotto.domain.price.Coin;
+import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -13,14 +13,15 @@ public class LottoFactoryTest {
     @BeforeEach
     public void setUp() {
         NumberGenerator numberGenerator = new NumberGeneratorStub();
-        this.sut = new LottoFactory(numberGenerator);
+        LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
+        this.sut = new LottoFactory(properties, numberGenerator);
     }
 
     @Test
     public void should_create_lotto_with_specific_count() {
-        Coin coin = new Coin(2);
-        Lotto lotto = sut.createLotto(coin);
+        Cash cash = Cash.of(2000);
+        Lotto lotto = sut.createLotto(cash);
 
-        assertEquals(coin.count(), lotto.countLottoLines());
+        assertEquals(cash.calc(1000), lotto.countLottoLines());
     }
 }

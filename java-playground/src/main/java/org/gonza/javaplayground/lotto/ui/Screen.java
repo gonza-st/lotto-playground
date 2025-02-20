@@ -27,10 +27,7 @@ public class Screen {
     }
 
     public LottoRequest showSelections() {
-        showIntroduction();
-
-        Integer selectedType = scanner.nextInt();
-        Option option = Option.fromCode(selectedType);
+        Option option = showIntroduction();
 
         switch (option) {
             case PURCHASE:
@@ -42,12 +39,16 @@ public class Screen {
         }
     }
 
-    private void showIntroduction() {
+    private Option showIntroduction() {
         printer.println("==============================");
         printer.println("What would you like to do?");
         printer.println("1. Purchase");
         printer.println("2. Match Numbers");
         printer.println("==============================");
+
+        String input = scanner.nextLine();
+        Integer selectedType = Integer.parseInt(input);
+        return Option.fromCode(selectedType);
     }
 
     private LottoRequest handlePurchase() {
@@ -55,8 +56,9 @@ public class Screen {
         printer.println("How much do u wanna buy? (min price is 1000)");
         printer.println("==============================");
 
-        Integer amount = scanner.nextInt();
-        return new LottoRequest(Option.PURCHASE, amount);
+        String amount = scanner.nextLine();
+        Integer parsedAmount = Integer.parseInt(amount);
+        return new LottoRequest(Option.PURCHASE, parsedAmount);
     }
 
     private LottoRequest handleMatchNumbers() {
@@ -67,5 +69,4 @@ public class Screen {
         String inputNumbers = scanner.nextLine();
         return new LottoRequest(Option.MATCH, inputNumbers);
     }
-
 }

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -39,11 +40,14 @@ public class LottoTest {
     @Test
     public void should_return_matched_numbers_for_all_lines() {
         List<Integer> matchingNumber = List.of(1, 2, 13, 14, 25, 33);
+        LottoLine matchingLine = new LottoLine(matchingNumber);
 
-        List<List<Integer>> result = sut.match(matchingNumber);
+        LottoResult result = sut.match(matchingLine);
 
-        List<List<Integer>> expected = List.of(List.of(1, 2), List.of(13, 14));
-        assertEquals(expected, result);
+        Map<Integer, List<LottoLineResult>> resultMap = Map.of(
+                2, List.of(new LottoLineResult(List.of(1, 2)), new LottoLineResult(List.of(13, 14)))
+        );
+        assertEquals(resultMap, result.getResults());
     }
 
     @Test

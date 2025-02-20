@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.domain.price;
+package org.gonza.javaplayground.lotto.domain.receipt;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -8,14 +8,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class WinningPriceTableTest {
+public class WinningPrizeTableTest {
     private static final List<Integer> PRICE_LIST = PriceTestFixtures.WINNING_PRICE_RANGE;
 
-    private WinningPriceTable sut;
+    private WinningPrizeTable sut;
 
     @BeforeEach
     public void setUp() {
-        this.sut = new WinningPriceTable(PRICE_LIST);
+        this.sut = new WinningPrizeTable(PRICE_LIST);
     }
 
     @Test

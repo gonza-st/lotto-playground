@@ -1,0 +1,34 @@
+package org.gonza.javaplayground.lotto.domain.payment;
+
+import org.gonza.javaplayground.lotto.domain.lotto.Count;
+import org.gonza.javaplayground.lotto.domain.receipt.Payment;
+
+public class Cash implements Count, Payment {
+    private final Integer payment;
+
+    private Cash(Integer payment) {
+        this.payment = payment;
+    }
+
+    @Override
+    public Integer calc(Integer pricePerCount) {
+        Integer count = payment / pricePerCount;
+        return count;
+    }
+
+    @Override
+    public Integer getCost() {
+        return payment;
+    }
+
+    public static Cash of(Integer payment) {
+        validatePrice(payment);
+        return new Cash(payment);
+    }
+
+    private static void validatePrice(Integer payment) {
+        if (payment <= 0) {
+            throw new IllegalArgumentException("Payment must be greater than zero");
+        }
+    }
+}

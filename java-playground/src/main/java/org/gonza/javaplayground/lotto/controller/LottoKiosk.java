@@ -2,38 +2,51 @@ package org.gonza.javaplayground.lotto.controller;
 
 import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
+import org.gonza.javaplayground.lotto.controller.response.MatchRes;
 import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
 import org.gonza.javaplayground.framework.mapper.Controller;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
-import org.gonza.javaplayground.lotto.domain.price.Coin;
-import org.gonza.javaplayground.lotto.domain.price.MoneyExchanger;
-import org.gonza.javaplayground.lotto.domain.price.Purchase;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoLine;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
+import org.gonza.javaplayground.lotto.domain.receipt.Payment;
+import org.gonza.javaplayground.lotto.domain.receipt.Receipt;
+import org.gonza.javaplayground.lotto.domain.receipt.ReceiptFactory;
+import org.gonza.javaplayground.lotto.domain.payment.Cash;
 
 public class LottoKiosk implements Controller {
     private final LottoFactory lottoFactory;
-    private final MoneyExchanger moneyExchanger;
+    private final ReceiptFactory receiptFactory;
     private final Storage usb;
 
-    public LottoKiosk(LottoFactory lottoFactory, MoneyExchanger moneyExchanger, Storage usb) {
+    public LottoKiosk(LottoFactory lottoFactory, ReceiptFactory receiptFactory, Storage usb) {
         this.lottoFactory = lottoFactory;
-        this.moneyExchanger = moneyExchanger;
+        this.receiptFactory = receiptFactory;
         this.usb = usb;
     }
 
     public PurchaseRes handlePurchase(PurchaseReq req) {
-        Purchase purchase = new Purchase(req.payment());
-        Coin coin = moneyExchanger.exchangeMoney(purchase);
-        Lotto lotto = lottoFactory.createLotto(coin);
-        usb.save(lotto);
+        Cash cash = Cash.of(req.payment());
 
-        return PurchaseRes.of(coin.count(), lotto.getAllLottoNumbers());
+        Lotto lotto = lottoFactory.createLotto(cash);
+        usb.savePurchaseHistory(cash, lotto);
+
+        return new PurchaseRes(lotto.getAllLottoNumbers());
     }
 
-    public void handleMatchNumbers(MatchReq req) {
-          System.out.println("You got a match number!");
-    }
+    public MatchRes handleMatchNumbers(MatchReq req) {
+        LottoLine winningLine = new LottoLine(req.numbers());
 
-    public void handleInvalidRequest() {
+        Lotto latestLotto = usb.findRecentLotto();
+        LottoResult matchedNumbers = latestLotto.match(winningLine);
+
+        Payment payment = usb.findLottoPayment(latestLotto.getId());
+        Receipt receipt = receiptFactory.printReceipt(payment, matchedNumbers);
+
+        return new MatchRes(
+                receipt.getLottoId(),
+                receipt.getProfit(),
+                receipt.getStatistics()
+        );
     }
 }
