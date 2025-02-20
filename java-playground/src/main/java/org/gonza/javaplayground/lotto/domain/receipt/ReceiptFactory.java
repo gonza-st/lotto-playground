@@ -22,7 +22,7 @@ public class ReceiptFactory {
                 .map(entry -> this.createReceiptItem(entry.getKey(), entry.getValue().size()))
                 .toList();
 
-        return new Receipt(lottoResult.getLottoId(), receiptItems, purchase.price());
+        return new Receipt(lottoResult.getLottoId(), receiptItems, 1);
     }
 
     private Item createReceiptItem(Integer matchingNumberCount, Integer count) {

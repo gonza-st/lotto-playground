@@ -24,7 +24,7 @@ public class ReceiptFactoryTest {
 
     @Test
     public void should_return_winning_Receipt() {
-        Purchase purchase = new Purchase(1000);
+        Purchase purchase = Purchase.of(1000);
 
         String lottoId = UUID.randomUUID().toString();
         LottoLineResult lineResult = new LottoLineResult(List.of(1,2,3));

@@ -24,7 +24,7 @@ public class PurchaseResponseResolverTest {
     class HandlePurchaseTest {
         @Test
         public void should_return_format_purchase_response() {
-            PurchaseRes res = PurchaseRes.of(1, List.of(List.of(1,2,3)));
+            PurchaseRes res = new PurchaseRes(List.of(List.of(1,2,3)));
             LottoResponse lottoResponse = sut.resolve(res);
 
             String formatted = format(res);
@@ -33,7 +33,7 @@ public class PurchaseResponseResolverTest {
 
         private String format(PurchaseRes response) {
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append(response.getCount()).append("개를 구매했습니다.\n");
+            stringBuilder.append(response.getLottoNumbers().size()).append("개를 구매했습니다.\n");
 
             response.getLottoNumbers().forEach((lottoNumber) -> {
                 stringBuilder.append(lottoNumber).append("\n");
@@ -42,6 +42,4 @@ public class PurchaseResponseResolverTest {
             return stringBuilder.toString().trim();
         }
     }
-
-
 }

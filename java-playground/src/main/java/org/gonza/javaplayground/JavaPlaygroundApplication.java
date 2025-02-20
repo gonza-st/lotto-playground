@@ -9,7 +9,6 @@ import org.gonza.javaplayground.lotto.LottoApplication;
 import org.gonza.javaplayground.lotto.controller.LottoKiosk;
 import org.gonza.javaplayground.framework.mapper.RouteMapper;
 import org.gonza.javaplayground.lotto.controller.Storage;
-import org.gonza.javaplayground.lotto.domain.coin.CoinFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.receipt.ReceiptFactory;
@@ -32,21 +31,18 @@ public class JavaPlaygroundApplication {
         summer.work();
     }
 
-    private static final Integer PRICE = 1000;
     private static final List<Integer> WINNING_PRICE_RANGE = List.of(0, 0, 0, 5000, 50000, 1500000, 2000000000);
 
     private static Application initializeApplication() throws NoSuchMethodException {
         WinningPriceTable winningPriceTable = new WinningPriceTable(WINNING_PRICE_RANGE);
         ReceiptFactory receiptFactory = new ReceiptFactory(winningPriceTable);
 
-        CoinFactory coinFactory = new CoinFactory(PRICE);
-
         NumberGenerator numberGenerator = new RandomNumberGenerator();
         LottoFactory lottoFactory = new LottoFactory(numberGenerator);
 
         Storage usb = new USB();
 
-        LottoKiosk lottoKiosk = new LottoKiosk(lottoFactory, coinFactory, receiptFactory, usb);
+        LottoKiosk lottoKiosk = new LottoKiosk(lottoFactory, receiptFactory, usb);
         RouteMapper routeMapper = new RouteMapper(lottoKiosk);
         return new LottoApplication(routeMapper);
     }

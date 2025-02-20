@@ -11,7 +11,7 @@ public class PurchaseTest {
         Integer negativePrice = -1;
 
         assertThrows(IllegalArgumentException.class, () -> {
-            new Purchase(negativePrice);
+            Purchase.of(negativePrice);
         });
     }
 }

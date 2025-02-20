@@ -3,6 +3,7 @@ package org.gonza.javaplayground.lotto.domain.lotto;
 import java.util.*;
 
 public class LottoLine {
+    public static final Integer PRICE = 1000;
     public static final Integer SIZE = 6;
     public static final Integer MAX_NUMBER = 45;
     public static final Integer MIN_NUMBER = 1;
