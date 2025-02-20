@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.controller.response.resolver;
+package org.gonza.javaplayground.lotto.ui.adapter;
 
 import org.gonza.javaplayground.lotto.controller.response.MatchRes;
 import org.gonza.javaplayground.framework.mapper.ResponseResolver;

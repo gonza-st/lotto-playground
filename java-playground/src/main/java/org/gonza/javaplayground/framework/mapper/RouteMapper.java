@@ -5,8 +5,8 @@ import org.gonza.javaplayground.lotto.controller.request.MatchReq;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
 import org.gonza.javaplayground.lotto.controller.request.resolver.MatchRequestResolver;
 import org.gonza.javaplayground.lotto.controller.request.resolver.PurchaseRequestResolver;
-import org.gonza.javaplayground.lotto.controller.response.resolver.MatchResponseResolver;
-import org.gonza.javaplayground.lotto.controller.response.resolver.PurchaseResponseResolver;
+import org.gonza.javaplayground.lotto.ui.adapter.MatchResponseResolver;
+import org.gonza.javaplayground.lotto.ui.adapter.PurchaseResponseResolver;
 
 import java.util.Map;
 

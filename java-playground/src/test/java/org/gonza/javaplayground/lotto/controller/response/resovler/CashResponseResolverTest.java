@@ -1,7 +1,7 @@
 package org.gonza.javaplayground.lotto.controller.response.resovler;
 
 import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
-import org.gonza.javaplayground.lotto.controller.response.resolver.PurchaseResponseResolver;
+import org.gonza.javaplayground.lotto.ui.adapter.PurchaseResponseResolver;
 import org.gonza.javaplayground.lotto.ui.LottoResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
