@@ -19,4 +19,18 @@ public class Lottos {
     public int getSize() {
         return this.lottos.size();
     }
+
+    public void matchBy(LottoNumber lottoNumber) {
+        lottos.forEach(lotto -> lotto.matchBy(lottoNumber));
+    }
+
+    public List<Lotto> wonLottos() {
+        return this.lottos.stream()
+                .filter(Lotto::isWon)
+                .toList();
+    }
+
+    public int wonLottosSize() {
+        return this.wonLottos().size();
+    }
 }

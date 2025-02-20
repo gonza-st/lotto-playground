@@ -20,4 +20,11 @@ public class LottoNumber {
     public List<Integer> getNumbers() {
         return this.numbers;
     }
+
+    public int matchBy(LottoNumber lottoNumber) {
+        return this.numbers.stream()
+                .filter(lottoNumber.numbers::contains)
+                .toList()
+                .size();
+    }
 }
