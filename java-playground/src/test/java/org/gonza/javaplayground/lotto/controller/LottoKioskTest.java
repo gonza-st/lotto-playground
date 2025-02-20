@@ -42,7 +42,7 @@ public class LottoKioskTest {
         PurchaseReq validReq = new PurchaseReq(2000);
         PurchaseRes response = sut.handlePurchase(validReq);
 
-        assertEquals(List.of(lottoNumbers, lottoNumbers), response.getLottoNumbers());
+        assertEquals(List.of(lottoNumbers, lottoNumbers), response.lottoNumbers());
     }
 
     @Test
