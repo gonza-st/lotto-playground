@@ -46,9 +46,13 @@ public class Screen {
         printer.println("2. Match Numbers");
         printer.println("==============================");
 
-        String input = scanner.nextLine();
-        Integer selectedType = Integer.parseInt(input);
-        return Option.fromCode(selectedType);
+        try {
+            String input = scanner.nextLine();
+            Integer selectedType = Integer.parseInt(input);
+            return Option.fromCode(selectedType);
+        } catch (NumberFormatException e) {
+            return showIntroduction();
+        }
     }
 
     private LottoRequest handlePurchase() {
@@ -56,9 +60,13 @@ public class Screen {
         printer.println("How much do u wanna buy? (min price is 1000)");
         printer.println("==============================");
 
-        String amount = scanner.nextLine();
-        Integer parsedAmount = Integer.parseInt(amount);
-        return new LottoRequest(Option.PURCHASE, parsedAmount);
+        try {
+            String amount = scanner.nextLine();
+            Integer parsedAmount = Integer.parseInt(amount);
+            return new LottoRequest(Option.PURCHASE, parsedAmount);
+        } catch (NumberFormatException e) {
+            return handlePurchase();
+        }
     }
 
     private LottoRequest handleMatchNumbers() {
@@ -66,7 +74,11 @@ public class Screen {
         printer.println("Enter your lotto line");
         printer.println("==============================");
 
-        String inputNumbers = scanner.nextLine();
-        return new LottoRequest(Option.MATCH, inputNumbers);
+        try {
+            String inputNumbers = scanner.nextLine();
+            return new LottoRequest(Option.MATCH, inputNumbers);
+        } catch (NumberFormatException e) {
+            return handleMatchNumbers();
+        }
     }
 }
