@@ -36,10 +36,10 @@ public class JavaPlaygroundApplication {
     private static final Integer SIZE = 6;
     private static final Integer MAX_NUMBER = 45;
     private static final Integer MIN_NUMBER = 1;
-    private static final List<Integer> WINNING_PRICE_RANGE = List.of(0, 0, 0, 5000, 50000, 1500000, 2000000000);
+    private static final List<Integer> WINNING_PRIZE_RANGE = List.of(0, 0, 0, 5_000, 50_000, 1_500_000, 2_000_000_000);
 
     private static Application initializeApplication() throws NoSuchMethodException {
-        WinningPrizeTable winningPrizeTable = new WinningPrizeTable(WINNING_PRICE_RANGE);
+        WinningPrizeTable winningPrizeTable = new WinningPrizeTable(WINNING_PRIZE_RANGE);
         ReportFactory reportFactory = new ReportFactory(winningPrizeTable);
 
         NumberGenerator numberGenerator = new RandomNumberGenerator();
