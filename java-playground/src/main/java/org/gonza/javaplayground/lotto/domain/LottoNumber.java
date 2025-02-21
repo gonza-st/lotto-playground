@@ -1,9 +1,12 @@
 package org.gonza.javaplayground.lotto.domain;
 
+import org.gonza.javaplayground.lotto.LottoConstant;
+
 import java.util.Collections;
 import java.util.List;
 
 public class LottoNumber {
+
     public static LottoNumber of(List<Integer> numbers) {
         validateNumbers(numbers);
 
@@ -16,13 +19,13 @@ public class LottoNumber {
     }
 
     private static void validateSize(List<Integer> numbers) {
-        if (numbers.size() != 6) {
+        if (numbers.size() != LottoConstant.LOTTO_SIZE) {
             throw new IllegalArgumentException("Number must be 6 numbers");
         }
     }
 
     private static void validateRange(Integer number) {
-        if (number < 1 || number > 45) {
+        if (number < LottoConstant.LOTTO_MIN_NUMBER || number > LottoConstant.LOTTO_MAX_NUMBER) {
             throw new IllegalArgumentException("Number must be between 1 and 45");
         }
     }
