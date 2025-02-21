@@ -15,8 +15,8 @@ public class LottoFactory {
         this.numberGenerator = numberGenerator;
     }
 
-    public Lotto createLotto(Count count) {
-        Integer amount = count.calc(lottoProperties.pricePerLottoLine());
+    public Lotto createLotto(BuyingCount buyingCount) {
+        Integer amount = buyingCount.calculate(lottoProperties.pricePerLottoLine());
         List<List<Integer>> numbers = IntStream.range(0, amount)
                 .mapToObj(this::generateNumbers)
                 .peek(this::validateLottoLine)
