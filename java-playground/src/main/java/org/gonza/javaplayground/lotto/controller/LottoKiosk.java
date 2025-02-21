@@ -8,7 +8,7 @@ import org.gonza.javaplayground.framework.mapper.Controller;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoLine;
-import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultList;
 import org.gonza.javaplayground.lotto.domain.report.Payment;
 import org.gonza.javaplayground.lotto.domain.report.Report;
 import org.gonza.javaplayground.lotto.domain.report.ReportFactory;
@@ -38,7 +38,7 @@ public class LottoKiosk implements Controller {
         LottoLine winningLine = new LottoLine(req.numbers());
 
         Lotto latestLotto = usb.findRecentLotto();
-        LottoResult matchedNumbers = latestLotto.match(winningLine);
+        LottoResultList matchedNumbers = latestLotto.match(winningLine);
 
         Payment payment = usb.findLottoPayment(latestLotto.getId());
         Report report = reportFactory.printReport(payment, matchedNumbers);

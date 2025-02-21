@@ -1,7 +1,7 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
 import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
-import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -44,7 +44,7 @@ public class LottoTest {
         List<Integer> matchingNumber = List.of(1, 2, 13, 14, 25, 33);
         LottoLine matchingLine = new LottoLine(matchingNumber);
 
-        LottoResult result = sut.match(matchingLine);
+        LottoResultList result = sut.match(matchingLine);
 
         Map<Integer, List<LottoLineResult>> resultMap = Map.of(
                 2, List.of(new LottoLineResult(List.of(1, 2)), new LottoLineResult(List.of(13, 14)))

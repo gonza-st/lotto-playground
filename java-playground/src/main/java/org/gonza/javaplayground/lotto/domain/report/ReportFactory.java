@@ -1,7 +1,7 @@
 package org.gonza.javaplayground.lotto.domain.report;
 
 import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
-import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultList;
 import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultMap;
 
 import java.util.List;
@@ -14,15 +14,15 @@ public class ReportFactory {
         this.winningPrizeTable = winningPrizeTable;
     }
 
-    public Report printReport(Payment payment, LottoResult lottoResult) {
-        LottoResultMap resultMap = LottoResultMap.from(lottoResult);
+    public Report printReport(Payment payment, LottoResultList lottoResultList) {
+        LottoResultMap resultMap = LottoResultMap.from(lottoResultList);
 
         List<Article> reportArticles = resultMap.lineResultMap()
                 .entrySet().stream()
                 .map(this::createReportItem)
                 .toList();
 
-        return new Report(lottoResult.getLottoId(), reportArticles, payment.getCost());
+        return new Report(lottoResultList.getLottoId(), reportArticles, payment.getCost());
     }
 
     private Article createReportItem(Map.Entry<Integer, List<LottoLineResult>> entry) {

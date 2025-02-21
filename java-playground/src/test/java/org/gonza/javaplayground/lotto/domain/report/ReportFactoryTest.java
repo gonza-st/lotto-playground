@@ -2,7 +2,7 @@ package org.gonza.javaplayground.lotto.domain.report;
 
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
-import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,7 +29,7 @@ public class ReportFactoryTest {
         String lottoId = UUID.randomUUID().toString();
         LottoLineResult lineResult = new LottoLineResult(List.of(1,2,3));
         List<LottoLineResult> lineResults = List.of(lineResult);
-        LottoResult result = LottoResult.of(lottoId, lineResults);
+        LottoResultList result = LottoResultList.of(lottoId, lineResults);
 
         Report report = sut.printReport(payment, result);
 

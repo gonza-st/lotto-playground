@@ -1,14 +1,12 @@
 package org.gonza.javaplayground.lotto.domain.lotto.result;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
-public class LottoResult {
+public class LottoResultList {
     private final String lottoId;
     private final List<LottoLineResult> lineResults;
 
-    private LottoResult(String lottoId, List<LottoLineResult> lineResults) {
+    private LottoResultList(String lottoId, List<LottoLineResult> lineResults) {
         this.lottoId = lottoId;
         this.lineResults = lineResults;
     }
@@ -21,9 +19,9 @@ public class LottoResult {
         return lineResults;
     }
 
-    public static LottoResult of(String lottoId, List<LottoLineResult> lineResult) {
+    public static LottoResultList of(String lottoId, List<LottoLineResult> lineResult) {
         validate(lineResult);
-        return new LottoResult(lottoId, lineResult);
+        return new LottoResultList(lottoId, lineResult);
     }
 
     private static void validate(List<LottoLineResult> items) {

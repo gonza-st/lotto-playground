@@ -9,10 +9,10 @@ public record LottoResultMap(
         Map<Integer, List<LottoLineResult>> lineResultMap
 ) {
 
-    public static LottoResultMap from(LottoResult lottoResult) {
-        Map<Integer, List<LottoLineResult>> map = lottoResult.getResults().stream()
+    public static LottoResultMap from(LottoResultList lottoResultList) {
+        Map<Integer, List<LottoLineResult>> map = lottoResultList.getResults().stream()
                 .collect(Collectors.groupingBy(LottoLineResult::getMatchedCount));
 
-        return new LottoResultMap(lottoResult.getLottoId(), map);
+        return new LottoResultMap(lottoResultList.getLottoId(), map);
     }
 }
