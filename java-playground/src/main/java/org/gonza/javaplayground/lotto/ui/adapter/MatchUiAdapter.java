@@ -12,7 +12,7 @@ public class MatchUiAdapter extends ResponseResolver<MatchResponse> {
                 .append("당첨 통계 \n")
                 .append("---------\n");
 
-        response.statistics().forEach((statistics) -> {
+        response.getStatistics().forEach((statistics) -> {
             Integer matchCount = statistics.get("winningNumberCount");
 
             Integer price = statistics.get("prize");
@@ -27,7 +27,7 @@ public class MatchUiAdapter extends ResponseResolver<MatchResponse> {
                     .append("\n");
         });
 
-        String formattedProfit = String.format("%.2f",  response.profit());
+        String formattedProfit = String.format("%.2f",  response.getProfit());
         stringBuilder.append("총 수익률은 ").append(formattedProfit).append("입니다.");
 
         return stringBuilder.toString().trim();
