@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.controller.request.resolver;
 
-import org.gonza.javaplayground.lotto.controller.request.MatchReq;
+import org.gonza.javaplayground.lotto.controller.request.MatchRequest;
 import org.gonza.javaplayground.lotto.ui.LottoRequest;
 import org.gonza.javaplayground.lotto.ui.LottoRequestTestFixtures;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,9 +23,9 @@ public class MatchRequestResolverTest {
     @Test
     public void should_separate_number_by_comma() {
         LottoRequest request = LottoRequestTestFixtures.createMatchRequestWithValidBody();
-        MatchReq matchReq = sut.resolve(request);
+        MatchRequest matchRequest = sut.resolve(request);
 
-        assertEquals(List.of(1, 2, 3, 4, 5, 6), matchReq.numbers());
+        assertEquals(List.of(1, 2, 3, 4, 5, 6), matchRequest.numbers());
     }
 
     @Test

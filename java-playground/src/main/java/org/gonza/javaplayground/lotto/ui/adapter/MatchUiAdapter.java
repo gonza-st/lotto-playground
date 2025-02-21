@@ -1,12 +1,12 @@
 package org.gonza.javaplayground.lotto.ui.adapter;
 
-import org.gonza.javaplayground.lotto.controller.response.MatchRes;
+import org.gonza.javaplayground.lotto.controller.response.MatchResponse;
 import org.gonza.javaplayground.framework.mapper.ResponseResolver;
 
-public class MatchUiAdapter extends ResponseResolver<MatchRes> {
+public class MatchUiAdapter extends ResponseResolver<MatchResponse> {
 
     @Override
-    protected String format(MatchRes response) {
+    protected String format(MatchResponse response) {
         StringBuilder stringBuilder = new StringBuilder();
         stringBuilder
                 .append("당첨 통계 \n")
