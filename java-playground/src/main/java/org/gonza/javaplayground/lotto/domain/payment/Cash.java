@@ -1,9 +1,9 @@
 package org.gonza.javaplayground.lotto.domain.payment;
 
-import org.gonza.javaplayground.lotto.domain.lotto.Count;
-import org.gonza.javaplayground.lotto.domain.receipt.Payment;
+import org.gonza.javaplayground.lotto.domain.lotto.BuyingCount;
+import org.gonza.javaplayground.lotto.domain.report.Payment;
 
-public class Cash implements Count, Payment {
+public class Cash implements BuyingCount, Payment {
     private final Integer payment;
 
     private Cash(Integer payment) {
@@ -11,7 +11,7 @@ public class Cash implements Count, Payment {
     }
 
     @Override
-    public Integer calc(Integer pricePerCount) {
+    public Integer calculate(Integer pricePerCount) {
         Integer count = payment / pricePerCount;
         return count;
     }

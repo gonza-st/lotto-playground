@@ -1,17 +1,17 @@
 package org.gonza.javaplayground.lotto.controller.request.resolver;
 
-import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
+import org.gonza.javaplayground.lotto.controller.request.PurchaseRequest;
 import org.gonza.javaplayground.framework.mapper.RequestResolver;
 import org.gonza.javaplayground.lotto.ui.LottoRequest;
 
-public class PurchaseRequestResolver implements RequestResolver<PurchaseReq> {
+public class PurchaseRequestResolver implements RequestResolver<PurchaseRequest> {
     @Override
-    public PurchaseReq resolve(LottoRequest lottoRequest) {
+    public PurchaseRequest resolve(LottoRequest lottoRequest) {
         Integer amount = lottoRequest.getBody()
                 .map(this::castToInteger)
                 .orElseThrow();
 
-        PurchaseReq req = new PurchaseReq(amount);
+        PurchaseRequest req = new PurchaseRequest(amount);
         return req;
     }
 

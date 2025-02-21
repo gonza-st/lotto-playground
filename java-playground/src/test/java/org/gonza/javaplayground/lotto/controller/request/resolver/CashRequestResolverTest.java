@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.controller.request.resolver;
 
-import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
+import org.gonza.javaplayground.lotto.controller.request.PurchaseRequest;
 import org.gonza.javaplayground.lotto.ui.LottoRequest;
 import org.gonza.javaplayground.lotto.ui.LottoRequestTestFixtures;
 import org.junit.jupiter.api.BeforeEach;
@@ -37,7 +37,7 @@ public class CashRequestResolverTest {
     @Test
     public void should_return_PurchaseRequest_when_body_is_integer_value() {
         LottoRequest stringBody = LottoRequestTestFixtures.createRequestWithIntegerBody();
-        PurchaseReq req = sut.resolve(stringBody);
+        PurchaseRequest req = sut.resolve(stringBody);
 
         assertEquals(stringBody.getBody().get(), req.payment());
     }

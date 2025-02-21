@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.controller.request;
 
-public record PurchaseReq(
+public record PurchaseRequest(
         Integer payment
 ) {
 }

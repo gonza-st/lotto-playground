@@ -22,6 +22,6 @@ public class LottoFactoryTest {
         Cash cash = Cash.of(2000);
         Lotto lotto = sut.createLotto(cash);
 
-        assertEquals(cash.calc(1000), lotto.countLottoLines());
+        assertEquals(cash.calculate(1000), lotto.countLottoLines());
     }
 }

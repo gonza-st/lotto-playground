@@ -1,22 +1,22 @@
-package org.gonza.javaplayground.lotto.domain.receipt;
+package org.gonza.javaplayground.lotto.domain.report;
 
 import java.util.List;
 import java.util.Map;
 
-public class Receipt {
+public class Report {
     private final String lottoId;
-    private final List<Item> items;
+    private final List<Article> articles;
     private final Integer cost;
 
-    public Receipt(String lottoId, List<Item> items, Integer cost) {
+    public Report(String lottoId, List<Article> articles, Integer cost) {
         this.lottoId = lottoId;
-        this.items = items;
+        this.articles = articles;
         this.cost = cost;
     }
 
     public Double getProfit() {
-        Double sumOfPrice = items.stream()
-                .mapToDouble(Item::prize)
+        Double sumOfPrice = articles.stream()
+                .mapToDouble(Article::prize)
                 .sum();
 
         if (sumOfPrice == 0.0) {
@@ -27,8 +27,8 @@ public class Receipt {
     }
 
     public List<Map<String, Integer>> getStatistics() {
-        return items.stream()
-                .map(Item::toMap)
+        return articles.stream()
+                .map(Article::toMap)
                 .toList();
     }
 

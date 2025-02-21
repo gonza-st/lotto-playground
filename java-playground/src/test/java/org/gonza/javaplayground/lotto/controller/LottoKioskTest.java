@@ -1,16 +1,16 @@
 package org.gonza.javaplayground.lotto.controller;
 
-import org.gonza.javaplayground.lotto.controller.request.MatchReq;
-import org.gonza.javaplayground.lotto.controller.request.PurchaseReq;
-import org.gonza.javaplayground.lotto.controller.response.MatchRes;
-import org.gonza.javaplayground.lotto.controller.response.PurchaseRes;
+import org.gonza.javaplayground.lotto.controller.request.MatchRequest;
+import org.gonza.javaplayground.lotto.controller.request.PurchaseRequest;
+import org.gonza.javaplayground.lotto.controller.response.MatchResponse;
+import org.gonza.javaplayground.lotto.controller.response.PurchaseResponse;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;
-import org.gonza.javaplayground.lotto.domain.receipt.ReceiptFactory;
-import org.gonza.javaplayground.lotto.domain.receipt.PriceTestFixtures;
-import org.gonza.javaplayground.lotto.domain.receipt.WinningPrizeTable;
+import org.gonza.javaplayground.lotto.domain.report.ReportFactory;
+import org.gonza.javaplayground.lotto.domain.report.PriceTestFixtures;
+import org.gonza.javaplayground.lotto.domain.report.WinningPrizeTable;
 import org.gonza.javaplayground.lotto.repository.UsbStub;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -27,30 +27,30 @@ public class LottoKioskTest {
     @BeforeEach
     public void setUp() {
         WinningPrizeTable winningPrizeTable = new WinningPrizeTable(WINNING_PRICE_RANGE);
-        ReceiptFactory receiptFactory = new ReceiptFactory(winningPrizeTable);
+        ReportFactory reportFactory = new ReportFactory(winningPrizeTable);
 
         LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
         NumberGenerator numberGenerator = new NumberGeneratorStub();
         LottoFactory lottoFactory = new LottoFactory(properties, numberGenerator);
 
         Storage usb = new UsbStub();
-        this.sut = new LottoKiosk(lottoFactory, receiptFactory, usb);
+        this.sut = new LottoKiosk(lottoFactory, reportFactory, usb);
     }
 
     @Test
     public void should_return_available_purchase_count_and_lotto_numbers() {
         List<Integer> lottoNumbers = NumberGeneratorStub.FIXED_LIST;
 
-        PurchaseReq validReq = new PurchaseReq(2000);
-        PurchaseRes response = sut.handlePurchase(validReq);
+        PurchaseRequest validReq = new PurchaseRequest(2000);
+        PurchaseResponse response = sut.handlePurchase(validReq);
 
         assertEquals(List.of(lottoNumbers, lottoNumbers), response.lottoNumbers());
     }
 
     @Test
     public void should_return_profit_by_percent_and_statistics() {
-        MatchReq req = new MatchReq(List.of(1, 2, 3, 4, 5, 6));
-        MatchRes res = sut.handleMatchNumbers(req);
+        MatchRequest req = new MatchRequest(List.of(1, 2, 3, 4, 5, 6));
+        MatchResponse res = sut.handleMatchNumbers(req);
 
         // TODO ("usb 목킹 필요")
     }

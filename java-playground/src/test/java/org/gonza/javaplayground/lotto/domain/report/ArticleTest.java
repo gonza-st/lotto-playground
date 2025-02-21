@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.domain.receipt;
+package org.gonza.javaplayground.lotto.domain.report;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,12 +7,12 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ItemTest {
-    private Item sut;
+public class ArticleTest {
+    private Article sut;
 
     @BeforeEach
     public void setUp() {
-        this.sut = new Item(1, 10, 100);
+        this.sut = new Article(1, 10, 100);
     }
 
     @Test
