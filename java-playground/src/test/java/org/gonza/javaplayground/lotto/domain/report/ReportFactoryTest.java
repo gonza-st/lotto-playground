@@ -29,7 +29,7 @@ public class ReportFactoryTest {
         String lottoId = UUID.randomUUID().toString();
         LottoLineResult lineResult = new LottoLineResult(List.of(1,2,3));
         List<LottoLineResult> lineResults = List.of(lineResult);
-        LottoResultList result = LottoResultList.of(lottoId, lineResults);
+        LottoResultList result = new LottoResultList(lottoId, lineResults);
 
         Report report = sut.printReport(payment, result);
 
