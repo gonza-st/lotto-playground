@@ -1,8 +1,8 @@
 package org.gonza.javaplayground.lotto.domain.report;
 
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoLineResult;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultList;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -29,9 +29,9 @@ public class ReportFactoryTest {
         String lottoId = UUID.randomUUID().toString();
         LottoLineResult lineResult = new LottoLineResult(List.of(1,2,3));
         List<LottoLineResult> lineResults = List.of(lineResult);
-        LottoResult result = LottoResult.of(lottoId, lineResults);
+        LottoResultList result = new LottoResultList(lottoId, lineResults);
 
-        Report report = sut.printReceipt(payment, result);
+        Report report = sut.printReport(payment, result);
 
         Double expectedProfit = PRICE_LIST.get(3) / 1000.0;
         assertEquals(expectedProfit, report.getProfit());

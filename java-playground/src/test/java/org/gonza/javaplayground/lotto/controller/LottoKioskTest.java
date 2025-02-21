@@ -4,10 +4,11 @@ import org.gonza.javaplayground.lotto.controller.request.MatchRequest;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseRequest;
 import org.gonza.javaplayground.lotto.controller.response.MatchResponse;
 import org.gonza.javaplayground.lotto.controller.response.PurchaseResponse;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoLineFactory;
 import org.gonza.javaplayground.lotto.domain.report.ReportFactory;
 import org.gonza.javaplayground.lotto.domain.report.PriceTestFixtures;
 import org.gonza.javaplayground.lotto.domain.report.WinningPrizeTable;
@@ -31,7 +32,8 @@ public class LottoKioskTest {
 
         LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
         NumberGenerator numberGenerator = new NumberGeneratorStub();
-        LottoFactory lottoFactory = new LottoFactory(properties, numberGenerator);
+        LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, numberGenerator);
+        LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory);
 
         Storage usb = new UsbStub();
         this.sut = new LottoKiosk(lottoFactory, reportFactory, usb);

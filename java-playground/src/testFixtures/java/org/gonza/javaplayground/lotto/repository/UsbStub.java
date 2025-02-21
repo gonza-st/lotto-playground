@@ -2,10 +2,11 @@ package org.gonza.javaplayground.lotto.repository;
 
 import org.gonza.javaplayground.lotto.controller.Storage;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoLineFactory;
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.gonza.javaplayground.lotto.domain.lotto.BuyingCount;
-import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.Lotto;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
 
 public class UsbStub implements Storage {
@@ -16,9 +17,10 @@ public class UsbStub implements Storage {
 
     @Override
     public Lotto findRecentLotto() {
-        RandomNumberGenerator generator = new RandomNumberGenerator();
+        RandomNumberGenerator numberGenerator = new RandomNumberGenerator();
         LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
-        LottoFactory factory = new LottoFactory(properties, generator);
+        LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, numberGenerator);
+        LottoFactory factory = new LottoFactory(properties, lottoLineFactory);
         BuyingCount coin = Cash.of(1000);
         Lotto lotto = factory.createLotto(coin);
 

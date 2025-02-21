@@ -1,7 +1,8 @@
 package org.gonza.javaplayground.lotto.domain.report;
 
-import org.gonza.javaplayground.lotto.domain.lotto.LottoLineResult;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultList;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultMap;
 
 import java.util.List;
 import java.util.Map;
@@ -13,17 +14,18 @@ public class ReportFactory {
         this.winningPrizeTable = winningPrizeTable;
     }
 
-    public Report printReceipt(Payment payment, LottoResult lottoResult) {
-        Map<Integer, List<LottoLineResult>> mapByMatchingCount = lottoResult.getResults();
+    public Report printReport(Payment payment, LottoResultList lottoResultList) {
+        LottoResultMap resultMap = LottoResultMap.from(lottoResultList);
 
-        List<Article> reportArticles = mapByMatchingCount.entrySet().stream()
-                .map(this::createReceiptItem)
+        List<Article> reportArticles = resultMap.result()
+                .entrySet().stream()
+                .map(this::createReportItem)
                 .toList();
 
-        return new Report(lottoResult.getLottoId(), reportArticles, payment.getCost());
+        return new Report(lottoResultList.lottoId(), reportArticles, payment.getCost());
     }
 
-    private Article createReceiptItem(Map.Entry<Integer, List<LottoLineResult>> entry) {
+    private Article createReportItem(Map.Entry<Integer, List<LottoLineResult>> entry) {
         Integer matchingNumberCount = entry.getKey();
         Integer prize = winningPrizeTable.getWinningPrice(matchingNumberCount);
         Integer resultCount = entry.getValue().size();
