@@ -12,6 +12,7 @@ import org.gonza.javaplayground.lotto.controller.Storage;
 import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoLineFactory;
 import org.gonza.javaplayground.lotto.domain.report.ReportFactory;
 import org.gonza.javaplayground.lotto.domain.report.WinningPrizeTable;
 import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
@@ -44,7 +45,9 @@ public class JavaPlaygroundApplication {
 
         NumberGenerator numberGenerator = new RandomNumberGenerator();
         LottoProperties properties = new LottoProperties(PRICE, SIZE, MIN_NUMBER, MAX_NUMBER);
-        LottoFactory lottoFactory = new LottoFactory(properties, numberGenerator);
+
+        LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, numberGenerator);
+        LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory);
 
         Storage usb = new USB();
 

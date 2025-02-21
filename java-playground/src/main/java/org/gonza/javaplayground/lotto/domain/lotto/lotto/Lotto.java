@@ -10,11 +10,9 @@ public class Lotto {
     private final String id;
     private final List<LottoLine> lottoLines;
 
-    public Lotto(List<List<Integer>> numbers) {
+    public Lotto(List<LottoLine> numbers) {
         this.id = UUID.randomUUID().toString();
-        this.lottoLines = numbers.stream()
-                .map(LottoLine::new)
-                .toList();
+        this.lottoLines = numbers;
     }
 
     public LottoResultList match(LottoLine candidate) {

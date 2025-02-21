@@ -11,15 +11,19 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LottoTest {
-    private List<List<Integer>> givenNumbers;
+    private List<LottoLine> givenNumbers;
     private Lotto sut;
 
     @BeforeEach
     public void setUp() {
-        this.givenNumbers = List.of(
+        List<List<Integer>> rawNumbers = List.of(
                 List.of(1, 2, 3, 4, 5, 6),
                 List.of(11, 12, 13, 14, 15, 16)
         );
+
+        this.givenNumbers = rawNumbers.stream()
+                .map(LottoLine::new)
+                .toList();
 
         this.sut = new Lotto(givenNumbers);
     }
