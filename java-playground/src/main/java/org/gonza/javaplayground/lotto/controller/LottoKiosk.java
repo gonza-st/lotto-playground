@@ -8,7 +8,7 @@ import org.gonza.javaplayground.framework.mapper.Controller;
 import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoLine;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResult;
 import org.gonza.javaplayground.lotto.domain.report.Payment;
 import org.gonza.javaplayground.lotto.domain.report.Report;
 import org.gonza.javaplayground.lotto.domain.report.ReportFactory;

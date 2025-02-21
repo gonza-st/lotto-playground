@@ -1,5 +1,7 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
+
 import java.util.*;
 
 public class LottoLine {

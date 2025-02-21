@@ -1,7 +1,7 @@
 package org.gonza.javaplayground.lotto.domain.report;
 
-import org.gonza.javaplayground.lotto.domain.lotto.LottoLineResult;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResult;
 
 import java.util.List;
 import java.util.Map;

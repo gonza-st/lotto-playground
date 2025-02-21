@@ -1,5 +1,8 @@
 package org.gonza.javaplayground.lotto.domain.lotto;
 
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResult;
+
 import java.util.List;
 import java.util.UUID;
 

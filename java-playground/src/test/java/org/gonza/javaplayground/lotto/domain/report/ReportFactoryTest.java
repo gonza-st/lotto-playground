@@ -1,8 +1,8 @@
 package org.gonza.javaplayground.lotto.domain.report;
 
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoLineResult;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResult;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
