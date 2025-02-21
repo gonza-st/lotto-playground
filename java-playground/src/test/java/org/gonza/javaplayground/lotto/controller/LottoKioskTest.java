@@ -4,7 +4,7 @@ import org.gonza.javaplayground.lotto.controller.request.MatchRequest;
 import org.gonza.javaplayground.lotto.controller.request.PurchaseRequest;
 import org.gonza.javaplayground.lotto.controller.response.MatchResponse;
 import org.gonza.javaplayground.lotto.controller.response.PurchaseResponse;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;

@@ -1,5 +1,8 @@
-package org.gonza.javaplayground.lotto.domain.lotto;
+package org.gonza.javaplayground.lotto.domain.lotto.lotto;
 
+import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
+import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
+import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

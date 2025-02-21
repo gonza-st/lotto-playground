@@ -1,4 +1,8 @@
-package org.gonza.javaplayground.lotto.domain.lotto;
+package org.gonza.javaplayground.lotto.domain.lotto.lotto;
+
+import org.gonza.javaplayground.lotto.domain.lotto.BuyingCount;
+import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
+import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 
 import java.util.HashSet;
 import java.util.List;

@@ -2,7 +2,7 @@ package org.gonza.javaplayground.lotto.repository;
 
 import org.gonza.javaplayground.lotto.controller.Storage;
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
-import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.Lotto;
 
 import java.util.*;
 

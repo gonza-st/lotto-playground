@@ -4,8 +4,8 @@ import org.gonza.javaplayground.lotto.controller.Storage;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.gonza.javaplayground.lotto.domain.lotto.BuyingCount;
-import org.gonza.javaplayground.lotto.domain.lotto.Lotto;
-import org.gonza.javaplayground.lotto.domain.lotto.LottoFactory;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.Lotto;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
 
 public class UsbStub implements Storage {
