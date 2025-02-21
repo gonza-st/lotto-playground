@@ -6,20 +6,18 @@ import org.gonza.kotlinplayground.dto.MatchResultDto
 data class Lottos(
     val value: List<Lotto>,
 ) {
-    fun print(): List<String> = value.map { it.print() }
+    fun print(): List<String> = value.map { it.toString() }
 
-    fun matchResult(winningLotto: Lotto): MatchResultDto {
-        val matchResultDto = MatchResultDto()
-        for (lotto: Lotto in value) {
-            val matchCount: Int = lotto.matchCount(other = winningLotto)
-            when (matchCount) {
-                3 -> matchResultDto.three += 1
-                4 -> matchResultDto.four += 1
-                5 -> matchResultDto.five += 1
-                6 -> matchResultDto.six += 1
+    fun matchResult(winningLotto: Lotto): MatchResultDto =
+        value
+            .groupingBy { it.matchCount(other = winningLotto) }
+            .eachCount()
+            .let { counts ->
+                MatchResultDto(
+                    three = counts[3] ?: 0,
+                    four = counts[4] ?: 0,
+                    five = counts[5] ?: 0,
+                    six = counts[6] ?: 0,
+                )
             }
-        }
-
-        return matchResultDto
-    }
 }

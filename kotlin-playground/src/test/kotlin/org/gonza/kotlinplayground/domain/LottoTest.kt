@@ -36,7 +36,7 @@ class LottoTest {
             )
 
         val lotto = Lotto.create(lottoNumberSet = lottoSet)
-        val result: String = lotto.print()
+        val result: String = lotto.toString()
 
         val expectedValue = "[1, 2, 3, 4, 5, 6]"
 

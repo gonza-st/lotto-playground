@@ -7,9 +7,14 @@ class LottoNumberTest {
     @Test
     fun `로또 번호는 1~45 사이여야 한다`() {
         val passedNumber: List<Int> = listOf(1, 44)
-        val failedNumber: List<Int> = listOf(0, 46)
 
         passedNumber.map { LottoNumber(it) }
+    }
+
+    @org.junit.jupiter.api.Test
+    fun `로또 번호가 1~45 사이가 아니라면 에러가 발생한다`() {
+        val failedNumber: List<Int> = listOf(0, 46)
+
         Assertions
             .assertThatThrownBy { failedNumber.map { LottoNumber(it) } }
             .isInstanceOf(IllegalArgumentException::class.java)
@@ -19,7 +24,7 @@ class LottoNumberTest {
     @Test
     fun `로또 번호를 출력한다`() {
         val lottoNumber: LottoNumber = LottoNumber(1)
-        val result: String = lottoNumber.print()
+        val result: String = lottoNumber.toString()
 
         val expectedValue: String = "1"
 
@@ -27,7 +32,7 @@ class LottoNumberTest {
     }
 
     @Test
-    fun `로또 번호는 같은 값이면 같다`() {
+    fun `로또 번호 객체가 같은 값을 가졌다면 동일한 객체로 판단한다`() {
         val lottoNumber1: LottoNumber = LottoNumber(1)
         val lottoNumber2: LottoNumber = LottoNumber(1)
 

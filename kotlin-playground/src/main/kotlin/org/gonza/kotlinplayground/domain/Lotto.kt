@@ -39,19 +39,12 @@ class Lotto private constructor(
         fun create(): Lotto {
             val numbers = mutableSetOf<LottoNumber>()
             while (numbers.size < LottoRange.SIZE.value) {
-                val number = (LottoRange.START.value..LottoRange.END.value).random()
+                val number = LottoRange.createValidNumber()
                 numbers.add(LottoNumber(number))
             }
             return Lotto(numbers)
         }
     }
-
-    fun print(): String =
-        lottoNumberSet.joinToString(
-            separator = ", ",
-            prefix = "[",
-            postfix = "]",
-        ) { it.print() }
 
     fun matchCount(other: Lotto): Int = lottoNumberSet.intersect(other.lottoNumberSet).size
 
@@ -65,4 +58,11 @@ class Lotto private constructor(
     }
 
     override fun hashCode(): Int = lottoNumberSet.hashCode()
+
+    override fun toString(): String =
+        lottoNumberSet.joinToString(
+            separator = ", ",
+            prefix = "[",
+            postfix = "]",
+        ) { it.toString() }
 }
