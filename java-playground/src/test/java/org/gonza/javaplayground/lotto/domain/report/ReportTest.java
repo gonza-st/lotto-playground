@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.domain.receipt;
+package org.gonza.javaplayground.lotto.domain.report;
 
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -8,7 +8,7 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ReceiptTest {
+public class ReportTest {
 
     private static final String id = UUID.randomUUID().toString();
 
@@ -16,26 +16,26 @@ public class ReceiptTest {
     class ProfitTest {
         @Test
         public void should_return_profit() {
-            List<Item> items = List.of(
-                    new Item(0, 500, 1)
+            List<Article> articles = List.of(
+                    new Article(0, 500, 1)
             );
             Integer cost = 1000;
 
-            Receipt receipt = new Receipt(id, items, cost);
+            Report report = new Report(id, articles, cost);
 
-            assertEquals(0.5, receipt.getProfit());
+            assertEquals(0.5, report.getProfit());
         }
 
         @Test
         public void should_return_if_no_winning_items_exist() {
-            List<Item> items = List.of(
-                    new Item(0, 0, 1)
+            List<Article> articles = List.of(
+                    new Article(0, 0, 1)
             );
             Integer cost = 100;
 
-            Receipt receipt = new Receipt(id, items, cost);
+            Report report = new Report(id, articles, cost);
 
-            assertEquals(0.0, receipt.getProfit());
+            assertEquals(0.0, report.getProfit());
         }
     }
 }

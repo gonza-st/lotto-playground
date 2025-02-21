@@ -1,7 +1,7 @@
 package org.gonza.javaplayground.lotto.domain.payment;
 
 import org.gonza.javaplayground.lotto.domain.lotto.BuyingCount;
-import org.gonza.javaplayground.lotto.domain.receipt.Payment;
+import org.gonza.javaplayground.lotto.domain.report.Payment;
 
 public class Cash implements BuyingCount, Payment {
     private final Integer payment;

@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.domain.receipt;
+package org.gonza.javaplayground.lotto.domain.report;
 
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoLineResult;
@@ -11,15 +11,15 @@ import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class ReceiptFactoryTest {
+public class ReportFactoryTest {
     private static final List<Integer> PRICE_LIST = PriceTestFixtures.WINNING_PRICE_RANGE;
 
-    private ReceiptFactory sut;
+    private ReportFactory sut;
 
     @BeforeEach
     public void setUp() {
         WinningPrizeTable table = new WinningPrizeTable(PRICE_LIST);
-        this.sut = new ReceiptFactory(table);
+        this.sut = new ReportFactory(table);
     }
 
     @Test
@@ -31,9 +31,9 @@ public class ReceiptFactoryTest {
         List<LottoLineResult> lineResults = List.of(lineResult);
         LottoResult result = LottoResult.of(lottoId, lineResults);
 
-        Receipt receipt = sut.printReceipt(payment, result);
+        Report report = sut.printReceipt(payment, result);
 
         Double expectedProfit = PRICE_LIST.get(3) / 1000.0;
-        assertEquals(expectedProfit, receipt.getProfit());
+        assertEquals(expectedProfit, report.getProfit());
     }
 }

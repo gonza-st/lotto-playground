@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.domain.receipt;
+package org.gonza.javaplayground.lotto.domain.report;
 
 import java.util.List;
 

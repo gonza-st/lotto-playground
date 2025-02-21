@@ -1,8 +1,8 @@
-package org.gonza.javaplayground.lotto.domain.receipt;
+package org.gonza.javaplayground.lotto.domain.report;
 
 import java.util.Map;
 
-public record Item(
+public record Article(
         Integer winningNumberCount,
         Integer prize,
         Integer count

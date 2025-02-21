@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.lotto.domain.receipt;
+package org.gonza.javaplayground.lotto.domain.report;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
