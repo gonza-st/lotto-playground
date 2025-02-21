@@ -35,10 +35,10 @@ public class LottoKiosk implements Controller {
     }
 
     public MatchResponse handleMatchNumbers(MatchRequest req) {
-        LottoLine winningLine = new LottoLine(req.numbers());
+        LottoLine matchingNumbers = lottoFactory.createLottoLine(req.numbers());
 
         Lotto latestLotto = usb.findRecentLotto();
-        LottoResultList matchedNumbers = latestLotto.match(winningLine);
+        LottoResultList matchedNumbers = latestLotto.match(matchingNumbers);
 
         Payment payment = usb.findLottoPayment(latestLotto.getId());
         Report report = reportFactory.printReport(payment, matchedNumbers);
