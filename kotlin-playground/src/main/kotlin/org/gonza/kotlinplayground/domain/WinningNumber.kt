@@ -1,10 +1,11 @@
 package org.gonza.kotlinplayground.domain
 
+import org.gonza.kotlinplayground.utils.LottoConstants
 import org.gonza.kotlinplayground.utils.LottoStringConstants
 
 class WinningNumber private constructor(val numberList: List<LottoNumber>) {
     init {
-        require(numberList.size == 6) {
+        require(numberList.size == LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT) {
             LottoStringConstants.INVALID_WINNING_NUMBER_FORMAT
         }
     }
