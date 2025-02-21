@@ -35,7 +35,6 @@ class LottoTicket(
 
     fun getMatchedNumber(other: LottoTicket): List<LottoNumber> =
         lottoNumberList
-            .toSet()
             .intersect(other.lottoNumberList.toSet())
             .toList()
 }
