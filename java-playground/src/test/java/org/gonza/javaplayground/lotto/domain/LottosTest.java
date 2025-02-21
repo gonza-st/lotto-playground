@@ -22,7 +22,7 @@ class LottosTest {
         LottoNumber lottoNumber = LottoNumber.of(List.of(1, 2, 3, 4, 5, 6));
         Lottos lottos = Lottos.of(List.of(lottoNumber, lottoNumber));
 
-        lottos.matchBy(lottoNumber);
+        lottos.verify(lottoNumber);
 
         assertEquals(2, lottos.wonLottosSize());
     }
@@ -33,7 +33,7 @@ class LottosTest {
         LottoNumber lostNumber = LottoNumber.of(List.of(7, 8, 9, 10, 11, 12));
         Lottos lottos = Lottos.of(List.of(wonNumber, lostNumber));
 
-        lottos.matchBy(wonNumber);
+        lottos.verify(wonNumber);
 
         assertEquals(1, lottos.wonLottosSize());
     }
@@ -44,7 +44,7 @@ class LottosTest {
         LottoNumber lostNumber = LottoNumber.of(List.of(7, 8, 9, 10, 11, 12));
         Lottos lottos = Lottos.of(List.of(lostNumber, lostNumber));
 
-        lottos.matchBy(wonNumber);
+        lottos.verify(wonNumber);
 
         assertEquals(0, lottos.wonLottosSize());
     }

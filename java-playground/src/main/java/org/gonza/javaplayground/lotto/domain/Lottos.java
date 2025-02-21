@@ -20,8 +20,8 @@ public class Lottos {
         return this.lottos.size();
     }
 
-    public void matchBy(LottoNumber lottoNumber) {
-        lottos.forEach(lotto -> lotto.matchBy(lottoNumber));
+    public void verify(LottoNumber lottoNumber) {
+        lottos.forEach(lotto -> lotto.verify(lottoNumber));
     }
 
     public List<Lotto> wonLottos() {

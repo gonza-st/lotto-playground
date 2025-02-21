@@ -22,16 +22,27 @@ public class Lotto {
         return this.status.isWon();
     }
 
-    public void matchBy(LottoNumber lottoNumber) {
+    public void verify(LottoNumber lottoNumber) {
         int matchedCount = this.numbers.matchBy(lottoNumber);
+        determineResult(matchedCount);
+    }
 
+    private void determineResult(int matchedCount) {
         if (matchedCount >= 3) {
-            this.rank = Rank.of(matchedCount);
-            this.status = LottoStatus.WON;
+            win(matchedCount);
         }
 
         if (matchedCount < 3) {
-            this.status = LottoStatus.LOST;
+            lose();
         }
+    }
+
+    private void lose() {
+        this.status = LottoStatus.LOST;
+    }
+
+    private void win(int matchedCount) {
+        this.rank = Rank.of(matchedCount);
+        this.status = LottoStatus.WON;
     }
 }
