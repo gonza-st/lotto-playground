@@ -31,7 +31,7 @@ public class ReportFactoryTest {
         List<LottoLineResult> lineResults = List.of(lineResult);
         LottoResult result = LottoResult.of(lottoId, lineResults);
 
-        Report report = sut.printReceipt(payment, result);
+        Report report = sut.printReport(payment, result);
 
         Double expectedProfit = PRICE_LIST.get(3) / 1000.0;
         assertEquals(expectedProfit, report.getProfit());

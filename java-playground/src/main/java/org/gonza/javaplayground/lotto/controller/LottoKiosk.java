@@ -41,7 +41,7 @@ public class LottoKiosk implements Controller {
         LottoResult matchedNumbers = latestLotto.match(winningLine);
 
         Payment payment = usb.findLottoPayment(latestLotto.getId());
-        Report report = reportFactory.printReceipt(payment, matchedNumbers);
+        Report report = reportFactory.printReport(payment, matchedNumbers);
 
         return new MatchResponse(
                 report.getLottoId(),

@@ -13,17 +13,17 @@ public class ReportFactory {
         this.winningPrizeTable = winningPrizeTable;
     }
 
-    public Report printReceipt(Payment payment, LottoResult lottoResult) {
+    public Report printReport(Payment payment, LottoResult lottoResult) {
         Map<Integer, List<LottoLineResult>> mapByMatchingCount = lottoResult.getResults();
 
         List<Article> reportArticles = mapByMatchingCount.entrySet().stream()
-                .map(this::createReceiptItem)
+                .map(this::createReportItem)
                 .toList();
 
         return new Report(lottoResult.getLottoId(), reportArticles, payment.getCost());
     }
 
-    private Article createReceiptItem(Map.Entry<Integer, List<LottoLineResult>> entry) {
+    private Article createReportItem(Map.Entry<Integer, List<LottoLineResult>> entry) {
         Integer matchingNumberCount = entry.getKey();
         Integer prize = winningPrizeTable.getWinningPrice(matchingNumberCount);
         Integer resultCount = entry.getValue().size();
