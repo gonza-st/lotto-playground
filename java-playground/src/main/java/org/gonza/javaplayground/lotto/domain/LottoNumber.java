@@ -1,5 +1,6 @@
 package org.gonza.javaplayground.lotto.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class LottoNumber {
@@ -18,7 +19,7 @@ public class LottoNumber {
     }
 
     public List<Integer> getNumbers() {
-        return this.numbers;
+        return Collections.unmodifiableList(this.numbers);
     }
 
     public int matchBy(LottoNumber lottoNumber) {
