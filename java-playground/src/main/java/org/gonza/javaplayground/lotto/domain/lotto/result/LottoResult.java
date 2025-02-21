@@ -17,9 +17,8 @@ public class LottoResult {
         return lottoId;
     }
 
-    public Map<Integer, List<LottoLineResult>> getResults() {
-        return lineResults.stream()
-                .collect(Collectors.groupingBy(LottoLineResult::getMatchedCount));
+    public List<LottoLineResult> getResults() {
+        return lineResults;
     }
 
     public static LottoResult of(String lottoId, List<LottoLineResult> lineResult) {

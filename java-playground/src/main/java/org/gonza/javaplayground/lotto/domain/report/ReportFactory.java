@@ -2,6 +2,7 @@ package org.gonza.javaplayground.lotto.domain.report;
 
 import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
 import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResult;
+import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultMap;
 
 import java.util.List;
 import java.util.Map;
@@ -14,9 +15,10 @@ public class ReportFactory {
     }
 
     public Report printReport(Payment payment, LottoResult lottoResult) {
-        Map<Integer, List<LottoLineResult>> mapByMatchingCount = lottoResult.getResults();
+        LottoResultMap resultMap = LottoResultMap.from(lottoResult);
 
-        List<Article> reportArticles = mapByMatchingCount.entrySet().stream()
+        List<Article> reportArticles = resultMap.lineResultMap()
+                .entrySet().stream()
                 .map(this::createReportItem)
                 .toList();
 
