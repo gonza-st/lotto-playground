@@ -28,12 +28,4 @@ class AmountTest {
             Amount(total = -1)
         }
     }
-
-    @Test
-    fun `구매할 수 있는 로또 매수를 가진다`() {
-        val amount = Amount(total = 14000)
-        val expectedCount = amount.total / LottoConstants.LOTTO_PRICE
-
-        assertEquals(expectedCount, amount.maxPurchase)
-    }
 }

@@ -13,29 +13,30 @@ class LottoRunner(
     private val inputView: InputView,
 ) {
     fun run() {
-        val amount: Amount = purchaseLotto()
-        val lottoTickets: LottoTickets = getLottoTickets(amount = amount)
+        val purchase: Purchase = purchaseLotto()
+        val lottoTickets: LottoTickets = getLottoTickets(totalPaper = purchase.totalPaper)
         printLotto(lottoTickets = lottoTickets)
         val winningLotto = getWinningLotto()
-        lottoStatistics(answer = winningLotto.numberList, lottoTickets = lottoTickets, purchase = amount.maxPurchase)
+        lottoStatistics(answer = winningLotto.numberList, lottoTickets = lottoTickets, purchase = purchase.totalPaper)
     }
 
-    private fun purchaseLotto(): Amount {
+    private fun purchaseLotto(): Purchase {
         printView.printWithLine(LottoStringConstants.BEFORE_PURCHASE_INPUT_HELP_TEXT)
         try {
-            val purchase = inputView.input().trim().toInt()
-            val amount = Amount(total = purchase)
-            printView.printWithLine("${amount.maxPurchase}${LottoStringConstants.AFTER_PURCHASE_INPUT_HELP_TEXT}")
+            val totalInput = inputView.input().trim().toInt()
+            val amount = Amount(total = totalInput)
+            val purchase = Purchase(amount = amount)
+            printView.printWithLine("${purchase.totalPaper}${LottoStringConstants.AFTER_PURCHASE_INPUT_HELP_TEXT}")
 
-            return amount
+            return purchase
         } catch (e: NumberFormatException) {
             throw NumberFormatException(LottoStringConstants.INVALID_PURCHASE_FORMAT)
         }
     }
 
-    private fun getLottoTickets(amount: Amount): LottoTickets {
+    private fun getLottoTickets(totalPaper: Int): LottoTickets {
         val lottoList: MutableList<Lotto> = mutableListOf()
-        repeat(amount.maxPurchase) {
+        repeat(totalPaper) {
             val lottoNumberList: List<LottoNumber> = LottoNumberGenerator.generate(
                 range = LottoConstants.LOTTO_NUMBER_RANGE.toList(),
                 take = LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT
