@@ -25,7 +25,7 @@ class AmountTest {
     @Test
     fun `금액이 음수일 경우 예외를 던진다`() {
         assertThrows<IllegalArgumentException> {
-            Amount(total = -1000)
+            Amount(total = -1)
         }
     }
 
