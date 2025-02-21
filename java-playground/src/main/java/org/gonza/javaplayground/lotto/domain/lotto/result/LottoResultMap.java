@@ -5,15 +5,12 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class LottoResultMap {
-    private final String lottoId;
-    private final Map<Integer, List<LottoLineResult>> lineResultMap;
-
-    public LottoResultMap(String lottoId, Map<Integer, List<LottoLineResult>> lineResultMap) {
+public record LottoResultMap(
+        String lottoId,
+        Map<Integer, List<LottoLineResult>> lineResultMap
+) {
+    public LottoResultMap {
         validation(lottoId, lineResultMap);
-
-        this.lottoId = lottoId;
-        this.lineResultMap = lineResultMap;
     }
 
     private void validation(String lottoId, Map<Integer, List<LottoLineResult>> lineResultMap) {
@@ -26,18 +23,10 @@ public class LottoResultMap {
         }
     }
 
-    public String getLottoId() {
-        return lottoId;
-    }
-
-    public Map<Integer, List<LottoLineResult>> getLineResultMap() {
-        return lineResultMap;
-    }
-
     public static LottoResultMap from(LottoResultList lottoResultList) {
-        Map<Integer, List<LottoLineResult>> map = lottoResultList.getResults().stream()
+        Map<Integer, List<LottoLineResult>> map = lottoResultList.result().stream()
                 .collect(Collectors.groupingBy(LottoLineResult::getMatchedCount));
 
-        return new LottoResultMap(lottoResultList.getLottoId(), map);
+        return new LottoResultMap(lottoResultList.lottoId(), map);
     }
 }

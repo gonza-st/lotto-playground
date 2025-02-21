@@ -3,32 +3,21 @@ package org.gonza.javaplayground.lotto.domain.lotto.result;
 import java.util.List;
 import java.util.Objects;
 
-public class LottoResultList {
-    private final String lottoId;
-    private final List<LottoLineResult> lineResults;
-
-    public LottoResultList(String lottoId, List<LottoLineResult> lineResults) {
-        validate(lottoId, lineResults);
-
-        this.lottoId = lottoId;
-        this.lineResults = lineResults;
+public record LottoResultList(
+        String lottoId,
+        List<LottoLineResult> result
+) {
+    public LottoResultList {
+        validate(lottoId, result);
     }
 
-    private void validate(String lottoId, List<LottoLineResult> items) {
+    private void validate(String lottoId, List<LottoLineResult> results) {
         if (Objects.isNull(lottoId)) {
             throw new IllegalArgumentException("lottoId cannot be null");
         }
 
-        if (items.isEmpty()) {
+        if (results.isEmpty()) {
             throw new IllegalArgumentException("No items found");
         }
-    }
-
-    public String getLottoId() {
-        return lottoId;
-    }
-
-    public List<LottoLineResult> getResults() {
-        return lineResults;
     }
 }
