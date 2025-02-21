@@ -1,12 +1,15 @@
 package org.gonza.kotlinplayground.domain.payment
 
 class WinningStatistics(
-    private val statistics: Map<LottoStatisticsSheet, Int>
+    private val statistics: Map<LottoStatisticsSheet, Int>,
 ) {
-    fun totalPrizeMoney(): Int {
-        return statistics.entries.sumOf { (sheet, matchedCount) ->
-            sheet.amount * matchedCount
-        }
+    fun totalPrizePayment(): Payment {
+        val totalPrizeMoney =
+            statistics.entries.sumOf { (sheet, matchedCount) ->
+                sheet.amount * matchedCount
+            }
+
+        return Payment(totalPrizeMoney)
     }
 
     fun getStatistics(): Map<LottoStatisticsSheet, Int> = statistics

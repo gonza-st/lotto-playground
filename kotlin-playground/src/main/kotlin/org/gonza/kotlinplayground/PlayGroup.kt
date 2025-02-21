@@ -25,10 +25,14 @@ fun main() {
     printReturnOnInvestment(outputView, payment, winningStatistics)
 }
 
-private fun purchaseLotto(inputView: InputView, outputView: OutputView): Payment {
+private fun purchaseLotto(
+    inputView: InputView,
+    outputView: OutputView,
+): Payment {
     outputView.printRequestPurchasePrice()
-    val purchaseAmount = inputView.read()?.toIntOrNull()
-        ?: throw IllegalArgumentException("올바른 금액을 입력하세요")
+    val purchaseAmount =
+        inputView.read()?.toIntOrNull()
+            ?: throw IllegalArgumentException("올바른 금액을 입력하세요")
     return Payment(purchaseAmount)
 }
 
@@ -40,31 +44,44 @@ private fun generateLottoTickets(payment: Payment): List<LottoTicket> {
     }
 }
 
-private fun getWinningTicket(inputView: InputView, outputView: OutputView): LottoTicket {
+private fun getWinningTicket(
+    inputView: InputView,
+    outputView: OutputView,
+): LottoTicket {
     outputView.printRequestResultLottoTicket()
-    val winningLottoInput = inputView.read()
-        ?: throw IllegalArgumentException("당첨 번호를 입력하세요")
+    val winningLottoInput =
+        inputView.read()
+            ?: throw IllegalArgumentException("당첨 번호를 입력하세요")
     return InputLottoPicker(winningLottoInput).pick()
 }
 
-private fun matchLottoResults(winningTicket: LottoTicket, lottoTicketList: List<LottoTicket>): WinningStatistics {
+private fun matchLottoResults(
+    winningTicket: LottoTicket,
+    lottoTicketList: List<LottoTicket>,
+): WinningStatistics {
     val lottoMatcher = GeneralLottoMatcher()
     return lottoMatcher.getWinningStatistics(
         result = winningTicket,
-        purchasedTicketList = lottoTicketList
+        purchasedTicketList = lottoTicketList,
     )
 }
 
-private fun printStatistics(outputView: OutputView, winningStatistics: WinningStatistics) {
+private fun printStatistics(
+    outputView: OutputView,
+    winningStatistics: WinningStatistics,
+) {
     outputView.printNoticeStatisticSheet()
     winningStatistics.getStatistics().forEach { (sheet, matchedCount) ->
         outputView.printStatisticSheet(sheet, matchedCount)
     }
 }
 
-private fun printReturnOnInvestment(outputView: OutputView, payment: Payment, winningStatistics: WinningStatistics) {
-    val totalProfit = winningStatistics.totalPrizeMoney()
-    val profitPayment = Payment(totalProfit)
+private fun printReturnOnInvestment(
+    outputView: OutputView,
+    payment: Payment,
+    winningStatistics: WinningStatistics,
+) {
+    val profitPayment = winningStatistics.totalPrizePayment()
     val financialPolicy = LottoFinancialPolicy()
     val returnOnInvestment = financialPolicy.calculateReturnOnInvestment(payment, profitPayment)
 
