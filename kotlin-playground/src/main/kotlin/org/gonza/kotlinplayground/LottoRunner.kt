@@ -17,8 +17,7 @@ class LottoRunner(
         val lottoTickets: LottoTickets = getLottoTickets(amount = amount)
         printLotto(lottoTickets = lottoTickets)
         val winningLotto = getWinningLotto()
-        val result = lottoTickets.findWinLotto(answer = winningLotto.numberList)
-        lottoStatistics(result = result, purchase = amount.maxPurchase)
+        lottoStatistics(answer = winningLotto.numberList, lottoTickets = lottoTickets, purchase = amount.maxPurchase)
     }
 
     private fun purchaseLotto(): Amount {
@@ -63,16 +62,21 @@ class LottoRunner(
         return winningNumber
     }
 
-    private fun lottoStatistics(result: Map<Int, List<Lotto>>, purchase: Int) {
+    private fun lottoStatistics(
+        answer: List<LottoNumber>,
+        lottoTickets: LottoTickets,
+        purchase: Int
+    ) {
         printView.printWithLine(LottoStringConstants.EMPTY_TEXT)
         printView.printWithLine(LottoStringConstants.DIVIDE_TEXT)
-        val winningCount = result.values.flatten().size
-        val benefitRate = calculateBenefitRate(winningCount = winningCount, purchase = purchase)
+        val totalWinningCount = lottoTickets.getTotalWinningCount(answer = answer)
+        val benefitRate = calculateBenefitRate(winningCount = totalWinningCount, purchase = purchase)
 
         Prize.entries.toTypedArray()
             .sortedByDescending { it.matchCount }
             .forEach { prize ->
-                printView.printWithLine("${prize.displayText}${result[prize.matchCount]?.size ?: 0}개")
+                val winningCount = lottoTickets.getWinningCount(answer = answer, prize = prize)
+                printView.printWithLine("${prize.displayText}${winningCount}개")
             }
         printView.printWithLine("${LottoStringConstants.STATISTICS_PREFIX_TEXT}${benefitRate}${LottoStringConstants.STATISTICS_POSTFIX_TEXT}")
     }

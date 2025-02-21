@@ -1,6 +1,7 @@
 package org.gonza.kotlinplayground.domain
 
 import org.gonza.kotlinplayground.enum.LottoStatus
+import org.gonza.kotlinplayground.enum.Prize
 
 class LottoTickets(val lottoList: List<Lotto>) {
 
@@ -15,6 +16,16 @@ class LottoTickets(val lottoList: List<Lotto>) {
             .groupBy { lotto ->
                 lotto.winnerNumberList.size
             }
+    }
+
+    fun getWinningCount(answer: List<LottoNumber>, prize: Prize): Int {
+        val result = findWinLotto(answer = answer)
+        return result[prize.matchCount]?.size ?: 0
+    }
+
+    fun getTotalWinningCount(answer: List<LottoNumber>): Int {
+        val result = findWinLotto(answer = answer)
+        return result.values.flatten().size
     }
 
     override fun toString(): String {

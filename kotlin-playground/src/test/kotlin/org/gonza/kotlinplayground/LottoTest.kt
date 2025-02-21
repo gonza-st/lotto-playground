@@ -33,7 +33,7 @@ class LottoTest {
     }
 
     @Test
-    fun `로또의 최초 상태는 UNKNOWN 이다`() {
+    fun `로또의 최초 상태는 ISSUE 이다`() {
         val validLottoNumberList = mutableListOf<LottoNumber>()
         repeat(LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT) {
             validLottoNumberList.add(LottoNumber(number = it + 1))
@@ -43,21 +43,6 @@ class LottoTest {
         val expectedStatus = LottoStatus.ISSUE
 
         assertEquals(expectedStatus, lotto.status)
-    }
-
-    @Test
-    fun `로또의 상태가 변경된 경우 다시 상태를 변경할 수 없다`() {
-        val validLottoNumberList = mutableListOf<LottoNumber>()
-        repeat(LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT) {
-            validLottoNumberList.add(LottoNumber(number = it + 1))
-        }
-
-        val lotto = Lotto(lottoNumberList = validLottoNumberList)
-        lotto.updateStatus(LottoStatus.WON)
-
-        assertThrows<IllegalArgumentException> {
-            lotto.updateStatus(LottoStatus.ISSUE)
-        }
     }
 
     @Test

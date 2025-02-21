@@ -22,7 +22,7 @@ class Lotto(
         private set
 
     fun updateStatus(status: LottoStatus) {
-        require(this.status == LottoStatus.ISSUE) { "변경된 상태는 다시 수정할 수 없습니다." }
+        if (this.status == status) return
         this.status = status
     }
 
