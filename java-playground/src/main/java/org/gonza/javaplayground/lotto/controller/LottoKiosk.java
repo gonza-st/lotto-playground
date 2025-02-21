@@ -44,7 +44,6 @@ public class LottoKiosk implements Controller {
         Report report = reportFactory.printReport(payment, matchedNumbers);
 
         return new MatchResponse(
-                report.getLottoId(),
                 report.getProfit(),
                 report.getStatistics()
         );
