@@ -7,7 +7,7 @@ class LottoTicket(
     private val lottoNumberList: List<LottoNumber>,
 ) {
     companion object {
-        val MAX_LENGTH = 6
+        const val MAX_LENGTH = 6
     }
 
     init {
