@@ -7,18 +7,18 @@ import java.util.stream.Collectors;
 
 public record LottoResultMap(
         String lottoId,
-        Map<Integer, List<LottoLineResult>> lineResultMap
-) {
+        Map<Integer, List<LottoLineResult>> result
+) implements LottoResult<Map<Integer, List<LottoLineResult>>> {
     public LottoResultMap {
-        validation(lottoId, lineResultMap);
+        validation(lottoId, result);
     }
 
-    private void validation(String lottoId, Map<Integer, List<LottoLineResult>> lineResultMap) {
+    private void validation(String lottoId, Map<Integer, List<LottoLineResult>> result) {
         if (Objects.isNull(lottoId)) {
             throw new IllegalArgumentException("lottoId cannot be null");
         }
 
-        if (lineResultMap.isEmpty()) {
+        if (result.isEmpty()) {
             throw new IllegalArgumentException("The map is empty");
         }
     }

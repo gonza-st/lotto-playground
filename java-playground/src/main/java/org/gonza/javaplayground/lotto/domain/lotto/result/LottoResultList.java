@@ -6,7 +6,7 @@ import java.util.Objects;
 public record LottoResultList(
         String lottoId,
         List<LottoLineResult> result
-) {
+) implements LottoResult<List<LottoLineResult>> {
     public LottoResultList {
         validate(lottoId, result);
     }
