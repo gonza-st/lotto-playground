@@ -17,12 +17,12 @@ public class ReportFactory {
     public Report printReport(Payment payment, LottoResultList lottoResultList) {
         LottoResultMap resultMap = LottoResultMap.from(lottoResultList);
 
-        List<Article> reportArticles = resultMap.lineResultMap()
+        List<Article> reportArticles = resultMap.result()
                 .entrySet().stream()
                 .map(this::createReportItem)
                 .toList();
 
-        return new Report(lottoResultList.getLottoId(), reportArticles, payment.getCost());
+        return new Report(lottoResultList.lottoId(), reportArticles, payment.getCost());
     }
 
     private Article createReportItem(Map.Entry<Integer, List<LottoLineResult>> entry) {

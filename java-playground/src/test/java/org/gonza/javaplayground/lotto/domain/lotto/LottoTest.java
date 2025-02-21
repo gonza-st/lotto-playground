@@ -49,7 +49,7 @@ public class LottoTest {
         Map<Integer, List<LottoLineResult>> resultMap = Map.of(
                 2, List.of(new LottoLineResult(List.of(1, 2)), new LottoLineResult(List.of(13, 14)))
         );
-        assertEquals(resultMap, result.getResults());
+        assertEquals(resultMap, result.result());
     }
 
     @Test
