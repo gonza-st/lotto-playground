@@ -40,7 +40,7 @@ class LottoTest {
         }
 
         val lotto = Lotto(lottoNumberList = validLottoNumberList)
-        val expectedStatus = LottoStatus.UNKNOWN
+        val expectedStatus = LottoStatus.ISSUE
 
         assertEquals(expectedStatus, lotto.status)
     }
@@ -53,10 +53,10 @@ class LottoTest {
         }
 
         val lotto = Lotto(lottoNumberList = validLottoNumberList)
-        lotto.updateStatus(LottoStatus.WIN)
+        lotto.updateStatus(LottoStatus.WON)
 
         assertThrows<IllegalArgumentException> {
-            lotto.updateStatus(LottoStatus.UNKNOWN)
+            lotto.updateStatus(LottoStatus.ISSUE)
         }
     }
 
@@ -72,7 +72,7 @@ class LottoTest {
         val lotto = Lotto(lottoNumberList = validLottoNumberList)
 
         assertThrows<IllegalArgumentException> { lotto.winnerNumberList }
-        assertEquals(LottoStatus.UNKNOWN, lotto.status)
+        assertEquals(LottoStatus.ISSUE, lotto.status)
     }
 
     @Test
@@ -88,7 +88,7 @@ class LottoTest {
 
         assertTrue { lotto.compareAll(target = answer) }
         assertTrue { lotto.winnerNumberList.all { it in answer } }
-        assertEquals(LottoStatus.WIN, lotto.status)
+        assertEquals(LottoStatus.WON, lotto.status)
     }
 
     @Test
@@ -104,6 +104,6 @@ class LottoTest {
 
         assertFalse { lotto.compareAll(target = answer) }
         assertTrue { lotto.winnerNumberList.size < LottoConstants.WINNER_CRITERIA }
-        assertEquals(LottoStatus.LOSE, lotto.status)
+        assertEquals(LottoStatus.LOST, lotto.status)
     }
 }

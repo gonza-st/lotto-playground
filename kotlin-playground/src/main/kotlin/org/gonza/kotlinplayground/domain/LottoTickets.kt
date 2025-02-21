@@ -10,7 +10,7 @@ class LottoTickets(val lottoList: List<Lotto>) {
                 lotto.apply { compareAll(target = answer) }
             }
             .filter { lotto ->
-                lotto.status == LottoStatus.WIN
+                lotto.status == LottoStatus.WON
             }
             .groupBy { lotto ->
                 lotto.winnerNumberList.size
