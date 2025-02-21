@@ -20,7 +20,7 @@ public class LottoApplication implements Application {
     }
 
     @Override
-    public void run(BufferedReader in, PrintWriter out) throws InvocationTargetException, IllegalAccessException {
+    public void run(BufferedReader in, PrintWriter out) {
         Screen screen = new Screen(in, out);
         screen.showWelcomeMsg();
 
