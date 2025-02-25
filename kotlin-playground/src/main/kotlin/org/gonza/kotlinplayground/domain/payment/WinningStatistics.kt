@@ -3,7 +3,6 @@ package org.gonza.kotlinplayground.domain.payment
 import org.gonza.kotlinplayground.service.WinningCount
 
 class WinningStatistics(
-    private val statistics: Map<LottoStatisticsSheet, Int>,
     private val winningCountList: List<WinningCount>
 ) {
     fun totalPrizePayment(): Payment {
@@ -18,5 +17,5 @@ class WinningStatistics(
         return Payment(totalPrizeMoney)
     }
 
-    fun getStatistics(): Map<LottoStatisticsSheet, Int> = statistics
+    fun getWinningStatisticsList(): List<WinningCount> = winningCountList
 }

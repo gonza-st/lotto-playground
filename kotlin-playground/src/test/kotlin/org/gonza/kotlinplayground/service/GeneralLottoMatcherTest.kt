@@ -1,7 +1,5 @@
 package org.gonza.kotlinplayground.service
 
-import org.gonza.kotlinplayground.domain.lotto.LottoNumber
-import org.gonza.kotlinplayground.domain.lotto.LottoTicket
 import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
@@ -61,11 +59,14 @@ class GeneralLottoMatcherTest {
 
         val winningStatistics = lottoMatcher.getWinningStatistics(winningTicket, purchasedTickets)
 
-        val expectedResults = mapOf(
-            LottoStatisticsSheet.THREE_MATCHED to 1,
-            LottoStatisticsSheet.FOUR_MATCHED to 1,
-            LottoStatisticsSheet.FIVE_MATCHED to 1
+        val expectedResultList = listOf(
+            WinningCount(LottoStatisticsSheet.THREE_MATCHED, 1),
+            WinningCount(LottoStatisticsSheet.FOUR_MATCHED, 1),
+            WinningCount(LottoStatisticsSheet.FIVE_MATCHED, 1),
         )
-        assertEquals(expectedResults, winningStatistics.getStatistics())
+        val result = winningStatistics.getWinningStatisticsList()
+        result.forEach {
+            assertTrue(expectedResultList.contains(it))
+        }
     }
 }

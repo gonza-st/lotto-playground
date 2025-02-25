@@ -17,14 +17,23 @@ class GeneralLottoMatcher : LottoMatcher {
     }
 
     override fun getWinningStatistics(result: LottoTicket, purchasedTicketList: List<LottoTicket>): WinningStatistics {
-        val rankedWinningCountByStatistics = purchasedTicketList
-            .mapNotNull { getMatchedStatisticSheetList(result, it) }
-            .groupingBy { it }
-            .eachCount()
+        val matchedStatistics = purchasedTicketList.mapNotNull { ticket ->
+            getMatchedStatisticSheetList(ticket, result)
+        }
+
+        val winningCountList = getWinningCountList(matchedStatistics)
 
         return WinningStatistics(
-            statistics = rankedWinningCountByStatistics,
-            winningCountList = listOf(WinningCount(LottoStatisticsSheet.ALL_MATCHED, 0))
+            winningCountList = winningCountList
         )
+    }
+
+    private fun getWinningCountList(matchedStatistics: List<LottoStatisticsSheet>): List<WinningCount> {
+        val groupedWonStatistics = matchedStatistics.groupingBy { it }
+
+        return groupedWonStatistics.eachCount()
+            .map { (sheet, count) ->
+                WinningCount(sheet, count)
+            }
     }
 }

@@ -71,7 +71,12 @@ private fun printStatistics(
     winningStatistics: WinningStatistics,
 ) {
     outputView.printNoticeStatisticSheet()
-    winningStatistics.getStatistics().forEach { (sheet, matchedCount) ->
+    val winningStatisticsList = winningStatistics.getWinningStatisticsList()
+
+    winningStatisticsList.forEach {
+        val sheet = it.statisticsSheet
+        val matchedCount = it.count
+
         outputView.printStatisticSheet(sheet, matchedCount)
     }
 }

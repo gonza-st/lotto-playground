@@ -14,16 +14,11 @@ class WinningStatisticsTest {
         val fourMatchedPrize = LottoStatisticsSheet.FOUR_MATCHED.amount * fourMatchedCount
         val expectedTotalPrize = Payment(threeMatchedPrize + fourMatchedPrize)
 
-        val statistics =
-            mapOf(
-                LottoStatisticsSheet.THREE_MATCHED to threeMatchedCount,
-                LottoStatisticsSheet.FOUR_MATCHED to fourMatchedCount,
-            )
         val winningCountList = listOf(
             WinningCount(LottoStatisticsSheet.THREE_MATCHED, threeMatchedCount),
             WinningCount(LottoStatisticsSheet.FOUR_MATCHED, fourMatchedCount),
         )
-        val winningStatistics = WinningStatistics(statistics, winningCountList)
+        val winningStatistics = WinningStatistics(winningCountList)
 
         val totalPrizeMoney = winningStatistics.totalPrizePayment()
         val result = totalPrizeMoney.getPaidMoney()
@@ -34,19 +29,14 @@ class WinningStatisticsTest {
 
     @Test
     fun `당첨 통계를 올바르게 반환해야 한다`() {
-        val statistics =
-            mapOf(
-                LottoStatisticsSheet.THREE_MATCHED to 1,
-                LottoStatisticsSheet.FIVE_MATCHED to 1,
-            )
         val winningCountList = listOf(
             WinningCount(LottoStatisticsSheet.THREE_MATCHED, 1),
             WinningCount(LottoStatisticsSheet.FIVE_MATCHED, 1)
         )
-        val winningStatistics = WinningStatistics(statistics, winningCountList)
+        val winningStatistics = WinningStatistics(winningCountList)
 
-        val result = winningStatistics.getStatistics()
+        val result = winningStatistics.getWinningStatisticsList()
 
-        assertEquals(statistics, result)
+        assertEquals(winningCountList, result)
     }
 }
