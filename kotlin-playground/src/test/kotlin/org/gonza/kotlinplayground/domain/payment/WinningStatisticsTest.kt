@@ -1,5 +1,6 @@
 package org.gonza.kotlinplayground.domain.payment
 
+import org.gonza.kotlinplayground.service.WinningCount
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -18,7 +19,11 @@ class WinningStatisticsTest {
                 LottoStatisticsSheet.THREE_MATCHED to threeMatchedCount,
                 LottoStatisticsSheet.FOUR_MATCHED to fourMatchedCount,
             )
-        val winningStatistics = WinningStatistics(statistics)
+        val winningCountList = listOf(
+            WinningCount(LottoStatisticsSheet.THREE_MATCHED, threeMatchedCount),
+            WinningCount(LottoStatisticsSheet.FOUR_MATCHED, fourMatchedCount),
+        )
+        val winningStatistics = WinningStatistics(statistics, winningCountList)
 
         val totalPrizeMoney = winningStatistics.totalPrizePayment()
         val result = totalPrizeMoney.getPaidMoney()
@@ -34,7 +39,11 @@ class WinningStatisticsTest {
                 LottoStatisticsSheet.THREE_MATCHED to 1,
                 LottoStatisticsSheet.FIVE_MATCHED to 1,
             )
-        val winningStatistics = WinningStatistics(statistics)
+        val winningCountList = listOf(
+            WinningCount(LottoStatisticsSheet.THREE_MATCHED, 1),
+            WinningCount(LottoStatisticsSheet.FIVE_MATCHED, 1)
+        )
+        val winningStatistics = WinningStatistics(statistics, winningCountList)
 
         val result = winningStatistics.getStatistics()
 

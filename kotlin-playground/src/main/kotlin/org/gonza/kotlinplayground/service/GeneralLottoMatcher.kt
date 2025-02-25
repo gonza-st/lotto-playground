@@ -22,6 +22,9 @@ class GeneralLottoMatcher : LottoMatcher {
             .groupingBy { it }
             .eachCount()
 
-        return WinningStatistics(rankedWinningCountByStatistics)
+        return WinningStatistics(
+            statistics = rankedWinningCountByStatistics,
+            winningCountList = listOf(WinningCount(LottoStatisticsSheet.ALL_MATCHED, 0))
+        )
     }
 }
