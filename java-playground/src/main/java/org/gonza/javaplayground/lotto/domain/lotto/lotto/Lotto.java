@@ -15,9 +15,9 @@ public class Lotto {
         this.lottoLines = numbers;
     }
 
-    public LottoResultList match(LottoLine candidate) {
+    public LottoResultList match(LottoLine candidate, LottoNumber bonus) {
         List<LottoLineResult> results = lottoLines.stream()
-                .map(line -> line.match(candidate))
+                .map(line -> line.match(candidate, bonus))
                 .toList();
 
         return new LottoResultList(id, results);

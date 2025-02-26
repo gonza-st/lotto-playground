@@ -35,8 +35,9 @@ public class LottoLineTest {
                     .map(LottoNumber::new).toList();
 
             LottoLine line = new LottoLine(allMatchingNumbers);
+            LottoNumber bonus = new LottoNumber(7);
 
-            LottoLineResult matchedNumber = sut.match(line);
+            LottoLineResult matchedNumber = sut.match(line, bonus);
             assertEquals(allMatchingNumbers, matchedNumber.getResult().stream().map(LottoNumber::new).toList());
         }
 
@@ -46,8 +47,9 @@ public class LottoLineTest {
                     .map(LottoNumber::new).toList();
 
             LottoLine line = new LottoLine(someMatchingNumbers);
+            LottoNumber bonus = new LottoNumber(7);
 
-            LottoLineResult matchedNumber = sut.match(line);
+            LottoLineResult matchedNumber = sut.match(line, bonus);
             assertEquals(List.of(1, 2, 3).stream().map(LottoNumber::new).toList(), matchedNumber.getResult().stream().map(LottoNumber::new).toList());
         }
 
@@ -57,8 +59,9 @@ public class LottoLineTest {
                     .map(LottoNumber::new).toList();;
 
             LottoLine line = new LottoLine(nothingMatchingNumbers);
+            LottoNumber bonus = new LottoNumber(7);
 
-            LottoLineResult matchedNumber = sut.match(line);
+            LottoLineResult matchedNumber = sut.match(line, bonus);
             assertEquals(List.of(), matchedNumber.getResult());
         }
     }
