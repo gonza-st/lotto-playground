@@ -94,17 +94,20 @@ class LottosTest {
             )
 
         val lottos = Lottos(value = lottoList)
+        val bonus = LottoNumber(7)
 
-        val matchResult: MatchResultDto = lottos.matchResult(winningLotto = winningLotto)
+        val matchResult: MatchResultDto = lottos.matchResult(winningLotto = winningLotto, bonusBall = bonus)
 
-        val expectedThreeMatchedResult = 1
-        val expectedFourMatchedResult = 1
-        val expectedFiveMatchedResult = 1
-        val expectedSixMatchedResult = 1
+        val expectedFifthResult = 1
+        val expectedFourthResult = 1
+        val expectedThirdResult = 0
+        val expectedSecondResult = 1
+        val expectedWinnerResult = 1
 
-        Assertions.assertThat(matchResult.three).isEqualTo(expectedThreeMatchedResult)
-        Assertions.assertThat(matchResult.four).isEqualTo(expectedFourMatchedResult)
-        Assertions.assertThat(matchResult.five).isEqualTo(expectedFiveMatchedResult)
-        Assertions.assertThat(matchResult.six).isEqualTo(expectedSixMatchedResult)
+        Assertions.assertThat(matchResult.fifth).isEqualTo(expectedFifthResult)
+        Assertions.assertThat(matchResult.fourth).isEqualTo(expectedFourthResult)
+        Assertions.assertThat(matchResult.third).isEqualTo(expectedThirdResult)
+        Assertions.assertThat(matchResult.second).isEqualTo(expectedSecondResult)
+        Assertions.assertThat(matchResult.winner).isEqualTo(expectedWinnerResult)
     }
 }
