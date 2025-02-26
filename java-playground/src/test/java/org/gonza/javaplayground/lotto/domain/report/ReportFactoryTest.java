@@ -9,19 +9,19 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ReportFactoryTest {
     private static final List<Integer> PRICE_LIST = PriceTestFixtures.WINNING_PRICE_RANGE;
+    private static final Integer BONUS_PRIZE = 30_000_000;
 
     private ReportFactory sut;
 
     @BeforeEach
     public void setUp() {
-        WinningPrizeTable table = new WinningPrizeTable(PRICE_LIST);
+        WinningPrizeTable table = new WinningPrizeTable(PRICE_LIST, BONUS_PRIZE);
         this.sut = new ReportFactory(table);
     }
 

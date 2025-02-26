@@ -23,12 +23,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class LottoKioskTest {
     private static final List<Integer> WINNING_PRICE_RANGE = PriceTestFixtures.WINNING_PRICE_RANGE;
+    private static final Integer BONUS_PRIZE = 30_000_000;
 
     private LottoKiosk sut;
 
     @BeforeEach
     public void setUp() {
-        WinningPrizeTable winningPrizeTable = new WinningPrizeTable(WINNING_PRICE_RANGE);
+        WinningPrizeTable winningPrizeTable = new WinningPrizeTable(WINNING_PRICE_RANGE, BONUS_PRIZE);
         ReportFactory reportFactory = new ReportFactory(winningPrizeTable);
 
         LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
