@@ -38,7 +38,7 @@ public class WinningStatistics {
 
     private void countWinnings(List<LottoNumber> purchasedNumbers, LottoNumber winningNumber) {
         purchasedNumbers.stream()
-                .map(number -> WinningComparator.compareWinningNumber(number, winningNumber))
+                .map(number -> number.getRanking(winningNumber))
                 .forEach(ranking -> rankingCounts.merge(ranking, 1, Integer::sum));
     }
 

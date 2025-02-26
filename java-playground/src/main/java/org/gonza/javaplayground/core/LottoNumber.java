@@ -8,4 +8,8 @@ public record LottoNumber(List<Integer> lottoNumbers) {
                 .filter(number -> winningNumber.lottoNumbers().contains(number))
                 .count();
     }
+
+    public Ranking getRanking(LottoNumber winningNumber) {
+        return Ranking.valueOf(getMatchCount(winningNumber));
+    }
 }
