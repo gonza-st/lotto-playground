@@ -152,4 +152,18 @@ class LottoTest {
 
         Assertions.assertThat(winningLotto).isEqualTo(expectedValue)
     }
+
+    @Test
+    fun `보너스 번호를 포함하는지 확인한다`() {
+        val bonus = LottoNumber(7)
+
+        val notMatchedLotto = Lotto.create(winningLottoNumber = "1,2,3,4,5,6")
+        val matchedLotto = Lotto.create(winningLottoNumber = "1,2,3,4,5,7")
+
+        val result1 = notMatchedLotto.matchBonus(bonus = bonus)
+        val result2 = matchedLotto.matchBonus(bonus = bonus)
+
+        Assertions.assertThat(result1).isFalse()
+        Assertions.assertThat(result2).isTrue()
+    }
 }
