@@ -4,6 +4,7 @@ import org.gonza.javaplayground.framework.mapper.Option;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Screen {
@@ -50,8 +51,18 @@ public class Screen {
         printer.println("Enter your lotto line");
         printer.println("==============================");
 
-        String inputNumbers = scanStringInput();
-        return new LottoRequest(Option.MATCH, inputNumbers);
+        String matchingNumbers = scanStringInput();
+
+        printer.println("==============================");
+        printer.println("Enter your bonus number");
+        printer.println("==============================");
+
+        String bonusNumber = scanStringInput();
+
+        return new LottoRequest(Option.MATCH, Map.of(
+                "matchingNumbers", matchingNumbers,
+                "bonusNumber", bonusNumber
+        ));
     }
 
     private String scanStringInput() {
