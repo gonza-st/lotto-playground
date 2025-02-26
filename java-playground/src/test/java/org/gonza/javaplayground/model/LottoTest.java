@@ -1,56 +1,87 @@
 package org.gonza.javaplayground.model;
 
-import java.util.ArrayList;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LottoTest {
-    private Lotto lotto;
 
     @BeforeEach
     void setUp() {
-        lotto = new Lotto();
     }
 
     @Test
-    @DisplayName("로또는 생성 시 빈 번호 목록을 가진다")
-    void 초기_상태_테스트() {
-        ArrayList<LottoNumber> 번호_목록 = lotto.번호_목록_가져오기();
+    @DisplayName("로또는 6개의 번호로 생성할 수 있다")
+    void 정상_생성_테스트() {
+        List<LottoNumber> 로또번호들 = List.of(
+                new LottoNumber(1),
+                new LottoNumber(2),
+                new LottoNumber(3),
+                new LottoNumber(4),
+                new LottoNumber(5),
+                new LottoNumber(6)
+        );
 
-        assertTrue(번호_목록.isEmpty());
+        Lotto lotto = new Lotto(로또번호들);
+        
+        List<LottoNumber> 가져온_번호들 = lotto.로또번호_목록_가져오기();
+        assertEquals(6, 가져온_번호들.size());
+        for (LottoNumber number : 로또번호들) {
+            assertTrue(가져온_번호들.contains(number));
+        }
     }
 
     @Test
-    @DisplayName("로또 번호를 추가할 수 있다")
-    void 번호_추가_테스트() {
-        LottoNumber 로또_번호 = new LottoNumber(1);
+    @DisplayName("로또 번호가 6개보다 적으면 예외가 발생한다")
+    void 적은_번호_예외_테스트() {
+        List<LottoNumber> 적은_번호들 = List.of(
+                new LottoNumber(1),
+                new LottoNumber(2),
+                new LottoNumber(3),
+                new LottoNumber(4),
+                new LottoNumber(5)
+        );
 
-        lotto.번호_추가하기(로또_번호);
-
-        ArrayList<LottoNumber> 번호_목록 = lotto.번호_목록_가져오기();
-        assertEquals(1, 번호_목록.size());
-        assertEquals(로또_번호, 번호_목록.get(0));
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> new Lotto(적은_번호들));
+        assertEquals("로또 번호는 6개여야 합니다.", exception.getMessage());
     }
 
     @Test
-    @DisplayName("로또 번호를 여러 개 추가할 수 있다")
-    void 여러_번호_추가_테스트() {
-        LottoNumber 첫번째_번호 = new LottoNumber(1);
-        LottoNumber 두번째_번호 = new LottoNumber(2);
-        LottoNumber 세번째_번호 = new LottoNumber(3);
+    @DisplayName("로또 번호가 6개보다 많으면 예외가 발생한다")
+    void 많은_번호_예외_테스트() {
+        List<LottoNumber> 많은_번호들 = List.of(
+                new LottoNumber(1),
+                new LottoNumber(2),
+                new LottoNumber(3),
+                new LottoNumber(4),
+                new LottoNumber(5),
+                new LottoNumber(6),
+                new LottoNumber(7)
+        );
 
-        lotto.번호_추가하기(첫번째_번호);
-        lotto.번호_추가하기(두번째_번호);
-        lotto.번호_추가하기(세번째_번호);
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class,
+                () -> new Lotto(많은_번호들));
+        assertEquals("로또 번호는 6개여야 합니다.", exception.getMessage());
+    }
 
-        ArrayList<LottoNumber> 번호_목록 = lotto.번호_목록_가져오기();
-        assertEquals(3, 번호_목록.size());
-        assertTrue(번호_목록.contains(첫번째_번호));
-        assertTrue(번호_목록.contains(두번째_번호));
-        assertTrue(번호_목록.contains(세번째_번호));
+    @Test
+    @DisplayName("로또 번호 목록은 불변이다")
+    void 불변성_테스트() {
+        List<LottoNumber> 번호들 = List.of(
+                new LottoNumber(1),
+                new LottoNumber(2),
+                new LottoNumber(3),
+                new LottoNumber(4),
+                new LottoNumber(5),
+                new LottoNumber(6)
+        );
+        Lotto lotto = new Lotto(번호들);
+
+        List<LottoNumber> 가져온_번호들 = lotto.로또번호_목록_가져오기();
+        assertThrows(UnsupportedOperationException.class, () -> 가져온_번호들.add(new LottoNumber(7)));
     }
 }

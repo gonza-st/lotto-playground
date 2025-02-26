@@ -11,13 +11,17 @@ public class LottoNumber {
         this.번호 = 번호;
     }
 
+    public int 번호_값_가져오기() {
+        return 번호;
+    }
+
     private void 번호_유효성_검증하기(int 번호) {
         if (번호 < 최소_번호 || 번호 > 최대_번호) {
             throw new IllegalArgumentException("잘못된 로또 숫자 범위입니다.");
         }
-    }
 
-    public int 번호_값_가져오기() {
-        return 번호;
+        if (!String.valueOf(번호).matches("\\d+")) {
+            throw new IllegalArgumentException("로또 번호는 숫자여야 합니다.");
+        }
     }
 }

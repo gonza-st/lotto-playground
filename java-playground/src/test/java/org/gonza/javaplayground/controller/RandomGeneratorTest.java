@@ -7,11 +7,11 @@ import org.junit.jupiter.api.RepeatedTest;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class RandomGeneratorTest {
-    private RandomGenerator randomGenerator;
+    private NumberGenerator 난수생성기;
 
     @BeforeEach
     void setUp() {
-        randomGenerator = new RandomGenerator();
+        난수생성기 = new RandomGeneratorDetail();
     }
 
     @RepeatedTest(100)
@@ -20,7 +20,7 @@ class RandomGeneratorTest {
         int 시작 = 1;
         int 끝 = 45;
 
-        int 생성된_난수 = randomGenerator.범위_내_난수_생성하기(시작, 끝);
+        int 생성된_난수 = 난수생성기.범위_내_난수_생성하기(시작, 끝);
 
         assertTrue(생성된_난수 >= 시작);
         assertTrue(생성된_난수 <= 끝);
