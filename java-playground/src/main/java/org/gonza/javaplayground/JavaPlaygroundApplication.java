@@ -49,7 +49,7 @@ public class JavaPlaygroundApplication {
 
         LottoNumberFactory lottoNumberFactory = new LottoNumberFactory(properties, numberGenerator);
         LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, lottoNumberFactory);
-        LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory);
+        LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory, lottoNumberFactory);
 
         Storage usb = new USB();
 

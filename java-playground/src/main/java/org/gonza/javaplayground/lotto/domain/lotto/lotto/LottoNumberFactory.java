@@ -17,6 +17,11 @@ public class LottoNumberFactory {
         this.numberGenerator = numberGenerator;
     }
 
+    public LottoNumber createNumber(Integer number) {
+        validateLottoNumber(number);
+        return new LottoNumber(number);
+    }
+
     public List<LottoNumber> createLottoNumbers(List<Integer> numbers) {
         List<LottoNumber> lottoNumbers = numbers.stream()
                 .peek(this::validateLottoNumber)

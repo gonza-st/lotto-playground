@@ -35,7 +35,7 @@ public class LottoKioskTest {
         NumberGenerator numberGenerator = new NumberGeneratorStub();
         LottoNumberFactory lottoNumberFactory = new LottoNumberFactory(properties, numberGenerator);
         LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, lottoNumberFactory);
-        LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory);
+        LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory, lottoNumberFactory);
 
         Storage usb = new UsbStub();
         this.sut = new LottoKiosk(lottoFactory, reportFactory, usb);
