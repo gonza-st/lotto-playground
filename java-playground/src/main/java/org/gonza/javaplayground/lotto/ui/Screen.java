@@ -40,13 +40,9 @@ public class Screen {
         printer.println("How much do u wanna buy? (min price is 1000)");
         printer.println("==============================");
 
-        try {
-            String amount = scanner.nextLine();
-            Integer parsedAmount = Integer.parseInt(amount);
-            return new LottoRequest(Option.PURCHASE, parsedAmount);
-        } catch (NumberFormatException e) {
-            return handlePurchase();
-        }
+        String amount = scanStringInput();
+        Integer parsedAmount = Integer.parseInt(amount);
+        return new LottoRequest(Option.PURCHASE, parsedAmount);
     }
 
     private LottoRequest handleMatchNumbers() {
@@ -54,11 +50,19 @@ public class Screen {
         printer.println("Enter your lotto line");
         printer.println("==============================");
 
+        String inputNumbers = scanStringInput();
+        return new LottoRequest(Option.MATCH, inputNumbers);
+    }
+
+    private String scanStringInput() {
         try {
-            String inputNumbers = scanner.nextLine();
-            return new LottoRequest(Option.MATCH, inputNumbers);
+            return scanner.nextLine();
         } catch (NumberFormatException e) {
-            return handleMatchNumbers();
+            printer.println("==============================");
+            printer.println("Please enter again");
+            printer.println("==============================");
+
+            return scanStringInput();
         }
     }
 }
