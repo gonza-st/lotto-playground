@@ -2,12 +2,16 @@ package org.gonza.kotlinplayground.domain.lotto
 
 import org.gonza.kotlinplayground.domain.lotto.exception.DuplicatedNumberLottoTicketException
 import org.gonza.kotlinplayground.domain.lotto.exception.InvalidSizeLottoTicketException
+import org.gonza.kotlinplayground.domain.payment.Payment
 
 class LottoTicket(
     private val lottoNumberList: List<LottoNumber>,
 ) {
     companion object {
         const val MAX_LENGTH = 6
+        private const val PRICE = 1_000
+
+        fun getPaidTicketCount(payment: Payment) = payment.getPaidMoney() / PRICE
     }
 
     init {

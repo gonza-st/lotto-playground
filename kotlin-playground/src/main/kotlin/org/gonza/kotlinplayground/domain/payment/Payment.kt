@@ -5,15 +5,9 @@ import org.gonza.kotlinplayground.domain.payment.exception.InvalidPaidMoneyExcep
 class Payment(
     private val paidMoney: Int,
 ) {
-    companion object {
-        private const val PRICE = 1_000
-    }
-
     init {
         validate(paidMoney)
     }
-
-    fun getPaidTicketCount() = paidMoney / PRICE
 
     fun getPaidMoney() = paidMoney
 

@@ -39,7 +39,8 @@ private fun purchaseLotto(
 private fun generateLottoTickets(payment: Payment): List<LottoTicket> {
     val randomNumberGenerator = RandomNumberGenerator(LottoNumber.Range())
     val lottoGenerator = LottoGenerator(randomNumberGenerator)
-    return List(payment.getPaidTicketCount()) {
+    val paidTicketCount = LottoTicket.getPaidTicketCount(payment)
+    return List(paidTicketCount) {
         lottoGenerator.generate().ticket
     }
 }

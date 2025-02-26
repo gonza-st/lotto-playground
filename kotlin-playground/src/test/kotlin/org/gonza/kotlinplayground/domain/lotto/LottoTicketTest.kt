@@ -2,6 +2,7 @@ package org.gonza.kotlinplayground.domain.lotto
 
 import org.gonza.kotlinplayground.domain.lotto.exception.DuplicatedNumberLottoTicketException
 import org.gonza.kotlinplayground.domain.lotto.exception.InvalidSizeLottoTicketException
+import org.gonza.kotlinplayground.domain.payment.Payment
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -128,5 +129,15 @@ class LottoTicketTest {
                 LottoNumber(3),
             )
         assertEquals(expected, result)
+    }
+
+    @Test
+    fun `구매한 결제 정보를 통해 구매한 티켓 개수를 알 수 있다`() {
+        val payment = Payment(14_000)
+
+        val paidTicketCount = LottoTicket.getPaidTicketCount(payment)
+        val expected = 14
+
+        assertEquals(expected, paidTicketCount)
     }
 }
