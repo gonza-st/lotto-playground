@@ -16,19 +16,15 @@ public class Screen {
     }
 
     public void showWelcomeMsg() {
-        printer.println("Welcome to Lotto!");
         printer.println();
+        printer.println("Welcome to Lotto!");
     }
 
     public void showResult(LottoResponse response) {
-        printer.println();
         printer.println(response.data());
-        printer.println();
     }
 
-    public LottoRequest showSelections() {
-        Option option = showIntroduction();
-
+    public LottoRequest showSelections(Option option) {
         switch (option) {
             case PURCHASE:
                 return handlePurchase();
@@ -36,22 +32,6 @@ public class Screen {
                 return handleMatchNumbers();
             default:
                 throw new IllegalArgumentException("Invalid endpoint type");
-        }
-    }
-
-    private Option showIntroduction() {
-        printer.println("==============================");
-        printer.println("What would you like to do?");
-        printer.println("1. Purchase");
-        printer.println("2. Match Numbers");
-        printer.println("==============================");
-
-        try {
-            String input = scanner.nextLine();
-            Integer selectedType = Integer.parseInt(input);
-            return Option.fromCode(selectedType);
-        } catch (NumberFormatException e) {
-            return showIntroduction();
         }
     }
 

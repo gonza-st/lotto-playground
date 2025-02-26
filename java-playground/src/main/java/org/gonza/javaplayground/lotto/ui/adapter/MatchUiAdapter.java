@@ -4,6 +4,7 @@ import org.gonza.javaplayground.lotto.controller.response.MatchResponse;
 import org.gonza.javaplayground.framework.mapper.ResponseResolver;
 
 public class MatchUiAdapter extends ResponseResolver<MatchResponse> {
+    private static final Integer MIN_MATCHING_COUNT = 3;
 
     @Override
     protected String format(MatchResponse response) {
@@ -12,7 +13,9 @@ public class MatchUiAdapter extends ResponseResolver<MatchResponse> {
                 .append("당첨 통계 \n")
                 .append("---------\n");
 
-        response.getStatistics().forEach((statistics) -> {
+        response.getStatistics().stream()
+                .filter((statistics) -> statistics.get("winningNumberCount") >= MIN_MATCHING_COUNT)
+                .forEach((statistics) -> {
             Integer matchCount = statistics.get("winningNumberCount");
 
             Integer price = statistics.get("prize");
