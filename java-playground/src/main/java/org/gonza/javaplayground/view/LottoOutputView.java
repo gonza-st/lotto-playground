@@ -18,4 +18,5 @@ public interface LottoOutputView {
 
     void printError(String message);
 
+    void printBonusNumberRequest();
 }
