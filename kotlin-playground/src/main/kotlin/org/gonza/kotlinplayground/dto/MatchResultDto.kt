@@ -1,8 +1,9 @@
 package org.gonza.kotlinplayground.dto
 
 data class MatchResultDto(
-    var three: Int = 0,
-    var four: Int = 0,
-    var five: Int = 0,
-    var six: Int = 0,
+    var fifth: Int = 0,
+    var fourth: Int = 0,
+    var third: Int = 0,
+    var second: Int = 0,
+    var winner: Int = 0,
 )
