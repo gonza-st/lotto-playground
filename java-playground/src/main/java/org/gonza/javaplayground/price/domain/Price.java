@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.purchase.domain;
+package org.gonza.javaplayground.price.domain;
 
 public class Price {
     private final Long value;
