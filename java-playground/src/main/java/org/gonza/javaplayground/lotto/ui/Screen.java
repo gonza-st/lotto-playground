@@ -16,8 +16,8 @@ public class Screen {
     }
 
     public void showWelcomeMsg() {
-        printer.println("Welcome to Lotto!");
         printer.println();
+        printer.println("Welcome to Lotto!");
     }
 
     public void showResult(LottoResponse response) {
