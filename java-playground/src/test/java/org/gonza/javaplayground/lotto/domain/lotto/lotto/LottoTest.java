@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,9 +17,9 @@ public class LottoTest {
 
     @BeforeEach
     public void setUp() {
-        List<List<Integer>> rawNumbers = List.of(
-                List.of(1, 2, 3, 4, 5, 6),
-                List.of(11, 12, 13, 14, 15, 16)
+        List<List<LottoNumber>> rawNumbers = List.of(
+                Stream.of(1, 2, 3, 4, 5, 6).map(LottoNumber::new).toList(),
+                Stream.of(11, 12, 13, 14, 15, 16).map(LottoNumber::new).toList()
         );
 
         this.givenNumbers = rawNumbers.stream()
@@ -45,7 +46,10 @@ public class LottoTest {
 
     @Test
     public void should_return_matched_numbers_for_all_lines() {
-        List<Integer> matchingNumber = List.of(1, 2, 13, 14, 25, 33);
+        List<LottoNumber> matchingNumber = Stream.of(1, 2, 13, 14, 25, 33)
+                .map(LottoNumber::new)
+                .toList();
+
         LottoLine matchingLine = new LottoLine(matchingNumber);
 
         LottoResultList result = sut.match(matchingLine);

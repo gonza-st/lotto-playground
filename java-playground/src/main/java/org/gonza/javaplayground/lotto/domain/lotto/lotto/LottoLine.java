@@ -5,24 +5,30 @@ import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
 import java.util.*;
 
 public class LottoLine {
-    private List<Integer> line;
+    private List<LottoNumber> line;
 
-    public LottoLine(List<Integer> line) {
+    public LottoLine(List<LottoNumber> line) {
         this.line = line;
     }
 
     public List<Integer> getAllNumbers() {
-        return line;
+        return line.stream()
+                .map(LottoNumber::value)
+                .toList();
     }
 
     public LottoLineResult match(LottoLine candidate) {
 
-        Set<Integer> input = new HashSet<>(candidate.line);
-        Set<Integer> resultSet = new HashSet<>(line);
+        Set<LottoNumber> input = new HashSet<>(candidate.line);
+        Set<LottoNumber> resultSet = new HashSet<>(line);
         resultSet.retainAll(input);
 
-        List<Integer> result = new ArrayList<>(resultSet);
+        List<LottoNumber> result = new ArrayList<>(resultSet);
 
-        return new LottoLineResult(result);
+        List<Integer> list = result.stream()
+                .map(LottoNumber::value)
+                .toList();
+
+        return new LottoLineResult(list);
     }
 }
