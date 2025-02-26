@@ -12,7 +12,10 @@ public record LottoNumber(List<Integer> lottoNumbers) {
                 .count();
     }
 
-    public Ranking getRanking(LottoNumber winningNumber) {
-        return Ranking.valueOf(getMatchCount(winningNumber));
+    public Ranking getRanking(LottoNumber winningNumber, int bonusNumber) {
+        int matchCount = getMatchCount(winningNumber);
+        boolean hasBonusMatch = lottoNumbers.contains(bonusNumber);
+
+        return Ranking.valueOf(matchCount, hasBonusMatch);
     }
 }

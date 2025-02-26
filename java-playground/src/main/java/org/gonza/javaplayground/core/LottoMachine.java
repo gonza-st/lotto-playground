@@ -25,10 +25,6 @@ public class LottoMachine {
         return new LottoTicket(lottoNumbers);
     }
 
-    public static Ranking compareWinningNumber(LottoNumber lottoNumber, LottoNumber winningLottoNumber) {
-        return Ranking.valueOf(lottoNumber.getMatchCount(winningLottoNumber));
-    }
-
     private int calculateNumberOfTickets(Money purchasePrice) {
         int numberOfPurchasedTicket = purchasePrice.value()
                 .divide(BigDecimal.valueOf(PURCHASE_PRICE_UNIT))

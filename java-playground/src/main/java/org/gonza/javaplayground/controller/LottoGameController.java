@@ -29,7 +29,7 @@ public class LottoGameController {
         try {
             LottoTicket ticket = purchaseLottoTicket();
             printTicketInfo(ticket);
-            WinningStatistics statistics = processWinningNumbers(ticket);
+            WinningStatistics statistics = getWinningStatistics(ticket, processWinningNumbers());
             outputView.printStatistics(statistics);
         } catch (IllegalArgumentException e) {
             outputView.printError(e.getMessage());
@@ -47,10 +47,17 @@ public class LottoGameController {
         outputView.printLottoNumbers(ticket.lottoNumbers());
     }
 
-    private WinningStatistics processWinningNumbers(LottoTicket ticket) {
+    private LottoNumber processWinningNumbers() {
         outputView.printWinningNumberRequest();
         List<Integer> winningNumbers = inputValidator.validateAndConvertWinningNumbers(inputView.read());
-        LottoNumber winningNumber = new LottoNumber(winningNumbers);
-        return new WinningStatistics(ticket.lottoNumbers(), winningNumber);
+
+        return new LottoNumber(winningNumbers);
+    }
+
+    private WinningStatistics getWinningStatistics(LottoTicket ticket, LottoNumber winningNumber) {
+        outputView.printBonusNumberRequest();
+        int bonusNumber = inputValidator.validateBonusNumber(inputView.read());
+
+        return new WinningStatistics(ticket.lottoNumbers(), winningNumber, bonusNumber);
     }
 }
