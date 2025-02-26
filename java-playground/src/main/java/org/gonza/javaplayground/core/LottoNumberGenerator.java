@@ -5,13 +5,9 @@ import java.util.Collections;
 import java.util.List;
 
 public class LottoNumberGenerator {
-
-    public static final int MAX_NUMBER = 45;
-    public static final int MIN_NUMBER = 1;
-
     public LottoNumber generateLottoNumber() {
         List<Integer> lottoNumbers = new ArrayList<>();
-        for (int i = MIN_NUMBER; i <= MAX_NUMBER; i++) {
+        for (int i = LottoNumber.MIN_NUMBER; i <= LottoNumber.MAX_NUMBER; i++) {
             lottoNumbers.add(i);
         }
         Collections.shuffle(lottoNumbers);
