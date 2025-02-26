@@ -55,8 +55,13 @@ public class LottoTest {
         LottoResultList result = sut.match(matchingLine);
 
         Map<Integer, List<LottoLineResult>> resultMap = Map.of(
-                2, List.of(new LottoLineResult(List.of(1, 2)), new LottoLineResult(List.of(13, 14)))
+                2,
+                List.of(
+                        new LottoLineResult(List.of(new LottoNumber(1), new LottoNumber(2))),
+                        new LottoLineResult(List.of(new LottoNumber(13), new LottoNumber(14)))
+                )
         );
+
         assertEquals(resultMap, result.result());
     }
 

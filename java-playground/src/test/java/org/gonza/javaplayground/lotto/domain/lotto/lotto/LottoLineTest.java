@@ -72,7 +72,7 @@ public class LottoLineTest {
 
             LottoLine lottoLine = new LottoLine(validNumbers);
 
-            assertEquals(validNumbers, lottoLine.getAllNumbers().stream().map(LottoNumber::new).toList());
+            assertEquals(validNumbers, lottoLine.getAllNumbers());
         }
     }
 }

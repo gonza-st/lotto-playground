@@ -1,5 +1,6 @@
 package org.gonza.javaplayground.lotto.domain.report;
 
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoNumber;
 import org.gonza.javaplayground.lotto.domain.payment.Cash;
 import org.gonza.javaplayground.lotto.domain.lotto.result.LottoLineResult;
 import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultList;
@@ -8,6 +9,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,7 +30,8 @@ public class ReportFactoryTest {
         Payment payment = Cash.of(1000);
 
         String lottoId = UUID.randomUUID().toString();
-        LottoLineResult lineResult = new LottoLineResult(List.of(1,2,3));
+        List<LottoNumber> numbers = Stream.of(1,2,3).map(LottoNumber::new).toList();
+        LottoLineResult lineResult = new LottoLineResult(numbers);
         List<LottoLineResult> lineResults = List.of(lineResult);
         LottoResultList result = new LottoResultList(lottoId, lineResults);
 

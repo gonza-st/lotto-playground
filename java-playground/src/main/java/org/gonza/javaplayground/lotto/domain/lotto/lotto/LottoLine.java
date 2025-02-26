@@ -11,10 +11,8 @@ public class LottoLine {
         this.line = line;
     }
 
-    public List<Integer> getAllNumbers() {
-        return line.stream()
-                .map(LottoNumber::value)
-                .toList();
+    public List<LottoNumber> getAllNumbers() {
+        return line;
     }
 
     public LottoLineResult match(LottoLine candidate) {
@@ -24,11 +22,6 @@ public class LottoLine {
         resultSet.retainAll(input);
 
         List<LottoNumber> result = new ArrayList<>(resultSet);
-
-        List<Integer> list = result.stream()
-                .map(LottoNumber::value)
-                .toList();
-
-        return new LottoLineResult(list);
+        return new LottoLineResult(result);
     }
 }
