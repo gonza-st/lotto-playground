@@ -2,6 +2,7 @@ package org.gonza.kotlinplayground
 
 import Lotto
 import org.gonza.kotlinplayground.domain.LottoIssuer
+import org.gonza.kotlinplayground.domain.LottoNumber
 import org.gonza.kotlinplayground.domain.Lottos
 import org.gonza.kotlinplayground.domain.YieldCalculator
 import org.gonza.kotlinplayground.dto.MatchResultDto
@@ -27,14 +28,18 @@ fun main(args: Array<String>) {
     output.print("당첨 번호를 입력해 주세요.")
     val winningNumber = input.string()
     val winningLotto = Lotto.create(winningLottoNumber = winningNumber)
+    output.print("보너스 볼을 입력해 주세요.")
+    val bonusBallString: String = input.string()
+    val bonusBall = LottoNumber(value = bonusBallString)
 
     output.print("당첨 통계\n" + "---------")
-    val matchResult: MatchResultDto = lottos.matchResult(winningLotto = winningLotto)
+    val matchResult: MatchResultDto = lottos.matchResult(winningLotto = winningLotto, bonusBall = bonusBall)
 
-    output.print("3개 일치 (5,000원)- ${matchResult.three}개")
-    output.print("4개 일치 (50,000원)- ${matchResult.four}개")
-    output.print("5개 일치 (1,500,000원)- ${matchResult.five}개")
-    output.print("6개 일치 (2,000,000,000원)- ${matchResult.six}개")
+    output.print("3개 일치 (5,000원)- ${matchResult.fifth}개")
+    output.print("4개 일치 (50,000원)- ${matchResult.fourth}개")
+    output.print("5개 일치 (1,500,000원)- ${matchResult.third}개")
+    output.print("5개 일치, 보너스 볼 일치(30,000,000원)- ${matchResult.second}개")
+    output.print("6개 일치 (2,000,000,000원)- ${matchResult.winner}개")
 
     val calculator = YieldCalculator()
     val result: Double = calculator.yield(cost = cost, matchResult = matchResult)
