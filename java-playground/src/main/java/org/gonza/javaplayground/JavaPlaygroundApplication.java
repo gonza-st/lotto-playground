@@ -14,14 +14,16 @@ public class JavaPlaygroundApplication {
     public static void main(String[] args) {
         InputValidator validator = new InputValidator();
 
-        LottoInputView inputView = new ConsoleInputView(validator);
+        LottoInputView inputView = new ConsoleInputView();
+
         LottoOutputView outputView = new ConsoleOutputView();
         LottoMachine lottoMachine = new LottoMachine(new LottoNumberGenerator());
 
         LottoGameController gameController = new LottoGameController(
                 inputView,
                 outputView,
-                lottoMachine
+                lottoMachine,
+                validator
         );
 
         try {

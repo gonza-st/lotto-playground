@@ -1,12 +1,9 @@
 package org.gonza.javaplayground.view;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 public interface LottoInputView {
-    BigDecimal readPurchaseAmount();
+    String read();
 
-    List<Integer> readWinningNumbers();
+//    String readWinningNumbers();
 
     void close();
 }

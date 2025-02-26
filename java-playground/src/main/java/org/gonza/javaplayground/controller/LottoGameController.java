@@ -1,6 +1,7 @@
 package org.gonza.javaplayground.controller;
 
 import org.gonza.javaplayground.core.*;
+import org.gonza.javaplayground.util.InputValidator;
 import org.gonza.javaplayground.view.LottoInputView;
 import org.gonza.javaplayground.view.LottoOutputView;
 
@@ -11,15 +12,17 @@ public class LottoGameController {
     private final LottoInputView inputView;
     private final LottoOutputView outputView;
     private final LottoMachine lottoMachine;
+    private final InputValidator inputValidator;
 
     public LottoGameController(
             LottoInputView inputView,
             LottoOutputView outputView,
-            LottoMachine lottoMachine
+            LottoMachine lottoMachine, InputValidator validator
     ) {
         this.inputView = inputView;
         this.outputView = outputView;
         this.lottoMachine = lottoMachine;
+        this.inputValidator = validator;
     }
 
     public void play() {
@@ -35,7 +38,7 @@ public class LottoGameController {
 
     private LottoTicket purchaseLottoTicket() {
         outputView.printPurchaseAmountRequest();
-        BigDecimal purchaseAmount = inputView.readPurchaseAmount();
+        BigDecimal purchaseAmount = inputValidator.validateAndConvertPurchaseAmount(inputView.read());
         return lottoMachine.generateLottoTicket(new Money(purchaseAmount));
     }
 
@@ -46,7 +49,7 @@ public class LottoGameController {
 
     private WinningStatistics processWinningNumbers(LottoTicket ticket) {
         outputView.printWinningNumberRequest();
-        List<Integer> winningNumbers = inputView.readWinningNumbers();
+        List<Integer> winningNumbers = inputValidator.validateAndConvertWinningNumbers(inputView.read());
         LottoNumber winningNumber = new LottoNumber(winningNumbers);
         return new WinningStatistics(ticket.lottoNumbers(), winningNumber);
     }
