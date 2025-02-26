@@ -2,6 +2,8 @@ package org.gonza.javaplayground.lotto.ui;
 
 import org.gonza.javaplayground.framework.mapper.Option;
 
+import java.util.Map;
+
 public class LottoRequestTestFixtures {
     public static LottoRequest createRequestWithNotNumberBody() {
         return new LottoRequest(Option.PURCHASE, "it is string");
@@ -16,7 +18,12 @@ public class LottoRequestTestFixtures {
     }
 
     public static LottoRequest createMatchRequestWithValidBody() {
-        return new LottoRequest(Option.MATCH, "1,2,3,4,5,6");
+        return new LottoRequest(Option.MATCH,
+                Map.of(
+                        "matchingNumbers", "1,2,3,4,5,6",
+                        "bonusNumber", "7"
+                )
+        );
     }
 
     public static LottoRequest createMatchRequestWithIntegerBody() {
@@ -28,6 +35,12 @@ public class LottoRequestTestFixtures {
     }
 
     public static LottoRequest createMatchRequestWithNotNumberValueBody() {
-        return new LottoRequest(Option.MATCH, "1,2,3,4,5,a");
+        return new LottoRequest(
+                Option.MATCH,
+                Map.of(
+                        "matchingNumbers", "1,2,3,4,5,a",
+                        "bonusNumber", "7"
+                )
+        );
     }
 }
