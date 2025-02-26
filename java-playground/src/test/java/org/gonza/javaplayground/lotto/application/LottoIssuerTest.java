@@ -1,5 +1,6 @@
 package org.gonza.javaplayground.lotto.application;
 
+import org.gonza.javaplayground.lotto.LottoConstant;
 import org.gonza.javaplayground.lotto.domain.Lottos;
 import org.gonza.javaplayground.purchase.domain.Price;
 import org.gonza.javaplayground.purchase.domain.Purchase;
@@ -16,6 +17,6 @@ class LottoIssuerTest {
 
         Lottos lottos = LottoIssuer.issue(PURCHASE);
 
-        assertEquals(5000 / 1000, lottos.getSize());
+        assertEquals(5000 / LottoConstant.LOTTO_PRICE, lottos.getSize());
     }
 }

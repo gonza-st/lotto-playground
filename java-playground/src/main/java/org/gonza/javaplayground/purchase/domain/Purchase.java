@@ -12,7 +12,7 @@ public class Purchase {
         this.price = price;
     }
 
-    public Long getPrice() {
-        return price.getValue();
+    public Price getPrice() {
+        return this.price;
     }
 }

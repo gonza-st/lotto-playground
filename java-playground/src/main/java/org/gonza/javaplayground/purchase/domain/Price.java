@@ -15,7 +15,11 @@ public class Price {
         return new Price(price);
     }
 
-    public Long getValue() {
-        return value;
+    public Long divide(Price price) {
+        return this.value / price.getValue();
+    }
+
+    private Long getValue() {
+        return this.value;
     }
 }
