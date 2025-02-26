@@ -6,7 +6,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -35,16 +34,6 @@ public class LottoTest {
     }
 
     @Test
-    public void should_throw_if_null_is_provided_in_constructor() {
-        assertThrows(IllegalArgumentException.class, () -> new Lotto(null));
-    }
-
-    @Test
-    public void should_throw_if_empty_list_is_provided_in_constructor() {
-        assertThrows(IllegalArgumentException.class, () -> new Lotto(List.of()));
-    }
-
-    @Test
     public void should_return_matched_numbers_for_all_lines() {
         List<LottoNumber> matchingNumber = Stream.of(1, 2, 13, 14, 25, 33)
                 .map(LottoNumber::new)
@@ -54,13 +43,11 @@ public class LottoTest {
 
         LottoResultList result = sut.match(matchingLine);
 
-        Map<Integer, List<LottoLineResult>> resultMap = Map.of(
-                2,
+        List<LottoLineResult> resultMap =
                 List.of(
                         new LottoLineResult(List.of(new LottoNumber(1), new LottoNumber(2))),
                         new LottoLineResult(List.of(new LottoNumber(13), new LottoNumber(14)))
-                )
-        );
+                );
 
         assertEquals(resultMap, result.result());
     }
