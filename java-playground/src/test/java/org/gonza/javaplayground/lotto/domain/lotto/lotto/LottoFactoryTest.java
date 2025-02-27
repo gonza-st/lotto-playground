@@ -19,7 +19,7 @@ public class LottoFactoryTest {
         LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
         LottoNumberFactory lottoNumberFactory = new LottoNumberFactory(properties, numberGenerator);
         LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, lottoNumberFactory);
-        this.sut = new LottoFactory(properties, lottoLineFactory);
+        this.sut = new LottoFactory(properties, lottoLineFactory, lottoNumberFactory);
     }
 
     @Test

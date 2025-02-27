@@ -40,8 +40,9 @@ public class LottoTest {
                 .toList();
 
         LottoLine matchingLine = new LottoLine(matchingNumber);
+        LottoNumber bonus = new LottoNumber(7);
 
-        LottoResultList result = sut.match(matchingLine);
+        LottoResultList result = sut.match(matchingLine, bonus);
 
         List<LottoLineResult> resultMap =
                 List.of(

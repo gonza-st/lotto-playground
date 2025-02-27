@@ -22,7 +22,7 @@ public class UsbStub implements Storage {
         LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
         LottoNumberFactory lottoNumberFactory = new LottoNumberFactory(properties, numberGenerator);
         LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, lottoNumberFactory);
-        LottoFactory factory = new LottoFactory(properties, lottoLineFactory);
+        LottoFactory factory = new LottoFactory(properties, lottoLineFactory, lottoNumberFactory);
         BuyingCount coin = Cash.of(1000);
         Lotto lotto = factory.createLotto(coin);
 
