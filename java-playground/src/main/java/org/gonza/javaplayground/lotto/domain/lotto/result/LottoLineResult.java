@@ -1,12 +1,14 @@
 package org.gonza.javaplayground.lotto.domain.lotto.result;
 
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoNumber;
+
 import java.util.List;
 import java.util.Objects;
 
 public class LottoLineResult {
-    private final List<Integer> result;
+    private final List<LottoNumber> result;
 
-    public LottoLineResult(List<Integer> results) {
+    public LottoLineResult(List<LottoNumber> results) {
         this.result = results;
     }
 
@@ -15,7 +17,7 @@ public class LottoLineResult {
     }
 
     public List<Integer> getResult() {
-        return result;
+        return result.stream().map(LottoNumber::value).toList();
     }
 
     @Override

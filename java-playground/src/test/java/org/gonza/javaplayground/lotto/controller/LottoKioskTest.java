@@ -9,6 +9,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGeneratorStub;
 import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoLineFactory;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoNumberFactory;
 import org.gonza.javaplayground.lotto.domain.report.ReportFactory;
 import org.gonza.javaplayground.lotto.domain.report.PriceTestFixtures;
 import org.gonza.javaplayground.lotto.domain.report.WinningPrizeTable;
@@ -32,7 +33,8 @@ public class LottoKioskTest {
 
         LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
         NumberGenerator numberGenerator = new NumberGeneratorStub();
-        LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, numberGenerator);
+        LottoNumberFactory lottoNumberFactory = new LottoNumberFactory(properties, numberGenerator);
+        LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, lottoNumberFactory);
         LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory);
 
         Storage usb = new UsbStub();
