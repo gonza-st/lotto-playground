@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import org.gonza.javaplayground.model.Lotto;
 import org.gonza.javaplayground.model.LottoNumber;
+import org.gonza.javaplayground.model.Rank;
 
 public class OutputManager {
     public void 구매_금액_입력_안내하기() {
@@ -13,6 +14,10 @@ public class OutputManager {
     public void 당첨_번호_입력_안내하기() {
         System.out.println();
         System.out.println("당첨 번호를 입력해 주세요.");
+    }
+
+    public void 보너스_번호_입력_안내하기() {
+        System.out.println("보너스 볼을 입력해 주세요.");
     }
 
     public void 구매_로또_목록_출력하기(List<Lotto> 구매_로또_목록) {
@@ -29,14 +34,13 @@ public class OutputManager {
         System.out.println();
     }
 
-    public void 당첨_통계_출력하기(Map<Integer, Integer> 당첨_통계, double 수익률) {
+    public void 당첨_통계_출력하기(Map<Rank, Integer> 당첨_통계, double 수익률) {
         System.out.println("\n당첨 통계\n---------");
-        System.out.printf("3개 일치 (5,000원)- %d개\n", 당첨_통계.get(3));
-        System.out.printf("4개 일치 (50,000원)- %d개\n", 당첨_통계.get(4));
-        System.out.printf("5개 일치 (1,500,000원)- %d개\n", 당첨_통계.get(5));
-        System.out.printf("6개 일치 (2,000,000,000원)- %d개\n", 당첨_통계.get(6));
+        System.out.printf("3개 일치 (5,000원)- %d개\n", 당첨_통계.getOrDefault(Rank.FIFTH, 0));
+        System.out.printf("4개 일치 (50,000원)- %d개\n", 당첨_통계.getOrDefault(Rank.FOURTH, 0));
+        System.out.printf("5개 일치 (1,500,000원)- %d개\n", 당첨_통계.getOrDefault(Rank.THIRD, 0));
+        System.out.printf("5개 일치, 보너스 볼 일치(30,000,000원) - %d개\n", 당첨_통계.getOrDefault(Rank.SECOND, 0));
+        System.out.printf("6개 일치 (2,000,000,000원)- %d개\n", 당첨_통계.getOrDefault(Rank.FIRST, 0));
         System.out.printf("총 수익률은 %.2f입니다.\n", 수익률);
     }
-
-
 }
