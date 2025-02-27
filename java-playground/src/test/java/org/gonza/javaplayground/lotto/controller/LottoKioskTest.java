@@ -53,7 +53,10 @@ public class LottoKioskTest {
 
     @Test
     public void should_return_profit_by_percent_and_statistics() {
-        MatchRequest req = new MatchRequest(List.of(1, 2, 3, 4, 5, 6));
+        MatchRequest req = new MatchRequest(
+                List.of(1, 2, 3, 4, 5, 6),
+                7
+        );
         MatchResponse res = sut.handleMatchNumbers(req);
 
         // TODO ("usb 목킹 필요")
