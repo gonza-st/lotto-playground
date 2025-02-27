@@ -4,10 +4,12 @@ import org.gonza.kotlinplayground.domain.lotto.LottoTicket
 import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
 import org.gonza.kotlinplayground.domain.payment.WinningStatistics
 
-class GeneralLottoMatcher : LottoMatcher {
+class GeneralLottoMatcher(
+    private val purchasedTicketList: List<LottoTicket>,
+) : LottoMatcher {
     override fun getWinningStatistics(
         result: LottoTicket,
-        purchasedTicketList: List<LottoTicket>,
+        temp: List<LottoTicket>,
     ): WinningStatistics {
         val matchedStatistics =
             purchasedTicketList.mapNotNull { ticket ->

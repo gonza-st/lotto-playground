@@ -11,7 +11,7 @@ class GeneralLottoMatcherTest {
             LottoMatcherFixture.createLottoTicket(
                 listOf(1, 2, 3, 4, 5, 6),
             )
-        val purchasedTickets =
+        val purchasedTicketList =
             LottoMatcherFixture.createLottoTicketList(
                 listOf(
                     listOf(1, 2, 3, 7, 8, 9),
@@ -20,9 +20,9 @@ class GeneralLottoMatcherTest {
                 ),
             )
 
-        val lottoMatcher = GeneralLottoMatcher()
+        val lottoMatcher = GeneralLottoMatcher(purchasedTicketList)
 
-        val winningStatistics = lottoMatcher.getWinningStatistics(winningTicket, purchasedTickets)
+        val winningStatistics = lottoMatcher.getWinningStatistics(winningTicket, purchasedTicketList)
 
         val expectedResultList =
             listOf(

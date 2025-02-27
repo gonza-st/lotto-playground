@@ -69,12 +69,15 @@ private fun getWinningTicket(
 
 private fun matchLottoResults(
     winningTicket: LottoTicket,
-    lottoTicketList: List<LottoTicket>,
+    purchasedTicketList: List<LottoTicket>,
 ): WinningStatistics {
-    val lottoMatcher = GeneralLottoMatcher()
+    val lottoMatcher =
+        GeneralLottoMatcher(
+            purchasedTicketList,
+        )
     return lottoMatcher.getWinningStatistics(
         result = winningTicket,
-        purchasedTicketList = lottoTicketList,
+        temp = purchasedTicketList,
     )
 }
 
