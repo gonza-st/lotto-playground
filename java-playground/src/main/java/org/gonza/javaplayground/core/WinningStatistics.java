@@ -9,7 +9,7 @@ public class WinningStatistics {
     private final Map<Ranking, Integer> rankingCounts;
     private final int totalTicketCount;
 
-    public WinningStatistics(List<LottoNumber> purchasedNumbers, LottoNumber winningNumber, int bonusNumber) {
+    public WinningStatistics(List<LottoNumber> purchasedNumbers, LottoNumber winningNumber, LottoNumber bonusNumber) {
         rankingCounts = initializeRankingCounts();
         countWinnings(purchasedNumbers, winningNumber, bonusNumber);
         this.totalTicketCount = purchasedNumbers.size();
@@ -35,7 +35,7 @@ public class WinningStatistics {
                 ));
     }
 
-    private void countWinnings(List<LottoNumber> purchasedNumbers, LottoNumber winningNumber, int bonusNumber) {
+    private void countWinnings(List<LottoNumber> purchasedNumbers, LottoNumber winningNumber, LottoNumber bonusNumber) {
         purchasedNumbers.forEach(purchasedNumber -> {
             Ranking ranking = purchasedNumber.getRanking(winningNumber, bonusNumber);
             rankingCounts.merge(ranking, 1, Integer::sum);

@@ -22,10 +22,10 @@ class WinningStatisticsTest {
         LottoNumber lottoNumber2 = new LottoNumber(List.of(13, 12, 33, 43, 5, 23));
         List<LottoNumber> purchasedNumbers = List.of(lottoNumber1, lottoNumber2);
         LottoNumber winningLottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
-        int bonusNumber = 23;
+        LottoNumber bonusLottoNumber = LottoNumber.createBonusLottoNumber(23);
 
         //when
-        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber, bonusNumber);
+        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber, bonusLottoNumber);
 
         //then
         assertAll(
@@ -41,13 +41,14 @@ class WinningStatisticsTest {
     @DisplayName("수익률을 계산할 수 있다.")
     void calculateReturnRateTest() throws Exception {
         //given
-        LottoNumber lottoNumber1 = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));    // 1등 당첨
-        LottoNumber lottoNumber2 = new LottoNumber(List.of(1, 2, 3, 4, 5, 7));    // 3등 당첨 (5개 일치, 보너스 불일치)
-        LottoNumber lottoNumber3 = new LottoNumber(List.of(1, 2, 3, 4, 5, 10));   // 2등 당첨 (5개 일치, 보너스 일치)
+        LottoNumber lottoNumber1 = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber lottoNumber2 = new LottoNumber(List.of(1, 2, 3, 4, 5, 7));
+        LottoNumber lottoNumber3 = new LottoNumber(List.of(1, 2, 3, 4, 5, 10));
         List<LottoNumber> purchasedNumbers = List.of(lottoNumber1, lottoNumber2, lottoNumber3);
 
         LottoNumber winningLottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
-        int bonusNumber = 10;
+        LottoNumber bonusNumber = LottoNumber.createBonusLottoNumber(10);
+
 
         int totalPurchaseAmount = purchasedNumbers.size() * 1000;
         int expectedFirstPrizeMoney = Ranking.FIRST.getPrize();
@@ -72,7 +73,8 @@ class WinningStatisticsTest {
         LottoNumber lottoNumber = new LottoNumber(List.of(7, 8, 9, 10, 11, 12));
         List<LottoNumber> purchasedNumbers = List.of(lottoNumber);
         LottoNumber winningLottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
-        int bonusNumber = 23;
+        LottoNumber bonusNumber = LottoNumber.createBonusLottoNumber(23);
+
 
         //when
         WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber, bonusNumber);
@@ -104,7 +106,7 @@ class WinningStatisticsTest {
         LottoNumber lottoNumber = new LottoNumber(List.of(n1, n2, n3, n4, n5, n6));
         List<LottoNumber> purchasedNumbers = List.of(lottoNumber);
         LottoNumber winningLottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
-        int bonusNumber = 10;
+        LottoNumber bonusNumber = LottoNumber.createBonusLottoNumber(10);
 
         //when
         WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber, bonusNumber);

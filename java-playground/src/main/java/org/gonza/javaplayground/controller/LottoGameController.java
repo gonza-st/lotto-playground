@@ -56,8 +56,9 @@ public class LottoGameController {
 
     private WinningStatistics getWinningStatistics(LottoTicket ticket, LottoNumber winningNumber) {
         outputView.printBonusNumberRequest();
-        int bonusNumber = inputValidator.validateBonusNumber(inputView.read());
+        int inputBonusNumber = inputValidator.validateBonusNumber(inputView.read());
+        LottoNumber bonusLottoNumber = LottoNumber.createBonusLottoNumber(inputBonusNumber);
 
-        return new WinningStatistics(ticket.lottoNumbers(), winningNumber, bonusNumber);
+        return new WinningStatistics(ticket.lottoNumbers(), winningNumber, bonusLottoNumber);
     }
 }
