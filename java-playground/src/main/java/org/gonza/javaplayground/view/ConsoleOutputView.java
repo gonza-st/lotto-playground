@@ -35,4 +35,9 @@ public class ConsoleOutputView implements LottoOutputView {
     public void printError(String message) {
         System.out.println("Error: " + message);
     }
+
+    @Override
+    public void printBonusNumberRequest() {
+        System.out.println("\n보너스 번호를 입력해 주세요.");
+    }
 }

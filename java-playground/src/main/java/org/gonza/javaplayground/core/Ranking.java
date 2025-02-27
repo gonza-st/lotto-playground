@@ -1,13 +1,12 @@
 package org.gonza.javaplayground.core;
 
-import java.util.Arrays;
-
 public enum Ranking {
     FIRST(6, 2_000_000_000),
-    SECOND(5, 1_500_000),
-    THIRD(4, 50_000),
-    FOURTH(3, 5_000),
-    NONE(2, 0);
+    SECOND(5, 30_000_000),
+    THIRD(5, 1_500_000),
+    FOURTH(4, 50_000),
+    FIFTH(3, 5_000),
+    NONE(0, 0);
 
     private final int matchCount;
     private final int prize;
@@ -17,11 +16,12 @@ public enum Ranking {
         this.prize = prize;
     }
 
-    public static Ranking valueOf(int matchCount) {
-        return Arrays.stream(values())
-                .filter(ranking -> ranking.matchCount == matchCount)
-                .findFirst()
-                .orElse(NONE);
+    public static Ranking valueOf(int matchCount, boolean hasBonusMatch) {
+        if (matchCount == 6) return FIRST;
+        if (matchCount == 5) return hasBonusMatch ? SECOND : THIRD;
+        if (matchCount == 4) return FOURTH;
+        if (matchCount == 3) return FIFTH;
+        return NONE;
     }
 
     public int getPrize() {
@@ -30,5 +30,15 @@ public enum Ranking {
 
     public int getMatchCount() {
         return matchCount;
+    }
+
+    public String getDescription() {
+        if (this == SECOND) {
+            return String.format("%d개 일치, 보너스 볼 일치", matchCount);
+        }
+        if (this != NONE) {
+            return String.format("%d개 일치", matchCount);
+        }
+        return "일치하는 번호 없음";
     }
 }

@@ -9,10 +9,9 @@ public class WinningStatistics {
     private final Map<Ranking, Integer> rankingCounts;
     private final int totalTicketCount;
 
-
-    public WinningStatistics(List<LottoNumber> purchasedNumbers, LottoNumber winningNumber) {
+    public WinningStatistics(List<LottoNumber> purchasedNumbers, LottoNumber winningNumber, LottoNumber bonusNumber) {
         rankingCounts = initializeRankingCounts();
-        countWinnings(purchasedNumbers, winningNumber);
+        countWinnings(purchasedNumbers, winningNumber, bonusNumber);
         this.totalTicketCount = purchasedNumbers.size();
     }
 
@@ -36,10 +35,11 @@ public class WinningStatistics {
                 ));
     }
 
-    private void countWinnings(List<LottoNumber> purchasedNumbers, LottoNumber winningNumber) {
-        purchasedNumbers.stream()
-                .map(number -> number.getRanking(winningNumber))
-                .forEach(ranking -> rankingCounts.merge(ranking, 1, Integer::sum));
+    private void countWinnings(List<LottoNumber> purchasedNumbers, LottoNumber winningNumber, LottoNumber bonusNumber) {
+        purchasedNumbers.forEach(purchasedNumber -> {
+            Ranking ranking = purchasedNumber.getRanking(winningNumber, bonusNumber);
+            rankingCounts.merge(ranking, 1, Integer::sum);
+        });
     }
 
     @Override
@@ -51,8 +51,8 @@ public class WinningStatistics {
         Arrays.stream(Ranking.values())
                 .filter(ranking -> ranking != Ranking.NONE)
                 .forEach(ranking ->
-                        sb.append(String.format("%d개 일치 (%,d원)- %d개\n",
-                                ranking.getMatchCount(),
+                        sb.append(String.format("%s (%,d원)- %d개\n",
+                                ranking.getDescription(),
                                 ranking.getPrize(),
                                 rankingCounts.get(ranking))));
 
