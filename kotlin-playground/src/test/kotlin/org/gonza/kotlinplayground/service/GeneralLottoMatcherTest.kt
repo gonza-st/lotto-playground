@@ -22,7 +22,7 @@ class GeneralLottoMatcherTest {
 
         val lottoMatcher = GeneralLottoMatcher(purchasedTicketList)
 
-        val winningStatistics = lottoMatcher.getWinningStatistics(winningTicket, purchasedTicketList)
+        val winningStatistics = lottoMatcher.getWinningStatistics(winningTicket)
 
         val expectedResultList =
             listOf(

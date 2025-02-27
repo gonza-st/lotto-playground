@@ -75,10 +75,7 @@ private fun matchLottoResults(
         GeneralLottoMatcher(
             purchasedTicketList,
         )
-    return lottoMatcher.getWinningStatistics(
-        result = winningTicket,
-        temp = purchasedTicketList,
-    )
+    return lottoMatcher.getWinningStatistics(winningTicket)
 }
 
 private fun printStatistics(
