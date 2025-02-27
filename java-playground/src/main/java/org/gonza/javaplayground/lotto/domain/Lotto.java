@@ -22,27 +22,28 @@ public class Lotto {
         return this.status.isWon();
     }
 
+    public boolean isLost() {
+        return this.status.isLost();
+    }
+
+    public Rank getRank() {
+        return this.rank;
+    }
+
     public void verify(LottoNumber lottoNumber) {
         int matchedCount = this.numbers.matchBy(lottoNumber);
         determineResult(matchedCount);
     }
 
     private void determineResult(int matchedCount) {
-        if (matchedCount >= 3) {
-            win(matchedCount);
+        this.rank = Rank.valueOf(matchedCount);
+
+        if (this.rank.equals(Rank.MISS)) {
+            this.status = LottoStatus.LOST;
         }
 
-        if (matchedCount < 3) {
-            lose();
+        if (!this.rank.equals(Rank.MISS)) {
+            this.status = LottoStatus.WON;
         }
-    }
-
-    private void lose() {
-        this.status = LottoStatus.LOST;
-    }
-
-    private void win(int matchedCount) {
-        this.rank = Rank.of(matchedCount);
-        this.status = LottoStatus.WON;
     }
 }

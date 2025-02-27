@@ -13,4 +13,8 @@ public enum LottoStatus {
     public boolean isWon() {
         return this.equals(WON);
     }
+
+    public boolean isLost() {
+        return this.equals(LOST);
+    }
 }
