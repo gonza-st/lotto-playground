@@ -30,4 +30,9 @@ public class Lotto {
             throw new IllegalArgumentException("로또 번호는 중복될 수 없습니다.");
         }
     }
+
+    public boolean 로또번호_포함_여부_확인하기(LottoNumber 번호) {
+        return 로또번호들.stream()
+                .anyMatch(lottoNumber -> lottoNumber.번호_값_가져오기() == 번호.번호_값_가져오기());
+    }
 }
