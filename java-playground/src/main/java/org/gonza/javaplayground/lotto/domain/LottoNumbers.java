@@ -5,17 +5,17 @@ import org.gonza.javaplayground.lotto.LottoConstant;
 import java.util.Collections;
 import java.util.List;
 
-public class LottoNumber {
+public class LottoNumbers {
 
-    public static LottoNumber of(List<Integer> numbers) {
+    public static LottoNumbers of(List<Integer> numbers) {
         validateNumbers(numbers);
 
-        return new LottoNumber(numbers);
+        return new LottoNumbers(numbers);
     }
 
     private static void validateNumbers(List<Integer> numbers) {
         validateSize(numbers);
-        numbers.forEach(LottoNumber::validateRange);
+        numbers.forEach(LottoNumbers::validateRange);
     }
 
     private static void validateSize(List<Integer> numbers) {
@@ -32,7 +32,7 @@ public class LottoNumber {
 
     private final List<Integer> numbers;
 
-    private LottoNumber(List<Integer> numbers) {
+    private LottoNumbers(List<Integer> numbers) {
         this.numbers = numbers;
     }
 
@@ -44,9 +44,9 @@ public class LottoNumber {
         return Collections.unmodifiableList(this.numbers);
     }
 
-    public int matchBy(LottoNumber lottoNumber) {
+    public int matchBy(LottoNumbers lottoNumbers) {
         return this.numbers.stream()
-                .filter(lottoNumber.numbers::contains)
+                .filter(lottoNumbers.numbers::contains)
                 .toList()
                 .size();
     }

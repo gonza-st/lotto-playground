@@ -10,27 +10,27 @@ class LottosTest {
 
     @Test
     void Lottos를_생성할_수_있다() {
-        LottoNumber lottoNumber = RandomLottoNumbers.generate();
+        LottoNumbers lottoNumbers = RandomLottoNumbers.generate();
 
-        Lottos lottos = Lottos.of(List.of(lottoNumber));
+        Lottos lottos = Lottos.of(List.of(lottoNumbers));
 
         assertNotNull(lottos);
     }
 
     @Test
     void Lottos에_당첨_여부를_확인할_수_있다() {
-        LottoNumber lottoNumber = LottoNumber.of(List.of(1, 2, 3, 4, 5, 6));
-        Lottos lottos = Lottos.of(List.of(lottoNumber, lottoNumber));
+        LottoNumbers lottoNumbers = LottoNumbers.of(List.of(1, 2, 3, 4, 5, 6));
+        Lottos lottos = Lottos.of(List.of(lottoNumbers, lottoNumbers));
 
-        lottos.verify(lottoNumber);
+        lottos.verify(lottoNumbers);
 
         assertEquals(2, lottos.wonLottosSize());
     }
 
     @Test
     void 한_개만_당첨이면_won_lottos_는_한_개이다() {
-        LottoNumber wonNumber = LottoNumber.of(List.of(1, 2, 3, 4, 5, 6));
-        LottoNumber lostNumber = LottoNumber.of(List.of(7, 8, 9, 10, 11, 12));
+        LottoNumbers wonNumber = LottoNumbers.of(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumbers lostNumber = LottoNumbers.of(List.of(7, 8, 9, 10, 11, 12));
         Lottos lottos = Lottos.of(List.of(wonNumber, lostNumber));
 
         lottos.verify(wonNumber);
@@ -40,8 +40,8 @@ class LottosTest {
 
     @Test
     void 모두_당첨되지_않을_수_있다() {
-        LottoNumber wonNumber = LottoNumber.of(List.of(1, 2, 3, 4, 5, 6));
-        LottoNumber lostNumber = LottoNumber.of(List.of(7, 8, 9, 10, 11, 12));
+        LottoNumbers wonNumber = LottoNumbers.of(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumbers lostNumber = LottoNumbers.of(List.of(7, 8, 9, 10, 11, 12));
         Lottos lottos = Lottos.of(List.of(lostNumber, lostNumber));
 
         lottos.verify(wonNumber);

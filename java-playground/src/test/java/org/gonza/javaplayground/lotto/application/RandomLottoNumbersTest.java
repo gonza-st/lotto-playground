@@ -1,6 +1,6 @@
 package org.gonza.javaplayground.lotto.application;
 
-import org.gonza.javaplayground.lotto.domain.LottoNumber;
+import org.gonza.javaplayground.lotto.domain.LottoNumbers;
 import org.junit.jupiter.api.RepeatedTest;
 import org.junit.jupiter.api.Test;
 
@@ -13,14 +13,14 @@ class RandomLottoNumbersTest {
 
     @Test
     void LottoNumber는_6자리이다() {
-        LottoNumber number = RandomLottoNumbers.generate();
+        LottoNumbers number = RandomLottoNumbers.generate();
 
         assertEquals(6, number.size());
     }
 
     @Test
     void LottoNumber는_1에서_45사이_숫자로_구성된다() {
-        LottoNumber number = RandomLottoNumbers.generate();
+        LottoNumbers number = RandomLottoNumbers.generate();
 
         number.getNumbers().forEach(e ->
                 assertThat(e).isBetween(1, 45)
@@ -29,8 +29,8 @@ class RandomLottoNumbersTest {
 
     @RepeatedTest(10)
     void LottoNumber는_중복된_숫자가_없다() {
-        LottoNumber lottoNumber = RandomLottoNumbers.generate();
-        List<Integer> numbers = lottoNumber.getNumbers();
+        LottoNumbers lottoNumbers = RandomLottoNumbers.generate();
+        List<Integer> numbers = lottoNumbers.getNumbers();
 
         numbers.forEach(number -> {
             List<Integer> filteredNumbers = numbers.stream().filter(number::equals).toList();

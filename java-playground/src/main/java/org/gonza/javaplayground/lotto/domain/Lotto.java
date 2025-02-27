@@ -1,15 +1,15 @@
 package org.gonza.javaplayground.lotto.domain;
 
 public class Lotto {
-    private final LottoNumber numbers;
+    private final LottoNumbers numbers;
     private LottoStatus status;
     private Rank rank;
 
-    public static Lotto of(LottoNumber numbers) {
+    public static Lotto of(LottoNumbers numbers) {
         return new Lotto(numbers);
     }
 
-    private Lotto(LottoNumber numbers) {
+    private Lotto(LottoNumbers numbers) {
         this.numbers = numbers;
         this.status = LottoStatus.ISSUED;
     }
@@ -30,8 +30,8 @@ public class Lotto {
         return this.rank;
     }
 
-    public void verify(LottoNumber lottoNumber) {
-        int matchedCount = this.numbers.matchBy(lottoNumber);
+    public void verify(LottoNumbers lottoNumbers) {
+        int matchedCount = this.numbers.matchBy(lottoNumbers);
         determineResult(matchedCount);
     }
 

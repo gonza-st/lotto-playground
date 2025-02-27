@@ -3,7 +3,7 @@ package org.gonza.javaplayground.lotto.domain;
 import java.util.List;
 
 public class Lottos {
-    public static Lottos of(List<LottoNumber> lottoNumbers) {
+    public static Lottos of(List<LottoNumbers> lottoNumbers) {
         List<Lotto> lottos = lottoNumbers.stream()
                 .map(Lotto::of)
                 .toList();
@@ -20,8 +20,8 @@ public class Lottos {
         return this.lottos.size();
     }
 
-    public void verify(LottoNumber lottoNumber) {
-        lottos.forEach(lotto -> lotto.verify(lottoNumber));
+    public void verify(LottoNumbers lottoNumbers) {
+        lottos.forEach(lotto -> lotto.verify(lottoNumbers));
     }
 
     public List<Lotto> wonLottos() {
