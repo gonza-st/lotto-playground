@@ -45,6 +45,17 @@ private fun generateLottoTickets(payment: Payment): List<LottoTicket> {
     }
 }
 
+private fun getBonusNumber(
+    inputView: InputView,
+    outputView: OutputView,
+): LottoNumber {
+    outputView.printBonusBall()
+    val bonusNumberInput =
+        inputView.read()
+            ?: throw IllegalArgumentException("보너스 번호를 입력하세요")
+    return LottoNumber(bonusNumberInput.toInt())
+}
+
 private fun getWinningTicket(
     inputView: InputView,
     outputView: OutputView,

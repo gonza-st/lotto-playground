@@ -18,4 +18,22 @@ class LottoStatisticsSheetTest {
 
         assertEquals(expected, result)
     }
+
+    @Test
+    fun `당첨 번호와 일치하는 숫자 개수를 통해 일치하는 당첨 통계 정보를 가져올 수 있다`() {
+        val threeMatchedNumber = 3
+        val fourMatchedNumber = 4
+        val fiveMatchedNumber = 5
+        val allMatchedNumber = 6
+
+        val threeMatchedStatistics = LottoStatisticsSheet.findByMatchedNumber(threeMatchedNumber)
+        val fourMatchedStatistics = LottoStatisticsSheet.findByMatchedNumber(fourMatchedNumber)
+        val fiveMatchedStatistics = LottoStatisticsSheet.findByMatchedNumber(fiveMatchedNumber)
+        val allMatchedStatistics = LottoStatisticsSheet.findByMatchedNumber(allMatchedNumber)
+
+        assertEquals(threeMatchedStatistics?.matchedCount, threeMatchedNumber)
+        assertEquals(fourMatchedStatistics?.matchedCount, fourMatchedNumber)
+        assertEquals(fiveMatchedStatistics?.matchedCount, fiveMatchedNumber)
+        assertEquals(allMatchedStatistics?.matchedCount, allMatchedNumber)
+    }
 }
