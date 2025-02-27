@@ -9,10 +9,16 @@ import java.util.stream.IntStream;
 public class LottoFactory {
     private final LottoProperties lottoProperties;
     private final LottoLineFactory lottoLineFactory;
+    private final LottoNumberFactory lottoNumberFactory;
 
-    public LottoFactory(LottoProperties lottoProperties, LottoLineFactory lottoLineFactory) {
+    public LottoFactory(LottoProperties lottoProperties, LottoLineFactory lottoLineFactory, LottoNumberFactory lottoNumberFactory) {
         this.lottoProperties = lottoProperties;
         this.lottoLineFactory = lottoLineFactory;
+        this.lottoNumberFactory = lottoNumberFactory;
+    }
+
+    public LottoNumber createLottoNumber(Integer number) {
+        return lottoNumberFactory.createNumber(number);
     }
 
     public LottoLine createLottoLine(List<Integer> numbers) {

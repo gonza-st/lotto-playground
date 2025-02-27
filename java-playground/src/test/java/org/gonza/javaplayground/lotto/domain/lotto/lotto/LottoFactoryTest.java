@@ -17,8 +17,9 @@ public class LottoFactoryTest {
     public void setUp() {
         NumberGenerator numberGenerator = new NumberGeneratorStub();
         LottoProperties properties = new LottoProperties(1000, 6, 1, 45);
-        LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, numberGenerator);
-        this.sut = new LottoFactory(properties, lottoLineFactory);
+        LottoNumberFactory lottoNumberFactory = new LottoNumberFactory(properties, numberGenerator);
+        LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, lottoNumberFactory);
+        this.sut = new LottoFactory(properties, lottoLineFactory, lottoNumberFactory);
     }
 
     @Test

@@ -26,6 +26,7 @@ public class MatchRequestResolverTest {
         MatchRequest matchRequest = sut.resolve(request);
 
         assertEquals(List.of(1, 2, 3, 4, 5, 6), matchRequest.numbers());
+        assertEquals(7, matchRequest.bonusNumber());
     }
 
     @Test

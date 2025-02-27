@@ -10,12 +10,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class WinningPrizeTableTest {
     private static final List<Integer> PRICE_LIST = PriceTestFixtures.WINNING_PRICE_RANGE;
+    private static final Integer BONUS_PRIZE = 30_000_000;
 
     private WinningPrizeTable sut;
 
     @BeforeEach
     public void setUp() {
-        this.sut = new WinningPrizeTable(PRICE_LIST);
+        this.sut = new WinningPrizeTable(PRICE_LIST, BONUS_PRIZE);
     }
 
     @Test

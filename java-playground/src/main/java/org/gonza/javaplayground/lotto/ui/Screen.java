@@ -4,6 +4,7 @@ import org.gonza.javaplayground.framework.mapper.Option;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Screen {
@@ -40,13 +41,9 @@ public class Screen {
         printer.println("How much do u wanna buy? (min price is 1000)");
         printer.println("==============================");
 
-        try {
-            String amount = scanner.nextLine();
-            Integer parsedAmount = Integer.parseInt(amount);
-            return new LottoRequest(Option.PURCHASE, parsedAmount);
-        } catch (NumberFormatException e) {
-            return handlePurchase();
-        }
+        String amount = scanStringInput();
+        Integer parsedAmount = Integer.parseInt(amount);
+        return new LottoRequest(Option.PURCHASE, parsedAmount);
     }
 
     private LottoRequest handleMatchNumbers() {
@@ -54,11 +51,29 @@ public class Screen {
         printer.println("Enter your lotto line");
         printer.println("==============================");
 
+        String matchingNumbers = scanStringInput();
+
+        printer.println("==============================");
+        printer.println("Enter your bonus number");
+        printer.println("==============================");
+
+        String bonusNumber = scanStringInput();
+
+        return new LottoRequest(Option.MATCH, Map.of(
+                "matchingNumbers", matchingNumbers,
+                "bonusNumber", bonusNumber
+        ));
+    }
+
+    private String scanStringInput() {
         try {
-            String inputNumbers = scanner.nextLine();
-            return new LottoRequest(Option.MATCH, inputNumbers);
+            return scanner.nextLine();
         } catch (NumberFormatException e) {
-            return handleMatchNumbers();
+            printer.println("==============================");
+            printer.println("Please enter again");
+            printer.println("==============================");
+
+            return scanStringInput();
         }
     }
 }

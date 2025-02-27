@@ -6,8 +6,10 @@ import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultMap;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class ReportFactory {
+    private static final Integer BONUS_FLAG = -1;
     private final WinningPrizeTable winningPrizeTable;
 
     public ReportFactory(WinningPrizeTable winningPrizeTable) {
@@ -27,9 +29,11 @@ public class ReportFactory {
 
     private Article createReportItem(Map.Entry<Integer, List<LottoLineResult>> entry) {
         Integer matchingNumberCount = entry.getKey();
-        Integer prize = winningPrizeTable.getWinningPrice(matchingNumberCount);
+        Boolean isBonus = Objects.equals(matchingNumberCount, BONUS_FLAG);
+        Integer prize = winningPrizeTable.getWinningPrice(matchingNumberCount, isBonus);
         Integer resultCount = entry.getValue().size();
 
-        return new Article(matchingNumberCount, prize, resultCount);
+
+        return new Article(matchingNumberCount, prize, resultCount, isBonus);
     }
 }
