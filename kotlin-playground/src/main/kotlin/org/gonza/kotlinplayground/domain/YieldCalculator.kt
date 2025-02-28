@@ -10,12 +10,10 @@ class YieldCalculator {
         cost: Int,
         matchResult: MatchResultDto,
     ): Double {
-        val three = matchResult.three * LottoPrize.THREE.prize
-        val four = matchResult.four * LottoPrize.FOUR.prize
-        val five = matchResult.five * LottoPrize.FIVE.prize
-        val six = matchResult.six * LottoPrize.SIX.prize
-
-        val total = three + four + five + six
+        var total: Long = 0
+        matchResult.toList().forEach { (key, count) ->
+            total += LottoPrize.calculatePrize(ranking = key, count = count)
+        }
 
         val result =
             BigDecimal(total / cost.toDouble())
