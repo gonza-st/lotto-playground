@@ -8,9 +8,9 @@ enum class Prize(
 ) {
     FIRST(6, LottoStringConstants.FIRST_PRIZE_TEXT),
     SECOND(5, LottoStringConstants.SECOND_PRIZE_TEXT),
-    THIRD(4, LottoStringConstants.THIRD_PRIZE_TEXT),
-    FOURTH(3, LottoStringConstants.FOURTH_PRIZE_TEXT),
-    FIFTH(2, LottoStringConstants.FIFTH_PRIZE_TEXT);
+    THIRD(5, LottoStringConstants.THIRD_PRIZE_TEXT),
+    FOURTH(4, LottoStringConstants.FOURTH_PRIZE_TEXT),
+    FIFTH(3, LottoStringConstants.FIFTH_PRIZE_TEXT);
 
     companion object {
         fun getByMatchCount(count: Int): Prize? =
