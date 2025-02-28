@@ -48,7 +48,7 @@ class Lotto private constructor(
 
     fun matchCount(other: Lotto): Int = lottoNumberSet.intersect(other.lottoNumberSet).size
 
-    fun matchBonus(bonus: LottoNumber): Boolean = if (lottoNumberSet.contains(bonus)) true else false
+    fun matchBonus(bonus: LottoNumber): Boolean = lottoNumberSet.contains(bonus)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
