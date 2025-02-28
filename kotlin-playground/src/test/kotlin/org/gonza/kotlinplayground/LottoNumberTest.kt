@@ -1,10 +1,12 @@
 package org.gonza.kotlinplayground
 
 import org.gonza.kotlinplayground.domain.LottoNumber
+import org.gonza.kotlinplayground.enum.NumberType
 import org.gonza.kotlinplayground.utils.LottoConstants
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
+import kotlin.test.assertEquals
 
 class LottoNumberTest {
     @Test
@@ -28,5 +30,23 @@ class LottoNumberTest {
             LottoNumber(number = invalidNumber, limit = limit)
         }
         assertDoesNotThrow { LottoNumber(number = validNumber, limit = limit) }
+    }
+
+    @Test
+    fun `일반 로또 번호는 NORMAL 타입을 가진다`() {
+        val validNumber = 17
+        val expectedType = NumberType.NORMAL
+        val lottoNumber = LottoNumber(number = validNumber)
+
+        assertEquals(expectedType, lottoNumber.type)
+    }
+
+    @Test
+    fun `보너스 로또 번호는 BONUS 타입을 가진다`() {
+        val validNumber = 17
+        val expectedType = NumberType.BONUS
+        val lottoNumber = LottoNumber(number = validNumber, type = NumberType.BONUS)
+
+        assertEquals(expectedType, lottoNumber.type)
     }
 }

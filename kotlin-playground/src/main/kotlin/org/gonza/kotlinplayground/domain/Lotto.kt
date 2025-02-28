@@ -1,11 +1,12 @@
 package org.gonza.kotlinplayground.domain
 
 import org.gonza.kotlinplayground.enum.LottoStatus
+import org.gonza.kotlinplayground.enum.NumberType
 import org.gonza.kotlinplayground.utils.LottoConstants
 
 class Lotto(
     val lottoNumberList: List<LottoNumber>,
-    private val limit : Int = LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT,
+    private val limit: Int = LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT,
 ) {
     init {
         validateLottoNumberList()
@@ -27,15 +28,31 @@ class Lotto(
     }
 
     fun compareAll(target: List<LottoNumber>): Boolean {
-        val targetNumberList = target.map { it.number }.toSet()
-        val winnerNumberList = this.lottoNumberList.filter { it.number in targetNumberList }
-        val isWinner = winnerNumberList.size >= LottoConstants.WINNER_CRITERIA
-        this.winnerNumberList = winnerNumberList
+        val normalNumbers = target.filter { it.type == NumberType.NORMAL }
+        val bonusNumber = target.find { it.type == NumberType.BONUS }
 
-        if (isWinner) updateStatus(LottoStatus.WON)
-        else updateStatus(LottoStatus.LOST)
+        // 일치하는 번호 찾기
+        val matchedNumbers = lottoNumberList.filter { myNumber ->
+            normalNumbers.any { it.number == myNumber.number }
+        }
+        val matchCount = matchedNumbers.size
+        val hasBonusMatch = bonusNumber != null &&
+                lottoNumberList.any { it.number == bonusNumber.number }
+        val isWinner = matchCount >= LottoConstants.WINNER_CRITERIA
+        val isBonus = matchCount == 5 && hasBonusMatch
+        this.winnerNumberList = matchedNumbers
 
-        return isWinner
+        if (isBonus) {
+            updateStatus(LottoStatus.BONUS)
+            return true
+        }
+        if (isWinner) {
+            updateStatus(LottoStatus.WON)
+            return true
+        }
+
+        updateStatus(LottoStatus.LOST)
+        return false
     }
 
     private fun validateLottoNumberList() {
