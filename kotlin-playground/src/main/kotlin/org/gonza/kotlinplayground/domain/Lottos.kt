@@ -15,12 +15,12 @@ data class Lottos(
         val totalResult: MatchResultDto =
             value.fold(MatchResultDto()) { result, lotto ->
                 val matchCount = lotto.matchCount(other = winningLotto)
+                val matchBonus = lotto.matchBonus(bonus = bonusBall)
 
                 result.apply {
                     rankingCalculate(
                         matchCount = matchCount,
-                        lotto = lotto,
-                        bonusBall = bonusBall,
+                        matchBonus = matchBonus,
                     )
                 }
             }
@@ -30,12 +30,11 @@ data class Lottos(
 
     private fun MatchResultDto.rankingCalculate(
         matchCount: Int,
-        lotto: Lotto,
-        bonusBall: LottoNumber,
+        matchBonus: Boolean,
     ) {
         when (matchCount) {
             6 -> winner++
-            5 -> if (lotto.matchBonus(bonus = bonusBall)) second++ else third++
+            5 -> if (matchBonus) second++ else third++
             4 -> fourth++
             3 -> fifth++
         }
