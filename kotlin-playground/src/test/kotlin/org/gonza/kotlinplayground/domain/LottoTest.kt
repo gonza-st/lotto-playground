@@ -160,10 +160,10 @@ class LottoTest {
         val notMatchedLotto = Lotto.create(winningLottoNumber = "1,2,3,4,5,6")
         val matchedLotto = Lotto.create(winningLottoNumber = "1,2,3,4,5,7")
 
-        val result1 = notMatchedLotto.matchBonus(bonus = bonus)
-        val result2 = matchedLotto.matchBonus(bonus = bonus)
+        val notMatchedResult = notMatchedLotto.matchBonus(bonus = bonus)
+        val matchedResult = matchedLotto.matchBonus(bonus = bonus)
 
-        Assertions.assertThat(result1).isFalse()
-        Assertions.assertThat(result2).isTrue()
+        Assertions.assertThat(notMatchedResult).isFalse()
+        Assertions.assertThat(matchedResult).isTrue()
     }
 }
