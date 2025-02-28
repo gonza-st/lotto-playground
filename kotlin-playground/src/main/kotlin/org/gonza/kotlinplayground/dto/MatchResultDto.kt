@@ -6,4 +6,13 @@ data class MatchResultDto(
     var third: Int = 0,
     var second: Int = 0,
     var winner: Int = 0,
-)
+) {
+    fun toList(): List<Pair<String, Int>> =
+        listOf(
+            "fifth" to fifth,
+            "fourth" to fourth,
+            "third" to third,
+            "second" to second,
+            "winner" to winner,
+        )
+}
