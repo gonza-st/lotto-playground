@@ -22,7 +22,7 @@ public class Price {
     }
 
     private static void validatePrice(Long price) {
-        if (price < 0) {
+        if (price < PriceConstant.MIN_PRICE) {
             throw new IllegalArgumentException("Price cannot be negative");
         }
     }
