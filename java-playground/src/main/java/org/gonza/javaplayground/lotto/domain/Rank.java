@@ -19,10 +19,6 @@ public enum Rank {
         this.winningMoney = winningMoney;
     }
 
-    public static Rank valueOf(int matchedCount) {
-        return valueOf(matchedCount, false);
-    }
-
     public static Rank valueOf(int matchedCount, boolean matchedBonus) {
         if (matchedCount == 5 && matchedBonus) {
             return SECOND;
