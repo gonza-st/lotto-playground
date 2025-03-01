@@ -24,6 +24,10 @@ public class Lottos {
         lottos.forEach(lotto -> lotto.verify(lottoNumbers));
     }
 
+    public void verify(LottoNumbers lottoNumbers, LottoNumber bonusNumber) {
+        lottos.forEach(lotto -> lotto.verify(lottoNumbers));
+    }
+
     public List<Lotto> wonLottos() {
         return this.lottos.stream()
                 .filter(Lotto::isWon)

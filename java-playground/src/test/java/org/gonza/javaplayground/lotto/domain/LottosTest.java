@@ -48,4 +48,15 @@ class LottosTest {
 
         assertEquals(0, lottos.wonLottosSize());
     }
+
+    @Test
+    void Lottos에_보너스_포함_당첨_여부를_확인할_수_있다() {
+        LottoNumbers lottoNumbers = LottoNumbers.of(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber bonusNumber = LottoNumber.of(1);
+        Lottos lottos = Lottos.of(List.of(lottoNumbers, lottoNumbers));
+
+        lottos.verify(lottoNumbers, bonusNumber);
+
+        assertEquals(2, lottos.wonLottosSize());
+    }
 }

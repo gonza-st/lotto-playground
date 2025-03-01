@@ -42,12 +42,12 @@ public class LottoNumbers {
 
     public int matchBy(LottoNumbers lottoNumbers) {
         return this.lottoNumbers.stream()
-                .filter(lottoNumbers::contains)
+                .filter(lottoNumbers::matchBy)
                 .toList()
                 .size();
     }
 
-    private boolean contains(LottoNumber lottoNumber) {
+    public boolean matchBy(LottoNumber lottoNumber) {
         return this.lottoNumbers.stream()
             .anyMatch(lottoNumber::equals);
     }

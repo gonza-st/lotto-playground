@@ -20,11 +20,17 @@ public enum Rank {
     }
 
     public static Rank valueOf(int matchedCount) {
-        Rank[] ranks = values();
+        return valueOf(matchedCount, false);
+    }
 
-        return Arrays.stream(ranks)
-                .filter(value -> value.countOfMatch == matchedCount)
-                .findFirst()
-                .orElse(MISS);
+    public static Rank valueOf(int matchedCount, boolean matchedBonus) {
+        if (matchedCount == 5 && matchedBonus) {
+            return SECOND;
+        }
+
+        return Arrays.stream(values())
+            .filter(rank -> rank != SECOND && rank.countOfMatch == matchedCount)
+            .findFirst()
+            .orElse(MISS);
     }
 }

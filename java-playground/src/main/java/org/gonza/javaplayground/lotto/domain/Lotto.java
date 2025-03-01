@@ -35,6 +35,25 @@ public class Lotto {
         determineResult(matchedCount);
     }
 
+    public void verify(LottoNumbers matchNumbers, LottoNumber bonusNumber) {
+        int matchedCount = this.numbers.matchBy(matchNumbers);
+        boolean matchedBonus = this.numbers.matchBy(bonusNumber);
+
+        determineResult(matchedCount, matchedBonus);
+    }
+
+    private void determineResult(int matchedCount, boolean matchedBonus) {
+        this.rank = Rank.valueOf(matchedCount, matchedBonus);
+
+        if (this.rank.equals(Rank.MISS)) {
+            this.status = LottoStatus.LOST;
+        }
+
+        if (!this.rank.equals(Rank.MISS)) {
+            this.status = LottoStatus.WON;
+        }
+    }
+
     private void determineResult(int matchedCount) {
         this.rank = Rank.valueOf(matchedCount);
 
