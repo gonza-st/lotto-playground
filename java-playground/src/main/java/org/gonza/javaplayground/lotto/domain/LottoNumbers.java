@@ -1,21 +1,23 @@
 package org.gonza.javaplayground.lotto.domain;
 
-import org.gonza.javaplayground.lotto.LottoConstant;
-
 import java.util.Collections;
 import java.util.List;
+
+import org.gonza.javaplayground.lotto.LottoConstant;
 
 public class LottoNumbers {
 
     public static LottoNumbers of(List<Integer> numbers) {
         validateNumbers(numbers);
+        List<LottoNumber> lottoNumbers = numbers.stream()
+            .map(LottoNumber::of)
+            .toList();
 
-        return new LottoNumbers(numbers);
+        return new LottoNumbers(lottoNumbers);
     }
 
     private static void validateNumbers(List<Integer> numbers) {
         validateSize(numbers);
-        numbers.forEach(LottoNumbers::validateRange);
     }
 
     private static void validateSize(List<Integer> numbers) {
@@ -24,30 +26,29 @@ public class LottoNumbers {
         }
     }
 
-    private static void validateRange(Integer number) {
-        if (number < LottoConstant.LOTTO_MIN_NUMBER || number > LottoConstant.LOTTO_MAX_NUMBER) {
-            throw new IllegalArgumentException("Number must be between 1 and 45");
-        }
-    }
+    private final List<LottoNumber> lottoNumbers;
 
-    private final List<Integer> numbers;
-
-    private LottoNumbers(List<Integer> numbers) {
-        this.numbers = numbers;
+    private LottoNumbers(List<LottoNumber> lottoNumbers) {
+        this.lottoNumbers = lottoNumbers;
     }
 
     public int size() {
-        return numbers.size();
+        return lottoNumbers.size();
     }
 
-    public List<Integer> getNumbers() {
-        return Collections.unmodifiableList(this.numbers);
+    public List<LottoNumber> getNumbers() {
+        return Collections.unmodifiableList(this.lottoNumbers);
     }
 
     public int matchBy(LottoNumbers lottoNumbers) {
-        return this.numbers.stream()
-                .filter(lottoNumbers.numbers::contains)
+        return this.lottoNumbers.stream()
+                .filter(lottoNumbers::contains)
                 .toList()
                 .size();
+    }
+
+    private boolean contains(LottoNumber lottoNumber) {
+        return this.lottoNumbers.stream()
+            .anyMatch(lottoNumber::equals);
     }
 }

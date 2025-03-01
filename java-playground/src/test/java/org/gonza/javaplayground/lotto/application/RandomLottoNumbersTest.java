@@ -1,13 +1,14 @@
 package org.gonza.javaplayground.lotto.application;
 
-import org.gonza.javaplayground.lotto.domain.LottoNumbers;
-import org.junit.jupiter.api.RepeatedTest;
-import org.junit.jupiter.api.Test;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.gonza.javaplayground.lotto.domain.LottoNumber;
+import org.gonza.javaplayground.lotto.domain.LottoNumbers;
+import org.junit.jupiter.api.RepeatedTest;
+import org.junit.jupiter.api.Test;
 
 class RandomLottoNumbersTest {
 
@@ -23,17 +24,17 @@ class RandomLottoNumbersTest {
         LottoNumbers number = RandomLottoNumbers.generate();
 
         number.getNumbers().forEach(e ->
-                assertThat(e).isBetween(1, 45)
+                assertThat(e.getValue()).isBetween(1, 45)
         );
     }
 
     @RepeatedTest(10)
     void LottoNumber는_중복된_숫자가_없다() {
         LottoNumbers lottoNumbers = RandomLottoNumbers.generate();
-        List<Integer> numbers = lottoNumbers.getNumbers();
+        List<LottoNumber> numbers = lottoNumbers.getNumbers();
 
         numbers.forEach(number -> {
-            List<Integer> filteredNumbers = numbers.stream().filter(number::equals).toList();
+            List<LottoNumber> filteredNumbers = numbers.stream().filter(number::equals).toList();
             assertThat(filteredNumbers.size()).isEqualTo(1);
         });
     }
