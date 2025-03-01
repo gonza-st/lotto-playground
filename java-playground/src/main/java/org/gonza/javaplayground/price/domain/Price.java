@@ -1,5 +1,7 @@
 package org.gonza.javaplayground.price.domain;
 
+import org.gonza.javaplayground.price.PriceConstant;
+
 public class Price {
     private final Long value;
 
