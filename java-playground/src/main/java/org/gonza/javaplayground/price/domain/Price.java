@@ -8,9 +8,7 @@ public class Price {
     }
 
     public static Price of(Long price) {
-        if (price < 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
-        }
+        validatePrice(price);
 
         return new Price(price);
     }
@@ -21,5 +19,11 @@ public class Price {
 
     private Long getValue() {
         return this.value;
+    }
+
+    private static void validatePrice(Long price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
     }
 }
