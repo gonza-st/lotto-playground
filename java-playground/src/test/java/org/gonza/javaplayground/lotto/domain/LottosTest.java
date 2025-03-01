@@ -1,11 +1,13 @@
 package org.gonza.javaplayground.lotto.domain;
 
-import org.gonza.javaplayground.lotto.application.RandomLottoNumbers;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.gonza.javaplayground.lotto.LottoSupport;
+import org.gonza.javaplayground.lotto.application.RandomLottoNumbers;
+import org.junit.jupiter.api.Test;
 class LottosTest {
 
     @Test
@@ -22,7 +24,7 @@ class LottosTest {
         LottoNumbers lottoNumbers = LottoNumbers.of(List.of(1, 2, 3, 4, 5, 6));
         Lottos lottos = Lottos.of(List.of(lottoNumbers, lottoNumbers));
 
-        lottos.verify(lottoNumbers);
+        lottos.verify(lottoNumbers, LottoSupport.BONUS_NUMBER_OF_45);
 
         assertEquals(2, lottos.wonLottosSize());
     }
@@ -33,7 +35,7 @@ class LottosTest {
         LottoNumbers lostNumber = LottoNumbers.of(List.of(7, 8, 9, 10, 11, 12));
         Lottos lottos = Lottos.of(List.of(wonNumber, lostNumber));
 
-        lottos.verify(wonNumber);
+        lottos.verify(wonNumber, LottoSupport.BONUS_NUMBER_OF_45);
 
         assertEquals(1, lottos.wonLottosSize());
     }
@@ -44,19 +46,8 @@ class LottosTest {
         LottoNumbers lostNumber = LottoNumbers.of(List.of(7, 8, 9, 10, 11, 12));
         Lottos lottos = Lottos.of(List.of(lostNumber, lostNumber));
 
-        lottos.verify(wonNumber);
+        lottos.verify(wonNumber, LottoSupport.BONUS_NUMBER_OF_45);
 
         assertEquals(0, lottos.wonLottosSize());
-    }
-
-    @Test
-    void Lottos에_보너스_포함_당첨_여부를_확인할_수_있다() {
-        LottoNumbers lottoNumbers = LottoNumbers.of(List.of(1, 2, 3, 4, 5, 6));
-        LottoNumber bonusNumber = LottoNumber.of(1);
-        Lottos lottos = Lottos.of(List.of(lottoNumbers, lottoNumbers));
-
-        lottos.verify(lottoNumbers, bonusNumber);
-
-        assertEquals(2, lottos.wonLottosSize());
     }
 }

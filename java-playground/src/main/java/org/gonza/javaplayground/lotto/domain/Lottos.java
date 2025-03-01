@@ -20,10 +20,6 @@ public class Lottos {
         return this.lottos.size();
     }
 
-    public void verify(LottoNumbers lottoNumbers) {
-        lottos.forEach(lotto -> lotto.verify(lottoNumbers));
-    }
-
     public void verify(LottoNumbers lottoNumbers, LottoNumber bonusNumber) {
         lottos.forEach(lotto -> lotto.verify(lottoNumbers, bonusNumber));
     }
