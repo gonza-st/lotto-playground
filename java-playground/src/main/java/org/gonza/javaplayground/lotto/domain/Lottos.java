@@ -25,7 +25,7 @@ public class Lottos {
     }
 
     public void verify(LottoNumbers lottoNumbers, LottoNumber bonusNumber) {
-        lottos.forEach(lotto -> lotto.verify(lottoNumbers));
+        lottos.forEach(lotto -> lotto.verify(lottoNumbers, bonusNumber));
     }
 
     public List<Lotto> wonLottos() {
