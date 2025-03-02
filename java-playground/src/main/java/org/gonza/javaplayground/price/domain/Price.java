@@ -1,4 +1,6 @@
-package org.gonza.javaplayground.purchase.domain;
+package org.gonza.javaplayground.price.domain;
+
+import org.gonza.javaplayground.price.PriceConstant;
 
 public class Price {
     private final Long value;
@@ -8,9 +10,7 @@ public class Price {
     }
 
     public static Price of(Long price) {
-        if (price < 0) {
-            throw new IllegalArgumentException("Price cannot be negative");
-        }
+        validatePrice(price);
 
         return new Price(price);
     }
@@ -21,5 +21,11 @@ public class Price {
 
     private Long getValue() {
         return this.value;
+    }
+
+    private static void validatePrice(Long price) {
+        if (price < PriceConstant.MIN_PRICE) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
     }
 }
