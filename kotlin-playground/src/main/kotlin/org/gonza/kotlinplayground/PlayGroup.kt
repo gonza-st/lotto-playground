@@ -1,5 +1,6 @@
 package org.gonza.kotlinplayground
 
+import org.gonza.kotlinplayground.domain.lotto.BonusNumber
 import org.gonza.kotlinplayground.domain.lotto.LottoNumber
 import org.gonza.kotlinplayground.domain.lotto.LottoTicket
 import org.gonza.kotlinplayground.domain.payment.Payment
@@ -19,10 +20,13 @@ fun main() {
     outputView.printGeneratedLottoTicketList(lottoTicketList.map { it.toString() })
 
     val winningTicket = getWinningTicket(inputView, outputView)
+    val bonusNumber = getBonusNumber(winningTicket, inputView, outputView)
     val winningStatistics = matchLottoResults(winningTicket, lottoTicketList)
+    val bonusStatistics = matchBonusLottoResults(winningTicket, bonusNumber, lottoTicketList)
+    val allStatistics = winningStatistics.add(bonusStatistics)
 
-    printStatistics(outputView, winningStatistics)
-    printReturnOnInvestment(outputView, payment, winningStatistics)
+    printStatistics(outputView, allStatistics)
+    printReturnOnInvestment(outputView, payment, allStatistics)
 }
 
 private fun purchaseLotto(
@@ -56,14 +60,36 @@ private fun getWinningTicket(
     return InputLottoPicker(winningLottoInput).pick()
 }
 
+private fun getBonusNumber(
+    winningTicket: LottoTicket,
+    inputView: InputView,
+    outputView: OutputView,
+): BonusNumber {
+    outputView.printBonusNumber()
+    val bonusNumber =
+        inputView.read()?.toIntOrNull()
+            ?: throw IllegalArgumentException("보너스 숫자를 입력하세요")
+    return BonusNumber(winningTicket, bonusNumber)
+}
+
 private fun matchLottoResults(
     winningTicket: LottoTicket,
-    lottoTicketList: List<LottoTicket>,
+    purchasedTicketList: List<LottoTicket>,
 ): WinningStatistics {
-    val lottoMatcher = GeneralLottoMatcher()
+    val lottoMatcher = GeneralLottoMatcher(winningTicket)
     return lottoMatcher.getWinningStatistics(
-        result = winningTicket,
-        purchasedTicketList = lottoTicketList,
+        purchasedTicketList = purchasedTicketList,
+    )
+}
+
+private fun matchBonusLottoResults(
+    winningTicket: LottoTicket,
+    bonusNumber: BonusNumber,
+    purchasedTicketList: List<LottoTicket>,
+): WinningStatistics {
+    val bonusLottoMatcher = BonusNumberMatcher(winningTicket, bonusNumber)
+    return bonusLottoMatcher.getWinningStatistics(
+        purchasedTicketList = purchasedTicketList,
     )
 }
 

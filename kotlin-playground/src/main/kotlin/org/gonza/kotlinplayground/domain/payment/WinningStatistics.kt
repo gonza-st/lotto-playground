@@ -1,21 +1,29 @@
 package org.gonza.kotlinplayground.domain.payment
 
-import org.gonza.kotlinplayground.service.WinningCount
+import org.gonza.kotlinplayground.service.WinningInfo
 
 class WinningStatistics(
-    private val winningCountList: List<WinningCount>
+    private val winningInfoList: List<WinningInfo>,
 ) {
     fun totalPrizePayment(): Payment {
         val totalPrizeMoney =
-            winningCountList.sumOf {
+            winningInfoList.sumOf {
                 val sheet = it.statisticsSheet
                 val matchedCount = it.count
 
-                sheet.amount * matchedCount
+                sheet.getAmount() * matchedCount
             }
 
         return Payment(totalPrizeMoney)
     }
 
-    fun getWinningStatisticsList(): List<WinningCount> = winningCountList
+    fun getWinningStatisticsList(): List<WinningInfo> = winningInfoList
+
+    fun add(winningStatistics: WinningStatistics): WinningStatistics {
+        val list = winningStatistics.getWinningStatisticsList()
+
+        return WinningStatistics(
+            winningInfoList = winningInfoList + list,
+        )
+    }
 }

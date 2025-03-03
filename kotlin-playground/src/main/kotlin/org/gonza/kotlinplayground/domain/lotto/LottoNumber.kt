@@ -2,7 +2,7 @@ package org.gonza.kotlinplayground.domain.lotto
 
 import org.gonza.kotlinplayground.domain.lotto.exception.InvalidLottoNumberException
 
-class LottoNumber(
+open class LottoNumber(
     val number: Int,
 ) {
     init {
