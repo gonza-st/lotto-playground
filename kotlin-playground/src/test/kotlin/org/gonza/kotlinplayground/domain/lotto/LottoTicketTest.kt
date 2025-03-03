@@ -140,4 +140,24 @@ class LottoTicketTest {
 
         assertEquals(expected, paidTicketCount)
     }
+
+    @Test
+    fun `하나의 로또 넘버를 통해 일치하는 로또 넘버를 알 수 있다`() {
+        val matchedNumber = LottoNumber(5)
+        val lottoTicket =
+            LottoTicket(
+                listOf(
+                    LottoNumber(1),
+                    LottoNumber(2),
+                    LottoNumber(3),
+                    LottoNumber(4),
+                    LottoNumber(5),
+                    LottoNumber(6),
+                ),
+            )
+
+        val result = lottoTicket.getMatchedNumber(matchedNumber)!!
+
+        assertEquals(result, matchedNumber)
+    }
 }

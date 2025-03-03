@@ -1,5 +1,6 @@
 package org.gonza.kotlinplayground
 
+import org.gonza.kotlinplayground.domain.lotto.BonusNumber
 import org.gonza.kotlinplayground.domain.lotto.LottoNumber
 import org.gonza.kotlinplayground.domain.lotto.LottoTicket
 import org.gonza.kotlinplayground.domain.payment.Payment
@@ -19,6 +20,7 @@ fun main() {
     outputView.printGeneratedLottoTicketList(lottoTicketList.map { it.toString() })
 
     val winningTicket = getWinningTicket(inputView, outputView)
+    val bonusNumber = getBonusNumber(winningTicket, inputView, outputView)
     val winningStatistics = matchLottoResults(winningTicket, lottoTicketList)
 
     printStatistics(outputView, winningStatistics)
@@ -54,6 +56,18 @@ private fun getWinningTicket(
         inputView.read()
             ?: throw IllegalArgumentException("당첨 번호를 입력하세요")
     return InputLottoPicker(winningLottoInput).pick()
+}
+
+private fun getBonusNumber(
+    winningTicket: LottoTicket,
+    inputView: InputView,
+    outputView: OutputView,
+): LottoNumber {
+    outputView.printBonusNumber()
+    val bonusNumber =
+        inputView.read()?.toIntOrNull()
+            ?: throw IllegalArgumentException("보너스 숫자를 입력하세요")
+    return BonusNumber(winningTicket, bonusNumber)
 }
 
 private fun matchLottoResults(
