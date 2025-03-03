@@ -26,9 +26,9 @@ class GeneralLottoMatcherTest {
 
         val expectedResultList =
             listOf(
-                WinningCount(GeneralLottoStatisticsSheet.THREE_MATCHED, 1),
-                WinningCount(GeneralLottoStatisticsSheet.FOUR_MATCHED, 1),
-                WinningCount(GeneralLottoStatisticsSheet.FIVE_MATCHED, 1),
+                WinningInfo(GeneralLottoStatisticsSheet.THREE_MATCHED, 1),
+                WinningInfo(GeneralLottoStatisticsSheet.FOUR_MATCHED, 1),
+                WinningInfo(GeneralLottoStatisticsSheet.FIVE_MATCHED, 1),
             )
         val result = winningStatistics.getWinningStatisticsList()
         result.forEach {

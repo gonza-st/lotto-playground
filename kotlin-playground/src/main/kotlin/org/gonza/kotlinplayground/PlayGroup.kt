@@ -22,9 +22,11 @@ fun main() {
     val winningTicket = getWinningTicket(inputView, outputView)
     val bonusNumber = getBonusNumber(winningTicket, inputView, outputView)
     val winningStatistics = matchLottoResults(winningTicket, lottoTicketList)
+    val bonusStatistics = matchBonusLottoResults(winningTicket, bonusNumber, lottoTicketList)
+    val allStatistics = winningStatistics.add(bonusStatistics)
 
-    printStatistics(outputView, winningStatistics)
-    printReturnOnInvestment(outputView, payment, winningStatistics)
+    printStatistics(outputView, allStatistics)
+    printReturnOnInvestment(outputView, payment, allStatistics)
 }
 
 private fun purchaseLotto(
@@ -62,7 +64,7 @@ private fun getBonusNumber(
     winningTicket: LottoTicket,
     inputView: InputView,
     outputView: OutputView,
-): LottoNumber {
+): BonusNumber {
     outputView.printBonusNumber()
     val bonusNumber =
         inputView.read()?.toIntOrNull()
@@ -76,6 +78,17 @@ private fun matchLottoResults(
 ): WinningStatistics {
     val lottoMatcher = GeneralLottoMatcher(winningTicket)
     return lottoMatcher.getWinningStatistics(
+        purchasedTicketList = purchasedTicketList,
+    )
+}
+
+private fun matchBonusLottoResults(
+    winningTicket: LottoTicket,
+    bonusNumber: BonusNumber,
+    purchasedTicketList: List<LottoTicket>,
+): WinningStatistics {
+    val bonusLottoMatcher = BonusNumberMatcher(winningTicket, bonusNumber)
+    return bonusLottoMatcher.getWinningStatistics(
         purchasedTicketList = purchasedTicketList,
     )
 }
