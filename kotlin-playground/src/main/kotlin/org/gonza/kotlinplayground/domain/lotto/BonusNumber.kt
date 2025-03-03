@@ -10,7 +10,10 @@ class BonusNumber(
         validate(winningTicket, number)
     }
 
-    private fun validate(winningTicket: LottoTicket, number: Int) {
+    private fun validate(
+        winningTicket: LottoTicket,
+        number: Int,
+    ) {
         val lottoNumber = LottoNumber(number)
         val result = winningTicket.getMatchedNumber(lottoNumber)
 
