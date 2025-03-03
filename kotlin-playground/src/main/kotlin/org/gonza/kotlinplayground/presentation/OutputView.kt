@@ -19,6 +19,10 @@ class OutputView {
         println("당첨 번호를 입력해 주세요.")
     }
 
+    fun printBonusNumber() {
+        println("보너스 볼을 입력해 주세요.")
+    }
+
     fun printNoticeStatisticSheet() {
         println("당첨 통계")
         println("---------")
