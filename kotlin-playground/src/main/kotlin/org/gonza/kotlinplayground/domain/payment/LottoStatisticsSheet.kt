@@ -7,16 +7,17 @@ enum class LottoStatisticsSheet(
     THREE_MATCHED(5_000, 3),
     FOUR_MATCHED(50_000, 4),
     FIVE_MATCHED(1_500_000, 5),
+    BONUS_MATCHED(30_000_000, 5),
     ALL_MATCHED(2_000_000_000, 6),
     ;
 
     companion object {
-        fun sortedByDescending() = values().sortedByDescending { it.matchedCount }
-
         fun findByMatchedCount(matchedCount: Int): LottoStatisticsSheet? {
             val statisticsList = sortedByDescending()
             return statisticsList.find { it.isMatched(matchedCount) }
         }
+
+        private fun sortedByDescending() = values().sortedByDescending { it.matchedCount }
     }
 
     fun isMatched(matchedCount: Int): Boolean = this.matchedCount == matchedCount
