@@ -3,7 +3,7 @@ package org.gonza.kotlinplayground.domain.payment
 import org.gonza.kotlinplayground.service.WinningCount
 
 class WinningStatistics(
-    private val winningCountList: List<WinningCount>
+    private val winningCountList: List<WinningCount>,
 ) {
     fun totalPrizePayment(): Payment {
         val totalPrizeMoney =
@@ -11,7 +11,7 @@ class WinningStatistics(
                 val sheet = it.statisticsSheet
                 val matchedCount = it.count
 
-                sheet.amount * matchedCount
+                sheet.getAmount() * matchedCount
             }
 
         return Payment(totalPrizeMoney)

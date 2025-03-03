@@ -2,6 +2,7 @@ package org.gonza.kotlinplayground.service
 
 import org.gonza.kotlinplayground.domain.lotto.LottoNumber
 import org.gonza.kotlinplayground.domain.lotto.LottoTicket
+import org.gonza.kotlinplayground.domain.payment.BonusLottoStatisticsSheet
 import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
 import org.gonza.kotlinplayground.domain.payment.WinningStatistics
 
@@ -10,7 +11,7 @@ class BonusNumberMatcher(
     private val bonusNumber: LottoNumber,
 ) : LottoMatcher {
     companion object {
-        private val BONUS_STATISTICS_SHEET = LottoStatisticsSheet.BONUS_MATCHED
+        private val BONUS_STATISTICS_SHEET = BonusLottoStatisticsSheet.BONUS_MATCHED
     }
 
     override fun getWinningStatistics(purchasedTicketList: List<LottoTicket>): WinningStatistics {
