@@ -18,7 +18,8 @@ class GeneralLottoMatcher : LottoMatcher {
 
     override fun getWinningStatistics(result: LottoTicket, purchasedTicketList: List<LottoTicket>): WinningStatistics {
         val matchedStatistics = purchasedTicketList.mapNotNull { ticket ->
-            getMatchedStatisticSheetList(ticket, result)
+            val matchedLottoNumberList = result.getMatchedNumber(ticket)
+            LottoStatisticsSheet.findByMatchedCount(matchedLottoNumberList.size)
         }
 
         val winningCountList = getWinningCountList(matchedStatistics)
