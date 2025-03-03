@@ -32,7 +32,7 @@ class OutputView {
         statisticsSheet: LottoStatisticsSheet,
         matchedCount: Int,
     ) {
-        println("${statisticsSheet.matchedCount}개 일치 (${statisticsSheet.amount}원) - $matchedCount")
+        println("${statisticsSheet.getMatchedCount()}개 일치 (${statisticsSheet.getAmount()}원) - $matchedCount")
     }
 
     fun printReturnOnInvestment(returnOnInvestment: Double) {

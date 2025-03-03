@@ -1,15 +1,16 @@
 package org.gonza.kotlinplayground.service
 
-import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
+import org.gonza.kotlinplayground.domain.payment.GeneralLottoStatisticsSheet
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
 class GeneralLottoMatcherTest {
     @Test
     fun `로또 당첨 결과를 올바르게 계산해야 한다`() {
-        val winningTicket = LottoMatcherFixture.createLottoTicket(
-            listOf(1, 2, 3, 4, 5, 6)
-        )
+        val winningTicket =
+            LottoMatcherFixture.createLottoTicket(
+                listOf(1, 2, 3, 4, 5, 6),
+            )
         val purchasedTickets =
             LottoMatcherFixture.createLottoTicketList(
                 listOf(
@@ -23,11 +24,12 @@ class GeneralLottoMatcherTest {
 
         val winningStatistics = lottoMatcher.getWinningStatistics(purchasedTickets)
 
-        val expectedResultList = listOf(
-            WinningCount(LottoStatisticsSheet.THREE_MATCHED, 1),
-            WinningCount(LottoStatisticsSheet.FOUR_MATCHED, 1),
-            WinningCount(LottoStatisticsSheet.FIVE_MATCHED, 1),
-        )
+        val expectedResultList =
+            listOf(
+                WinningCount(GeneralLottoStatisticsSheet.THREE_MATCHED, 1),
+                WinningCount(GeneralLottoStatisticsSheet.FOUR_MATCHED, 1),
+                WinningCount(GeneralLottoStatisticsSheet.FIVE_MATCHED, 1),
+            )
         val result = winningStatistics.getWinningStatisticsList()
         result.forEach {
             assertTrue(expectedResultList.contains(it))

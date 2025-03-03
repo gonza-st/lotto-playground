@@ -1,7 +1,7 @@
 package org.gonza.kotlinplayground.service
 
 import org.gonza.kotlinplayground.domain.lotto.BonusNumber
-import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
+import org.gonza.kotlinplayground.domain.payment.BonusLottoStatisticsSheet
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -23,7 +23,7 @@ class BonusNumberMatcherTest {
         val prizeResult = bonusStatistics.totalPrizePayment()
         val result = bonusStatistics.getWinningStatisticsList().first()
 
-        assertEquals(prizeResult.getPaidMoney(), LottoStatisticsSheet.BONUS_MATCHED.amount)
-        assertEquals(result.statisticsSheet.matchedCount, LottoStatisticsSheet.BONUS_MATCHED.matchedCount)
+        assertEquals(prizeResult.getPaidMoney(), BonusLottoStatisticsSheet.BONUS_MATCHED.getAmount())
+        assertEquals(result.statisticsSheet.getMatchedCount(), BonusLottoStatisticsSheet.BONUS_MATCHED.getMatchedCount())
     }
 }

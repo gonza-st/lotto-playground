@@ -1,6 +1,7 @@
 package org.gonza.kotlinplayground.service
 
 import org.gonza.kotlinplayground.domain.lotto.LottoTicket
+import org.gonza.kotlinplayground.domain.payment.GeneralLottoStatisticsSheet
 import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
 import org.gonza.kotlinplayground.domain.payment.WinningStatistics
 
@@ -11,7 +12,7 @@ class GeneralLottoMatcher(
         val matchedStatistics =
             purchasedTicketList.mapNotNull { ticket ->
                 val matchedLottoNumberList = result.getMatchedNumber(ticket)
-                LottoStatisticsSheet.findByMatchedCount(matchedLottoNumberList.size)
+                GeneralLottoStatisticsSheet.findByMatchedCount(matchedLottoNumberList.size)
             }
 
         val winningCountList = getWinningCountList(matchedStatistics)
