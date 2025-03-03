@@ -5,8 +5,5 @@ import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
 import org.gonza.kotlinplayground.domain.payment.WinningStatistics
 
 interface LottoMatcher {
-    fun getWinningStatistics(
-        result: LottoTicket,
-        purchasedTicketList: List<LottoTicket>
-    ): WinningStatistics
+    fun getWinningStatistics(purchasedTicketList: List<LottoTicket>): WinningStatistics
 }

@@ -19,9 +19,9 @@ class GeneralLottoMatcherTest {
                 ),
             )
 
-        val lottoMatcher = GeneralLottoMatcher()
+        val lottoMatcher = GeneralLottoMatcher(winningTicket)
 
-        val winningStatistics = lottoMatcher.getWinningStatistics(winningTicket, purchasedTickets)
+        val winningStatistics = lottoMatcher.getWinningStatistics(purchasedTickets)
 
         val expectedResultList = listOf(
             WinningCount(LottoStatisticsSheet.THREE_MATCHED, 1),
