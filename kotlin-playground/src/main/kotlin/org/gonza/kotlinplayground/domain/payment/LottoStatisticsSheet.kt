@@ -12,6 +12,11 @@ enum class LottoStatisticsSheet(
 
     companion object {
         fun sortedByDescending() = values().sortedByDescending { it.matchedCount }
+
+        fun findByMatchedCount(matchedCount: Int): LottoStatisticsSheet? {
+            val statisticsList = sortedByDescending()
+            return statisticsList.find { it.matchedCount == matchedCount }
+        }
     }
 
     fun isMatched(matchedCount: Int): Boolean = this.matchedCount == matchedCount
