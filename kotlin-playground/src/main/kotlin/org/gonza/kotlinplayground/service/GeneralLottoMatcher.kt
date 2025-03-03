@@ -18,17 +18,17 @@ class GeneralLottoMatcher(
         val winningCountList = getWinningCountList(matchedStatistics)
 
         return WinningStatistics(
-            winningCountList = winningCountList,
+            winningInfoList = winningCountList,
         )
     }
 
-    private fun getWinningCountList(matchedStatistics: List<LottoStatisticsSheet>): List<WinningCount> {
+    private fun getWinningCountList(matchedStatistics: List<LottoStatisticsSheet>): List<WinningInfo> {
         val groupedWonStatistics = matchedStatistics.groupingBy { it }
 
         return groupedWonStatistics
             .eachCount()
             .map { (sheet, count) ->
-                WinningCount(sheet, count)
+                WinningInfo(sheet, count)
             }
     }
 }

@@ -1,6 +1,6 @@
 package org.gonza.kotlinplayground.domain.payment
 
-import org.gonza.kotlinplayground.service.WinningCount
+import org.gonza.kotlinplayground.service.WinningInfo
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 
@@ -14,12 +14,12 @@ class WinningStatisticsTest {
         val fourMatchedPrize = GeneralLottoStatisticsSheet.FOUR_MATCHED.getAmount() * fourMatchedCount
         val expectedTotalPrize = Payment(threeMatchedPrize + fourMatchedPrize)
 
-        val winningCountList =
+        val winningInfoLists =
             listOf(
-                WinningCount(GeneralLottoStatisticsSheet.THREE_MATCHED, threeMatchedCount),
-                WinningCount(GeneralLottoStatisticsSheet.FOUR_MATCHED, fourMatchedCount),
+                WinningInfo(GeneralLottoStatisticsSheet.THREE_MATCHED, threeMatchedCount),
+                WinningInfo(GeneralLottoStatisticsSheet.FOUR_MATCHED, fourMatchedCount),
             )
-        val winningStatistics = WinningStatistics(winningCountList)
+        val winningStatistics = WinningStatistics(winningInfoLists)
 
         val totalPrizeMoney = winningStatistics.totalPrizePayment()
         val result = totalPrizeMoney.getPaidMoney()
@@ -30,15 +30,33 @@ class WinningStatisticsTest {
 
     @Test
     fun `당첨 통계를 올바르게 반환해야 한다`() {
-        val winningCountList =
+        val winningInfoLists =
             listOf(
-                WinningCount(GeneralLottoStatisticsSheet.THREE_MATCHED, 1),
-                WinningCount(GeneralLottoStatisticsSheet.FIVE_MATCHED, 1),
+                WinningInfo(GeneralLottoStatisticsSheet.THREE_MATCHED, 1),
+                WinningInfo(GeneralLottoStatisticsSheet.FIVE_MATCHED, 1),
             )
-        val winningStatistics = WinningStatistics(winningCountList)
+        val winningStatistics = WinningStatistics(winningInfoLists)
 
         val result = winningStatistics.getWinningStatisticsList()
 
-        assertEquals(winningCountList, result)
+        assertEquals(winningInfoLists, result)
+    }
+
+    @Test
+    fun `당첨 정보 목록을 추가할 수 있다`() {
+        val size = 1
+        val given1 =
+            WinningStatistics(
+                winningInfoList = listOf(WinningInfo(GeneralLottoStatisticsSheet.THREE_MATCHED, size)),
+            )
+        val given2 =
+            WinningStatistics(
+                winningInfoList = listOf(),
+            )
+
+        val result = given1.add(given2)
+        val expectedSize = 1
+
+        assertEquals(result.getWinningStatisticsList().size, expectedSize)
     }
 }

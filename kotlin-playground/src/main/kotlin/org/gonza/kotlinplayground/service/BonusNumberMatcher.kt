@@ -21,7 +21,7 @@ class BonusNumberMatcher(
             }
 
         return WinningStatistics(
-            winningCountList = createWinningCountList(matchedStatistics),
+            winningInfoList = createWinningCountList(matchedStatistics),
         )
     }
 
@@ -35,9 +35,9 @@ class BonusNumberMatcher(
         return BONUS_STATISTICS_SHEET
     }
 
-    private fun createWinningCountList(bonusStatisticsList: List<LottoStatisticsSheet>): List<WinningCount> =
+    private fun createWinningCountList(bonusStatisticsList: List<LottoStatisticsSheet>): List<WinningInfo> =
         listOf(
-            WinningCount(
+            WinningInfo(
                 statisticsSheet = BONUS_STATISTICS_SHEET,
                 count = bonusStatisticsList.size,
             ),
