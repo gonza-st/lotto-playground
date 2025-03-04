@@ -19,7 +19,7 @@ public class Price {
         return this.value / price.getValue();
     }
 
-    private Long getValue() {
+    public Long getValue() {
         return this.value;
     }
 

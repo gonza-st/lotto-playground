@@ -1,5 +1,6 @@
 package org.gonza.javaplayground.lotto.domain;
 
+import java.util.Collections;
 import java.util.List;
 
 public class Lottos {
@@ -32,5 +33,9 @@ public class Lottos {
 
     public int wonLottosSize() {
         return this.wonLottos().size();
+    }
+
+    public List<Lotto> getAllLottos() {
+        return Collections.unmodifiableList(this.lottos);
     }
 }
