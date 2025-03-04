@@ -2,7 +2,7 @@ package org.gonza.javaplayground.lotto.application;
 
 import org.gonza.javaplayground.lotto.domain.LottoResult;
 import org.gonza.javaplayground.lotto.domain.Lottos;
-import org.gonza.javaplayground.price.domain.Price;
+import org.gonza.javaplayground.lotto.domain.Price;
 
 public class LottoResultCalculator {
 

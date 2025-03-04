@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.gonza.javaplayground.price.domain.Price;
-
 public class LottoResult {
 	private final List<Lotto> lottos;
 	private final Price investedAmount;

@@ -11,7 +11,7 @@ import org.gonza.javaplayground.lotto.domain.LottoNumbers;
 import org.gonza.javaplayground.lotto.domain.LottoResult;
 import org.gonza.javaplayground.lotto.domain.Lottos;
 import org.gonza.javaplayground.lotto.domain.Rank;
-import org.gonza.javaplayground.price.domain.Price;
+import org.gonza.javaplayground.lotto.domain.Price;
 import org.junit.jupiter.api.Test;
 
 class LottoResultCalculatorTest {

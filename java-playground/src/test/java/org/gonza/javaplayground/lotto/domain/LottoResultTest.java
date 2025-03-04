@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import org.gonza.javaplayground.price.domain.Price;
 import org.junit.jupiter.api.Test;
 
 class LottoResultTest {

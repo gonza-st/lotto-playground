@@ -1,6 +1,6 @@
-package org.gonza.javaplayground.price.domain;
+package org.gonza.javaplayground.lotto.domain;
 
-import org.gonza.javaplayground.price.PriceConstant;
+import org.gonza.javaplayground.lotto.PriceConstant;
 
 public class Price {
     private final Long value;

@@ -1,4 +1,4 @@
-package org.gonza.javaplayground.price.domain;
+package org.gonza.javaplayground.lotto.domain;
 
 import org.junit.jupiter.api.Test;
 
