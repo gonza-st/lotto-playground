@@ -16,7 +16,7 @@ fun main() {
     val payment = purchaseLotto(inputView, outputView)
     val lottoTicketList = generateLottoTickets(payment)
 
-    outputView.printPurchaseLottoTicketCount(lottoTicketList.size)
+    outputView.printPurchasedLottoTicketCount(lottoTicketList.size)
     outputView.printGeneratedLottoTicketList(lottoTicketList.map { it.toString() })
 
     val winningTicket = getWinningTicket(inputView, outputView)
