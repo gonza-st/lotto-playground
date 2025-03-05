@@ -57,6 +57,23 @@ private fun purchaseManualTicketCount(
     return paidManualTicketCount
 }
 
+private fun purchaseManualLottoTicketList(
+    inputView: InputView,
+    outputView: OutputView,
+    paidManualTicketCount: Int,
+): List<LottoTicket> {
+    outputView.printRequestManualPurchaseLottoTicket()
+    val result = inputView.readMultipleByCount(paidManualTicketCount)
+
+    return result.map {
+        if (it == null) {
+            throw IllegalArgumentException("올바른 번호를 입력해주세요.")
+        }
+
+        InputLottoPicker(it).pick()
+    }
+}
+
 private fun generateLottoTickets(payment: Payment): List<LottoTicket> {
     val randomNumberGenerator = RandomNumberGenerator(LottoNumber.Range())
     val lottoGenerator = LottoGenerator(randomNumberGenerator)
