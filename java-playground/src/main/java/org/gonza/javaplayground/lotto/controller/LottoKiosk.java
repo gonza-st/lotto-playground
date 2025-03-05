@@ -8,6 +8,7 @@ import org.gonza.javaplayground.framework.mapper.Controller;
 import org.gonza.javaplayground.lotto.domain.lotto.lotto.Lotto;
 import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoLine;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoNumber;
 import org.gonza.javaplayground.lotto.domain.lotto.result.LottoResultList;
 import org.gonza.javaplayground.lotto.domain.report.Payment;
 import org.gonza.javaplayground.lotto.domain.report.Report;
@@ -25,8 +26,8 @@ public class LottoKiosk implements Controller {
         this.usb = usb;
     }
 
-    public PurchaseResponse handlePurchase(PurchaseRequest req) {
-        Cash cash = Cash.of(req.payment());
+    public PurchaseResponse handlePurchase(PurchaseRequest request) {
+        Cash cash = Cash.of(request.payment());
 
         Lotto lotto = lottoFactory.createLotto(cash);
         usb.savePurchaseHistory(cash, lotto);
@@ -34,11 +35,12 @@ public class LottoKiosk implements Controller {
         return new PurchaseResponse(lotto.getAllLottoNumbers());
     }
 
-    public MatchResponse handleMatchNumbers(MatchRequest req) {
-        LottoLine matchingNumbers = lottoFactory.createLottoLine(req.numbers());
+    public MatchResponse handleMatchNumbers(MatchRequest request) {
+        LottoLine matchingNumbers = lottoFactory.createLottoLine(request.numbers());
+        LottoNumber bonusNumber = lottoFactory.createLottoNumber(request.bonusNumber());
 
         Lotto latestLotto = usb.findRecentLotto();
-        LottoResultList matchedNumbers = latestLotto.match(matchingNumbers);
+        LottoResultList matchedNumbers = latestLotto.match(matchingNumbers, bonusNumber);
 
         Payment payment = usb.findLottoPayment(latestLotto.getId());
         Report report = reportFactory.printReport(payment, matchedNumbers);

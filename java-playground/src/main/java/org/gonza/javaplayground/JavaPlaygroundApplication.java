@@ -13,6 +13,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
 import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoLineFactory;
+import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoNumberFactory;
 import org.gonza.javaplayground.lotto.domain.report.ReportFactory;
 import org.gonza.javaplayground.lotto.domain.report.WinningPrizeTable;
 import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
@@ -38,16 +39,18 @@ public class JavaPlaygroundApplication {
     private static final Integer MAX_NUMBER = 45;
     private static final Integer MIN_NUMBER = 1;
     private static final List<Integer> WINNING_PRIZE_RANGE = List.of(0, 0, 0, 5_000, 50_000, 1_500_000, 2_000_000_000);
+    private static final Integer BONUS_PRIZE = 30_000_000;
 
     private static Application initializeApplication() throws NoSuchMethodException {
-        WinningPrizeTable winningPrizeTable = new WinningPrizeTable(WINNING_PRIZE_RANGE);
+        WinningPrizeTable winningPrizeTable = new WinningPrizeTable(WINNING_PRIZE_RANGE, BONUS_PRIZE);
         ReportFactory reportFactory = new ReportFactory(winningPrizeTable);
 
         NumberGenerator numberGenerator = new RandomNumberGenerator();
         LottoProperties properties = new LottoProperties(PRICE, SIZE, MIN_NUMBER, MAX_NUMBER);
 
-        LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, numberGenerator);
-        LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory);
+        LottoNumberFactory lottoNumberFactory = new LottoNumberFactory(properties, numberGenerator);
+        LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, lottoNumberFactory);
+        LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory, lottoNumberFactory);
 
         Storage usb = new USB();
 

@@ -4,13 +4,19 @@ import java.util.List;
 
 public class WinningPrizeTable {
     private final List<Integer> prizeList;
+    private final Integer bonusPrize;
 
-    public WinningPrizeTable(List<Integer> prizeList) {
+    public WinningPrizeTable(List<Integer> prizeList, Integer bonusPrize) {
         this.prizeList = prizeList;
+        this.bonusPrize = bonusPrize;
     }
 
-    public Integer getWinningPrice(Integer point) {
+    public Integer getWinningPrice(Integer point, Boolean isBonus) {
         validate(point);
+
+        if (isBonus) {
+            return this.bonusPrize;
+        }
 
         return prizeList.get(point);
     }

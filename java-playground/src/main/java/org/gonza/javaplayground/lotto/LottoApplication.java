@@ -10,7 +10,6 @@ import org.gonza.javaplayground.lotto.ui.Screen;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
