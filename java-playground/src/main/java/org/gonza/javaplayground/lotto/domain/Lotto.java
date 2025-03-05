@@ -1,15 +1,19 @@
 package org.gonza.javaplayground.lotto.domain;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class Lotto {
-    private final LottoNumber numbers;
+    private final LottoNumbers numbers;
     private LottoStatus status;
     private Rank rank;
 
-    public static Lotto of(LottoNumber numbers) {
+    public static Lotto of(LottoNumbers numbers) {
         return new Lotto(numbers);
     }
 
-    private Lotto(LottoNumber numbers) {
+    private Lotto(LottoNumbers numbers) {
         this.numbers = numbers;
         this.status = LottoStatus.ISSUED;
     }
@@ -22,27 +26,36 @@ public class Lotto {
         return this.status.isWon();
     }
 
-    public void verify(LottoNumber lottoNumber) {
-        int matchedCount = this.numbers.matchBy(lottoNumber);
-        determineResult(matchedCount);
+    public boolean isLost() {
+        return this.status.isLost();
     }
 
-    private void determineResult(int matchedCount) {
-        if (matchedCount >= 3) {
-            win(matchedCount);
+    public Rank getRank() {
+        return this.rank;
+    }
+
+    public void verify(LottoNumbers matchNumbers, LottoNumber bonusNumber) {
+        int matchedCount = this.numbers.matchBy(matchNumbers);
+        boolean matchedBonus = this.numbers.matchBy(bonusNumber);
+
+        determineResult(matchedCount, matchedBonus);
+    }
+
+    private void determineResult(int matchedCount, boolean matchedBonus) {
+        this.rank = Rank.valueOf(matchedCount, matchedBonus);
+
+        if (this.rank.equals(Rank.MISS)) {
+            this.status = LottoStatus.LOST;
         }
 
-        if (matchedCount < 3) {
-            lose();
+        if (!this.rank.equals(Rank.MISS)) {
+            this.status = LottoStatus.WON;
         }
     }
 
-    private void lose() {
-        this.status = LottoStatus.LOST;
-    }
-
-    private void win(int matchedCount) {
-        this.rank = Rank.of(matchedCount);
-        this.status = LottoStatus.WON;
+    public List<Integer> getNumberValues() {
+        return this.numbers.getNumbers().stream()
+            .map(LottoNumber::getValue)
+            .collect(Collectors.toList());
     }
 }
