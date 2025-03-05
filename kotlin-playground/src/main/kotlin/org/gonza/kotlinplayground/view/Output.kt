@@ -5,6 +5,10 @@ class Output {
         println(value)
     }
 
+    fun print() {
+        println()
+    }
+
     fun print(valueList: List<String>) {
         valueList.forEach { println(it) }
         println()

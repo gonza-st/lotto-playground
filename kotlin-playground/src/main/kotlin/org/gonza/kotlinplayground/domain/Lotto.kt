@@ -17,12 +17,12 @@ class Lotto private constructor(
         private const val SPLIT_WORD = ","
         private val REGEX = Regex("^[0-9,\\s]*$")
 
-        fun create(winningLottoNumber: String): Lotto {
-            require(REGEX.matches(winningLottoNumber)) {
+        fun create(numberString: String): Lotto {
+            require(REGEX.matches(numberString)) {
                 "로또 번호는 숫자와 쉼표(,)만 입력 가능합니다."
             }
             val numbers =
-                winningLottoNumber
+                numberString
                     .split(SPLIT_WORD)
                     .map { LottoNumber(it.trim().toInt()) }
                     .toSet()
@@ -43,6 +43,11 @@ class Lotto private constructor(
                 numbers.add(LottoNumber(number))
             }
             return Lotto(numbers)
+        }
+
+        fun bulkCreate(numberStringList: List<String>): List<Lotto> {
+            val lottoList = numberStringList.map { create(numberString = it) }
+            return lottoList
         }
     }
 
