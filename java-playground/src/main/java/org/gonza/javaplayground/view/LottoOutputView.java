@@ -19,4 +19,10 @@ public interface LottoOutputView {
     void printError(String message);
 
     void printBonusNumberRequest();
+
+    void printManualPurchaseCountRequest();
+
+    void printManualNumbersRequest();
+
+    void printPurchasedTicketSummary(int manualCount, int autoCount);
 }

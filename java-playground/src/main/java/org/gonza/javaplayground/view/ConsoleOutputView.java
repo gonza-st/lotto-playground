@@ -40,4 +40,19 @@ public class ConsoleOutputView implements LottoOutputView {
     public void printBonusNumberRequest() {
         System.out.println("\n보너스 번호를 입력해 주세요.");
     }
+
+    @Override
+    public void printManualPurchaseCountRequest() {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+    }
+
+    @Override
+    public void printManualNumbersRequest() {
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+    }
+
+    @Override
+    public void printPurchasedTicketSummary(int manualCount, int autoCount) {
+        System.out.println("\n수동으로 " + manualCount + "장, 자동으로 " + autoCount + "개를 구매했습니다.");
+    }
 }
