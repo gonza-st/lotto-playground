@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,9 +22,10 @@ class WinningStatisticsTest {
         LottoNumber lottoNumber2 = new LottoNumber(List.of(13, 12, 33, 43, 5, 23));
         List<LottoNumber> purchasedNumbers = List.of(lottoNumber1, lottoNumber2);
         LottoNumber winningLottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber bonusLottoNumber = LottoNumber.createBonusLottoNumber(23);
 
         //when
-        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber);
+        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber, bonusLottoNumber);
 
         //then
         assertAll(
@@ -41,16 +43,24 @@ class WinningStatisticsTest {
         //given
         LottoNumber lottoNumber1 = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
         LottoNumber lottoNumber2 = new LottoNumber(List.of(1, 2, 3, 4, 5, 7));
-        List<LottoNumber> purchasedNumbers = List.of(lottoNumber1, lottoNumber2);
+        LottoNumber lottoNumber3 = new LottoNumber(List.of(1, 2, 3, 4, 5, 10));
+        List<LottoNumber> purchasedNumbers = List.of(lottoNumber1, lottoNumber2, lottoNumber3);
+
         LottoNumber winningLottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber bonusNumber = LottoNumber.createBonusLottoNumber(10);
+
 
         int totalPurchaseAmount = purchasedNumbers.size() * 1000;
         int expectedFirstPrizeMoney = Ranking.FIRST.getPrize();
         int expectedSecondPrizeMoney = Ranking.SECOND.getPrize();
-        double expectedReturnRate = (double) (expectedFirstPrizeMoney + expectedSecondPrizeMoney) / totalPurchaseAmount;
+        int expectedThirdPrizeMoney = Ranking.THIRD.getPrize();
+
+        int totalPrizeMoney = expectedFirstPrizeMoney + expectedSecondPrizeMoney + expectedThirdPrizeMoney;
+
+        double expectedReturnRate = (double) totalPrizeMoney / totalPurchaseAmount;
 
         //when
-        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber);
+        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber, bonusNumber);
 
         //then
         assertThat(winningStatistics.calculateReturnRate()).isEqualTo(expectedReturnRate);
@@ -63,9 +73,11 @@ class WinningStatisticsTest {
         LottoNumber lottoNumber = new LottoNumber(List.of(7, 8, 9, 10, 11, 12));
         List<LottoNumber> purchasedNumbers = List.of(lottoNumber);
         LottoNumber winningLottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber bonusNumber = LottoNumber.createBonusLottoNumber(23);
+
 
         //when
-        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber);
+        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber, bonusNumber);
 
         //then
         assertThat(winningStatistics.calculateReturnRate()).isZero();
@@ -75,9 +87,10 @@ class WinningStatisticsTest {
     @DisplayName("등수별 당첨 횟수를 정확히 계산한다")
     @CsvSource({
             "1, 2, 3, 4, 5, 6, FIRST",
-            "1, 2, 3, 4, 5, 7, SECOND",
-            "1, 2, 3, 4, 7, 8, THIRD",
-            "1, 2, 3, 7, 8, 9, FOURTH",
+            "1, 2, 3, 4, 5, 7, THIRD",
+            "1, 2, 3, 4, 5, 10, SECOND",
+            "1, 2, 3, 4, 7, 8, FOURTH",
+            "1, 2, 3, 7, 8, 9, FIFTH",
             "1, 2, 7, 8, 9, 10, NONE"
     })
     void countWinningsByRankingTest(
@@ -93,12 +106,18 @@ class WinningStatisticsTest {
         LottoNumber lottoNumber = new LottoNumber(List.of(n1, n2, n3, n4, n5, n6));
         List<LottoNumber> purchasedNumbers = List.of(lottoNumber);
         LottoNumber winningLottoNumber = new LottoNumber(List.of(1, 2, 3, 4, 5, 6));
+        LottoNumber bonusNumber = LottoNumber.createBonusLottoNumber(10);
 
         //when
-        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber);
+        WinningStatistics winningStatistics = new WinningStatistics(purchasedNumbers, winningLottoNumber, bonusNumber);
 
         //then
         assertThat(winningStatistics.getCountByRanking(expectedRanking)).isEqualTo(1);
+
+        Arrays.stream(Ranking.values())
+                .filter(ranking -> ranking != expectedRanking)
+                .forEach(ranking ->
+                        assertThat(winningStatistics.getCountByRanking(ranking)).isEqualTo(0));
     }
 
 }
