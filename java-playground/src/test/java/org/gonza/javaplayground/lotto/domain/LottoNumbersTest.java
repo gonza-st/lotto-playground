@@ -1,11 +1,12 @@
 package org.gonza.javaplayground.lotto.domain;
 
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import org.junit.jupiter.api.Test;
 
 class LottoNumbersTest {
 
@@ -33,5 +34,19 @@ class LottoNumbersTest {
                 () -> LottoNumbers.of(List.of(1, 2, 3, 4, 5, 6, 7)));
         assertDoesNotThrow(
                 () -> LottoNumbers.of(List.of(1, 2, 3, 4, 5, 6)));
+    }
+
+    @Test
+    void LottoNumber는_자동일_수_있다() {
+        LottoNumbers numbers = LottoNumbers.of(List.of(1, 2, 3, 4, 5, 6));
+
+        assertTrue(numbers.isAutomatic());
+    }
+
+    @Test
+    void LottoNumber는_수동일_수_있다() {
+        LottoNumbers numbers = LottoNumbers.manualOf(List.of(1, 2, 3, 4, 5, 6));
+
+        assertTrue(numbers.isManual());
     }
 }

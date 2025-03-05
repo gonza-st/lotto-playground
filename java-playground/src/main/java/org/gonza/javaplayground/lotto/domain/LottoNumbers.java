@@ -8,12 +8,22 @@ import org.gonza.javaplayground.lotto.LottoConstant;
 public class LottoNumbers {
 
     public static LottoNumbers of(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = convertLottoNumberList(numbers);
+
+        return new LottoNumbers(lottoNumbers, LottoType.AUTOMATIC);
+    }
+
+    public static LottoNumbers manualOf(List<Integer> numbers) {
+        List<LottoNumber> lottoNumbers = convertLottoNumberList(numbers);
+
+        return new LottoNumbers(lottoNumbers, LottoType.MANUAL);
+    }
+
+    private static List<LottoNumber> convertLottoNumberList(List<Integer> numbers) {
         validateNumbers(numbers);
-        List<LottoNumber> lottoNumbers = numbers.stream()
+        return numbers.stream()
             .map(LottoNumber::of)
             .toList();
-
-        return new LottoNumbers(lottoNumbers);
     }
 
     private static void validateNumbers(List<Integer> numbers) {
@@ -27,9 +37,11 @@ public class LottoNumbers {
     }
 
     private final List<LottoNumber> lottoNumbers;
+    private final LottoType type;
 
-    private LottoNumbers(List<LottoNumber> lottoNumbers) {
+    private LottoNumbers(List<LottoNumber> lottoNumbers, LottoType type) {
         this.lottoNumbers = lottoNumbers;
+        this.type = type;
     }
 
     public int size() {
@@ -50,5 +62,13 @@ public class LottoNumbers {
     public boolean matchBy(LottoNumber lottoNumber) {
         return this.lottoNumbers.stream()
             .anyMatch(lottoNumber::equals);
+    }
+
+    public boolean isManual() {
+        return this.type.isManual();
+    }
+
+    public boolean isAutomatic() {
+        return this.type.isAutomatic();
     }
 }

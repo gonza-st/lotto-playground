@@ -1,6 +1,5 @@
 package org.gonza.javaplayground.lotto.domain;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,5 +56,13 @@ public class Lotto {
         return this.numbers.getNumbers().stream()
             .map(LottoNumber::getValue)
             .collect(Collectors.toList());
+    }
+
+    public boolean isManual() {
+        return this.numbers.isManual();
+    }
+
+    public boolean isAutomatic() {
+        return this.numbers.isAutomatic();
     }
 }

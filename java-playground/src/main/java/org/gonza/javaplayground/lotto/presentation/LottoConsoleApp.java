@@ -1,5 +1,6 @@
 package org.gonza.javaplayground.lotto.presentation;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -22,9 +23,10 @@ public class LottoConsoleApp {
 	public void run() {
 		try {
 			Price purchaseAmount = inputPurchaseAmount();
+			List<List<Integer>> manualNumbers = inputManualNumbers();
 
-			Lottos lottos = LottoIssuer.issue(purchaseAmount);
-			printLottoIssued(lottos.getSize());
+			Lottos lottos = LottoIssuer.issue(purchaseAmount, manualNumbers);
+			printLottoIssued(lottos);
 
 			printLottoNumbers(lottos);
 
@@ -50,8 +52,34 @@ public class LottoConsoleApp {
 		return Price.of(amount);
 	}
 
-	private void printLottoIssued(int count) {
-		System.out.println(count + "개를 구매했습니다.");
+	private List<List<Integer>> inputManualNumbers() {
+		System.out.println("수동으로 구매할 로또 수를 입력해 주세요.");
+		int manualPages = Integer.parseInt(scanner.nextLine());
+
+		System.out.println("수동으로 구매할 번호를 입력해 주세요.");
+		List<List<Integer>> manualNumbers = new ArrayList<>();
+
+		for (int i = 0; i < manualPages; i++) {
+			String manualNumber = scanner.nextLine();
+
+			List<Integer> numbers = Arrays.stream(manualNumber.split(","))
+				.map(String::trim)
+				.map(Integer::parseInt)
+				.toList();
+
+			manualNumbers.add(numbers);
+		}
+
+		return manualNumbers;
+	}
+
+	private void printLottoIssued(Lottos lottos) {
+		int automaticSize = lottos.getAutomaticSize();
+		int manuSize = lottos.getManualSize();
+
+		System.out.printf("수동으로 %s장, 자동으로 %s장을 구매했습니다.\n",
+			manuSize,
+			automaticSize);
 	}
 
 	private void printLottoNumbers(Lottos lottos) {
