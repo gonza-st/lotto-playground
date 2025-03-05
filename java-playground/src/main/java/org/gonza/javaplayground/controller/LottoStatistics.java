@@ -18,9 +18,9 @@ public class LottoStatistics {
 
         for (Lotto 로또 : 구매_로또_목록) {
             int 일치_개수 = 로또검증기.일치_번호_개수_계산하기(로또);
-            boolean 보너스_일치 = 로또검증기.보너스번호_일치_확인하기(로또);
+            boolean 보너스_일치_여부 = 로또검증기.보너스번호_일치_확인하기(로또);
 
-            Rank 등수 = Rank.valueOf(일치_개수, 보너스_일치);
+            Rank 등수 = Rank.valueOf(일치_개수, 보너스_일치_여부);
 
             if (등수 != Rank.MISS) {
                 당첨_통계.put(등수, 당첨_통계.get(등수) + 1);
