@@ -13,7 +13,16 @@ public class LottoNumbers {
             .map(LottoNumber::of)
             .toList();
 
-        return new LottoNumbers(lottoNumbers);
+        return new LottoNumbers(lottoNumbers, LottoType.AUTOMATIC);
+    }
+
+    public static LottoNumbers manualOf(List<Integer> numbers) {
+        validateNumbers(numbers);
+        List<LottoNumber> lottoNumbers = numbers.stream()
+            .map(LottoNumber::of)
+            .toList();
+
+        return new LottoNumbers(lottoNumbers, LottoType.MANUAL);
     }
 
     private static void validateNumbers(List<Integer> numbers) {
@@ -27,9 +36,11 @@ public class LottoNumbers {
     }
 
     private final List<LottoNumber> lottoNumbers;
+    private final LottoType type;
 
-    private LottoNumbers(List<LottoNumber> lottoNumbers) {
+    private LottoNumbers(List<LottoNumber> lottoNumbers, LottoType type) {
         this.lottoNumbers = lottoNumbers;
+        this.type = type;
     }
 
     public int size() {
@@ -50,5 +61,13 @@ public class LottoNumbers {
     public boolean matchBy(LottoNumber lottoNumber) {
         return this.lottoNumbers.stream()
             .anyMatch(lottoNumber::equals);
+    }
+
+    public boolean isManual() {
+        return this.type.isManual();
+    }
+
+    public boolean isAutomatic() {
+        return this.type.isAutomatic();
     }
 }

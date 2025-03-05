@@ -5,26 +5,16 @@ import java.util.stream.Collectors;
 
 public class Lotto {
     private final LottoNumbers numbers;
-    private final LottoType type;
     private LottoStatus status;
     private Rank rank;
 
     public static Lotto of(LottoNumbers numbers) {
-        return new Lotto(numbers, LottoType.AUTOMATIC);
+        return new Lotto(numbers);
     }
 
-    public static Lotto manualOf(LottoNumbers numbers) {
-        return new Lotto(numbers, LottoType.MANUAL);
-    }
-
-    public static Lotto automaticOf(LottoNumbers numbers) {
-        return new Lotto(numbers, LottoType.AUTOMATIC);
-    }
-
-    private Lotto(LottoNumbers numbers, LottoType type) {
+    private Lotto(LottoNumbers numbers) {
         this.numbers = numbers;
         this.status = LottoStatus.ISSUED;
-        this.type = type;
     }
 
     public boolean isIssued() {
@@ -69,10 +59,10 @@ public class Lotto {
     }
 
     public boolean isManual() {
-        return this.type.isManual();
+        return this.numbers.isManual();
     }
 
     public boolean isAutomatic() {
-        return this.type.isAutomatic();
+        return this.numbers.isAutomatic();
     }
 }
