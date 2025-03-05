@@ -1,53 +1,41 @@
 package org.gonza.javaplayground.lotto.domain;
 
+import java.util.Objects;
+
 import org.gonza.javaplayground.lotto.LottoConstant;
 
-import java.util.Collections;
-import java.util.List;
-
 public class LottoNumber {
+	public static LottoNumber of(int number) {
+		validateNumber(number);
+		return new LottoNumber(number);
+	}
 
-    public static LottoNumber of(List<Integer> numbers) {
-        validateNumbers(numbers);
+	private final int value;
 
-        return new LottoNumber(numbers);
-    }
+	public LottoNumber(int value) {
+		this.value = value;
+	}
 
-    private static void validateNumbers(List<Integer> numbers) {
-        validateSize(numbers);
-        numbers.forEach(LottoNumber::validateRange);
-    }
+	public int getValue() {
+		return this.value;
+	}
 
-    private static void validateSize(List<Integer> numbers) {
-        if (numbers.size() != LottoConstant.LOTTO_SIZE) {
-            throw new IllegalArgumentException("Number must be 6 numbers");
-        }
-    }
+	private static void validateNumber(int number) {
+		if (number < LottoConstant.LOTTO_MIN_NUMBER || number > LottoConstant.LOTTO_MAX_NUMBER) {
+			throw new IllegalArgumentException("Number must be between 1 and 45");
+		}
+	}
 
-    private static void validateRange(Integer number) {
-        if (number < LottoConstant.LOTTO_MIN_NUMBER || number > LottoConstant.LOTTO_MAX_NUMBER) {
-            throw new IllegalArgumentException("Number must be between 1 and 45");
-        }
-    }
+	@Override
+	public boolean equals(Object o) {
+		if (o == null || getClass() != o.getClass())
+			return false;
+		LottoNumber that = (LottoNumber)o;
+		return value == that.value;
+	}
 
-    private final List<Integer> numbers;
-
-    private LottoNumber(List<Integer> numbers) {
-        this.numbers = numbers;
-    }
-
-    public int size() {
-        return numbers.size();
-    }
-
-    public List<Integer> getNumbers() {
-        return Collections.unmodifiableList(this.numbers);
-    }
-
-    public int matchBy(LottoNumber lottoNumber) {
-        return this.numbers.stream()
-                .filter(lottoNumber.numbers::contains)
-                .toList()
-                .size();
-    }
+	@Override
+	public int hashCode() {
+		return Objects.hashCode(value);
+	}
 }

@@ -1,19 +1,20 @@
 package org.gonza.javaplayground.lotto.application;
 
-import org.gonza.javaplayground.lotto.LottoConstant;
-import org.gonza.javaplayground.lotto.domain.LottoNumber;
-import org.gonza.javaplayground.lotto.domain.Lottos;
-import org.gonza.javaplayground.purchase.domain.Price;
-import org.gonza.javaplayground.purchase.domain.Purchase;
-
 import java.util.ArrayList;
 import java.util.List;
 
+import org.gonza.javaplayground.lotto.LottoConstant;
+import org.gonza.javaplayground.lotto.domain.LottoNumbers;
+import org.gonza.javaplayground.lotto.domain.Lottos;
+import org.gonza.javaplayground.lotto.domain.Price;
+
+// TODO: 금액을 차감하는 방식은 어떤가
+// TODO: 수동과 자동 번호의 추상화는 어떤가
 public class LottoIssuer {
 
-    public static Lottos issue(Purchase purchase) {
-        int pages = getLottoPages(purchase);
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
+    public static Lottos issue(Price price) {
+        int pages = getLottoPages(price);
+        List<LottoNumbers> lottoNumbers = new ArrayList<>();
 
         for (int i = 0; i < pages; i++) {
             lottoNumbers.add(RandomLottoNumbers.generate());
@@ -22,10 +23,30 @@ public class LottoIssuer {
         return Lottos.of(lottoNumbers);
     }
 
-    private static int getLottoPages(Purchase purchase) {
+    public static Lottos issue(Price price, List<List<Integer>> manualNumbers) {
+        int automaticPages = getAutomaticPages(price, manualNumbers.size());
+        List<LottoNumbers> lottoNumbers = new ArrayList<>();
+
+
+        for (int i = 0; i < automaticPages; i++) {
+            lottoNumbers.add(RandomLottoNumbers.generate());
+        }
+
+		for (List<Integer> manualNumber : manualNumbers) {
+			lottoNumbers.add(LottoNumbers.manualOf(manualNumber));
+		}
+
+        return Lottos.of(lottoNumbers);
+    }
+
+    private static int getAutomaticPages(Price price, int size) {
+        int pages = getLottoPages(price);
+        return pages - size;
+    }
+
+    private static int getLottoPages(Price price) {
         Price lottoPrice = Price.of(LottoConstant.LOTTO_PRICE);
-        return purchase.getPrice()
-                .divide(lottoPrice)
+        return price.divide(lottoPrice)
                 .intValue();
     }
 }

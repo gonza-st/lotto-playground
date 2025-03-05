@@ -1,8 +1,8 @@
-package org.gonza.javaplayground.purchase.domain;
+package org.gonza.javaplayground.lotto.domain;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class PriceTest {
 
