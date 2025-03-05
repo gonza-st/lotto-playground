@@ -1,21 +1,30 @@
 package org.gonza.javaplayground.lotto.domain;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class Lotto {
     private final LottoNumbers numbers;
+    private final LottoType type;
     private LottoStatus status;
     private Rank rank;
 
     public static Lotto of(LottoNumbers numbers) {
-        return new Lotto(numbers);
+        return new Lotto(numbers, LottoType.AUTOMATIC);
     }
 
-    private Lotto(LottoNumbers numbers) {
+    public static Lotto manualOf(LottoNumbers numbers) {
+        return new Lotto(numbers, LottoType.MANUAL);
+    }
+
+    public static Lotto automaticOf(LottoNumbers numbers) {
+        return new Lotto(numbers, LottoType.AUTOMATIC);
+    }
+
+    private Lotto(LottoNumbers numbers, LottoType type) {
         this.numbers = numbers;
         this.status = LottoStatus.ISSUED;
+        this.type = type;
     }
 
     public boolean isIssued() {
@@ -57,5 +66,13 @@ public class Lotto {
         return this.numbers.getNumbers().stream()
             .map(LottoNumber::getValue)
             .collect(Collectors.toList());
+    }
+
+    public boolean isManual() {
+        return this.type.isManual();
+    }
+
+    public boolean isAutomatic() {
+        return this.type.isAutomatic();
     }
 }
