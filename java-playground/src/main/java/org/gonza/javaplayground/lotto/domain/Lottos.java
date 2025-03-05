@@ -35,6 +35,20 @@ public class Lottos {
         return this.wonLottos().size();
     }
 
+    public int getAutomaticSize() {
+        return this.lottos.stream()
+            .filter(Lotto::isAutomatic)
+            .toList()
+            .size();
+    }
+
+    public int getManualSize() {
+        return this.lottos.stream()
+            .filter(Lotto::isManual)
+            .toList()
+            .size();
+    }
+
     public List<Lotto> getAllLottos() {
         return Collections.unmodifiableList(this.lottos);
     }
