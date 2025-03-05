@@ -19,6 +19,10 @@ class OutputView {
         println("당첨 번호를 입력해 주세요.")
     }
 
+    fun printBonusNumber() {
+        println("보너스 볼을 입력해 주세요.")
+    }
+
     fun printNoticeStatisticSheet() {
         println("당첨 통계")
         println("---------")
@@ -28,7 +32,7 @@ class OutputView {
         statisticsSheet: LottoStatisticsSheet,
         matchedCount: Int,
     ) {
-        println("${statisticsSheet.matchedCount}개 일치 (${statisticsSheet.amount}원) - $matchedCount")
+        println("${statisticsSheet.getMatchedCount()}개 일치 (${statisticsSheet.getAmount()}원) - $matchedCount")
     }
 
     fun printReturnOnInvestment(returnOnInvestment: Double) {

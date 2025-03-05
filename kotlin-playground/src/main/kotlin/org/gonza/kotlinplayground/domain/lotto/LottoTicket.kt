@@ -37,8 +37,7 @@ class LottoTicket(
 
     override fun hashCode(): Int = lottoNumberList.hashCode()
 
-    fun getMatchedNumber(other: LottoTicket): List<LottoNumber> =
-        lottoNumberList
-            .intersect(other.lottoNumberList.toSet())
-            .toList()
+    fun getMatchedNumber(other: LottoTicket): List<LottoNumber> = other.lottoNumberList.mapNotNull { getMatchedNumber(it) }
+
+    fun getMatchedNumber(number: LottoNumber): LottoNumber? = lottoNumberList.find { it == number }
 }
