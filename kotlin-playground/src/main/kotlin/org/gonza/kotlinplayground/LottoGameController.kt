@@ -16,17 +16,34 @@ class LottoGameController(
     fun run() {
         output.print("구입금액을 입력해 주세요.")
         val cost: Int = input.int()
+        output.print()
+
+        output.print("수동으로 구매할 로또 수를 입력해 주세요.")
+        val manualAmount: Int = input.int()
+        output.print()
+
+        output.print("수동으로 구매할 번호를 입력해 주세요.")
+        val manualNumberStringList: MutableList<String> = mutableListOf()
+
+        var manualTryCount = manualAmount
+        while (manualTryCount > 0) {
+            manualNumberStringList.add(input.string())
+            manualTryCount--
+        }
+        output.print()
+
+        val manualLottoList: List<Lotto> = Lotto.bulkCreate(numberStringList = manualNumberStringList)
 
         val lottoIssuer = LottoIssuer()
         val amount: Int = lottoIssuer.amount(money = cost)
-        output.print("${amount}개를 구매했습니다.")
+        output.print("수동으로 ${manualAmount}장, 자동으로 ${amount}개를 구매했습니다.")
 
-        val lottos: Lottos = lottoIssuer.buy(amount = amount)
+        val lottos: Lottos = lottoIssuer.buy(amount = amount, manualLottoList = manualLottoList)
         output.print(valueList = lottos.print())
 
         output.print("당첨 번호를 입력해 주세요.")
         val winningNumber = input.string()
-        val winningLotto = Lotto.create(winningLottoNumber = winningNumber)
+        val winningLotto = Lotto.create(numberString = winningNumber)
         output.print("보너스 볼을 입력해 주세요.")
         val bonusBallString: String = input.string()
         val bonusBall = LottoNumber(value = bonusBallString)
