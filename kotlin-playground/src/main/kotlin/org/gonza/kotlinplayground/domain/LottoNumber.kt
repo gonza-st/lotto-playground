@@ -1,9 +1,11 @@
 package org.gonza.kotlinplayground.domain
 
+import org.gonza.kotlinplayground.enum.NumberType
 import org.gonza.kotlinplayground.utils.LottoConstants
 
 class LottoNumber(
     val number: Int,
+    val type: NumberType = NumberType.NORMAL,
     private val limit: Int = LottoConstants.LOTTO_NUMBER_RANGE.last
 ) {
     init {

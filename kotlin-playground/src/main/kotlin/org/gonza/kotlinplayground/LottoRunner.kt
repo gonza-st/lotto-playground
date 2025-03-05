@@ -1,12 +1,14 @@
 package org.gonza.kotlinplayground
 
 import org.gonza.kotlinplayground.domain.*
+import org.gonza.kotlinplayground.enum.NumberType
 import org.gonza.kotlinplayground.enum.Prize
 import org.gonza.kotlinplayground.ui.InputView
 import org.gonza.kotlinplayground.ui.PrintView
 import org.gonza.kotlinplayground.utils.LottoConstants
 import org.gonza.kotlinplayground.utils.LottoNumberGenerator
 import org.gonza.kotlinplayground.utils.LottoStringConstants
+import org.gonza.kotlinplayground.utils.NumberConverter
 
 class LottoRunner(
     private val printView: PrintView,
@@ -17,6 +19,8 @@ class LottoRunner(
         val lottoTickets: LottoTickets = getLottoTickets(totalPaper = purchase.totalPaper)
         printLotto(lottoTickets = lottoTickets)
         val winningLotto = getWinningLotto()
+        val bonusBall: LottoNumber = getBonusBall()
+        addBonusBall(winningNumber = winningLotto, bonusBall = bonusBall)
         lottoStatistics(answer = winningLotto.numberList, lottoTickets = lottoTickets, purchase = purchase.totalPaper)
     }
 
@@ -61,6 +65,18 @@ class LottoRunner(
         val winningNumber = WinningNumber.from(input = winningNumberString)
 
         return winningNumber
+    }
+
+    private fun getBonusBall(): LottoNumber {
+        printView.printWithLine(LottoStringConstants.BONUS_BALL_INPUT_HELP_TEXT)
+        val bonusBallString = inputView.input()
+        val bonusBall = LottoNumber(number = NumberConverter.convert(str = bonusBallString), type = NumberType.BONUS)
+
+        return bonusBall
+    }
+
+    private fun addBonusBall(winningNumber: WinningNumber, bonusBall: LottoNumber) {
+        winningNumber.numberList + bonusBall
     }
 
     private fun lottoStatistics(

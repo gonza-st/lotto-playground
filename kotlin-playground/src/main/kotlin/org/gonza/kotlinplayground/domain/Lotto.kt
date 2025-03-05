@@ -1,11 +1,13 @@
 package org.gonza.kotlinplayground.domain
 
 import org.gonza.kotlinplayground.enum.LottoStatus
+import org.gonza.kotlinplayground.enum.NumberType
+import org.gonza.kotlinplayground.enum.Prize
 import org.gonza.kotlinplayground.utils.LottoConstants
 
 class Lotto(
     val lottoNumberList: List<LottoNumber>,
-    private val limit : Int = LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT,
+    private val limit: Int = LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT,
 ) {
     init {
         validateLottoNumberList()
@@ -21,22 +23,52 @@ class Lotto(
         }
         private set
 
+    var isBonus: Boolean = false
+        private set
+
     fun updateStatus(status: LottoStatus) {
         if (this.status == status) return
         this.status = status
     }
 
     fun compareAll(target: List<LottoNumber>): Boolean {
-        val targetNumberList = target.map { it.number }.toSet()
-        val winnerNumberList = this.lottoNumberList.filter { it.number in targetNumberList }
-        val isWinner = winnerNumberList.size >= LottoConstants.WINNER_CRITERIA
-        this.winnerNumberList = winnerNumberList
+        // 일치하는 번호 찾기
+        val matchedNumbers = getMatchedCount(target = target)
+        val matchCount = matchedNumbers.size
+        val isWinner = matchCount >= LottoConstants.WINNER_CRITERIA
+        this.winnerNumberList = matchedNumbers
 
-        if (isWinner) updateStatus(LottoStatus.WON)
-        else updateStatus(LottoStatus.LOST)
+        if (isMatchedBonus(target = target)) {
+            isBonus = true
+            updateStatus(LottoStatus.WON)
+            return true
+        }
+        if (isWinner) {
+            updateStatus(LottoStatus.WON)
+            return true
+        }
 
-        return isWinner
+        updateStatus(LottoStatus.LOST)
+        return false
     }
+
+    private fun isMatchedBonus(target: List<LottoNumber>): Boolean {
+        val bonusNumber = target.find { it.type == NumberType.BONUS }
+        val hasBonusMatch = bonusNumber != null &&
+                lottoNumberList.any { it.number == bonusNumber.number }
+
+        val matchedCount = getMatchedCount(target = target).size
+
+        return matchedCount == Prize.SECOND.matchCount && hasBonusMatch
+    }
+
+    private fun getMatchedCount(target: List<LottoNumber>): List<LottoNumber> {
+        val normalNumbers = target.filter { it.type == NumberType.NORMAL }
+        return lottoNumberList.filter { myNumber ->
+            normalNumbers.any { it.number == myNumber.number }
+        }
+    }
+
 
     private fun validateLottoNumberList() {
         require(lottoNumberList.size <= limit) { "로또 번호 개수는 ${limit}개를 초과할 수 없습니다." }

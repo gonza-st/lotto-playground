@@ -3,6 +3,7 @@ package org.gonza.kotlinplayground
 import org.gonza.kotlinplayground.domain.Lotto
 import org.gonza.kotlinplayground.domain.LottoNumber
 import org.gonza.kotlinplayground.enum.LottoStatus
+import org.gonza.kotlinplayground.enum.NumberType
 import org.gonza.kotlinplayground.utils.LottoConstants
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
@@ -90,5 +91,39 @@ class LottoTest {
         assertFalse { lotto.compareAll(target = answer) }
         assertTrue { lotto.winnerNumberList.size < LottoConstants.WINNER_CRITERIA }
         assertEquals(LottoStatus.LOST, lotto.status)
+    }
+
+    @Test
+    fun `보너스 볼이 일치하지 않으면 플래그 false를 반환한다`() {
+        val validLottoNumberList = mutableListOf<LottoNumber>()
+        val answer = mutableListOf<LottoNumber>()
+        val bonusBall = LottoNumber(number = 40, type = NumberType.BONUS)
+        repeat(LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT) {
+            validLottoNumberList.add(LottoNumber(number = it + 1))
+            answer.add(LottoNumber(number = it + 2))
+        }
+
+        answer.add(bonusBall)
+        val lotto = Lotto(lottoNumberList = validLottoNumberList)
+        lotto.compareAll(target = answer)
+
+        assertFalse { lotto.isBonus }
+    }
+
+    @Test
+    fun `보너스 볼이 일치하면 플래그 true를 반환한다`() {
+        val validLottoNumberList = mutableListOf<LottoNumber>()
+        val answer = mutableListOf<LottoNumber>()
+        val bonusBall = LottoNumber(number = 1, type = NumberType.BONUS)
+        repeat(LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT) {
+            validLottoNumberList.add(LottoNumber(number = it + 1))
+            answer.add(LottoNumber(number = it + 2))
+        }
+
+        val lotto = Lotto(lottoNumberList = validLottoNumberList)
+        answer.add(bonusBall)
+        lotto.compareAll(target = answer)
+
+        assertTrue { lotto.isBonus }
     }
 }
