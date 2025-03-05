@@ -8,21 +8,22 @@ import org.gonza.javaplayground.lotto.LottoConstant;
 public class LottoNumbers {
 
     public static LottoNumbers of(List<Integer> numbers) {
-        validateNumbers(numbers);
-        List<LottoNumber> lottoNumbers = numbers.stream()
-            .map(LottoNumber::of)
-            .toList();
+        List<LottoNumber> lottoNumbers = convertLottoNumberList(numbers);
 
         return new LottoNumbers(lottoNumbers, LottoType.AUTOMATIC);
     }
 
     public static LottoNumbers manualOf(List<Integer> numbers) {
-        validateNumbers(numbers);
-        List<LottoNumber> lottoNumbers = numbers.stream()
-            .map(LottoNumber::of)
-            .toList();
+        List<LottoNumber> lottoNumbers = convertLottoNumberList(numbers);
 
         return new LottoNumbers(lottoNumbers, LottoType.MANUAL);
+    }
+
+    private static List<LottoNumber> convertLottoNumberList(List<Integer> numbers) {
+        validateNumbers(numbers);
+        return numbers.stream()
+            .map(LottoNumber::of)
+            .toList();
     }
 
     private static void validateNumbers(List<Integer> numbers) {
