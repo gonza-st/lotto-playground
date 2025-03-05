@@ -14,11 +14,22 @@ public class LottoMachine {
     }
 
     public LottoTicket generateLottoTicket(Money purchasePrice) {
-        validatePurchasePrice(purchasePrice);
-        int numberOfPurchasedTicket = calculateNumberOfTickets(purchasePrice);
+        return generateLottoTicket(purchasePrice, List.of());
+    }
 
-        List<LottoNumber> lottoNumbers = new ArrayList<>();
-        for (int i = 0; i < numberOfPurchasedTicket; i++) {
+    public LottoTicket generateLottoTicket(Money purchasePrice, List<LottoNumber> manualLottoNumbers) {
+        validatePurchasePrice(purchasePrice);
+
+        int totalTickets = calculateNumberOfTickets(purchasePrice);
+        int autoTickets = totalTickets - manualLottoNumbers.size();
+
+        if (autoTickets < 0) {
+            throw new IllegalArgumentException("수동 로또 수가 총 구매 가능한 로또 수를 초과합니다.");
+        }
+
+        List<LottoNumber> lottoNumbers = new ArrayList<>(manualLottoNumbers);
+
+        for (int i = 0; i < autoTickets; i++) {
             lottoNumbers.add(lottoNumberGenerator.generateLottoNumber());
         }
 
@@ -26,15 +37,9 @@ public class LottoMachine {
     }
 
     private int calculateNumberOfTickets(Money purchasePrice) {
-        int numberOfPurchasedTicket = purchasePrice.value()
+        return purchasePrice.value()
                 .divide(BigDecimal.valueOf(PURCHASE_PRICE_UNIT))
                 .intValue();
-        return numberOfPurchasedTicket;
-    }
-
-    // todo 추후 기능 추가를 위해 구현해둠.
-    public LottoNumber generateWinningLottoNumber() {
-        return lottoNumberGenerator.generateLottoNumber();
     }
 
     private void validatePurchasePrice(Money purchasePrice) {
