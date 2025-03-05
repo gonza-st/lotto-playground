@@ -110,4 +110,111 @@ class LottosTest {
         Assertions.assertThat(matchResult.second).isEqualTo(expectedSecondResult)
         Assertions.assertThat(matchResult.winner).isEqualTo(expectedWinnerResult)
     }
+
+    @Test
+    fun `로또들의 갯수를 반환한다`() {
+        val lottoList: List<Lotto> =
+            listOf(
+                Lotto.create(
+                    mutableSetOf(
+                        LottoNumber(1),
+                        LottoNumber(2),
+                        LottoNumber(3),
+                        LottoNumber(7),
+                        LottoNumber(8),
+                        LottoNumber(9),
+                    ),
+                ),
+                Lotto.create(
+                    mutableSetOf(
+                        LottoNumber(1),
+                        LottoNumber(2),
+                        LottoNumber(3),
+                        LottoNumber(4),
+                        LottoNumber(7),
+                        LottoNumber(8),
+                    ),
+                ),
+                Lotto.create(
+                    mutableSetOf(
+                        LottoNumber(1),
+                        LottoNumber(2),
+                        LottoNumber(3),
+                        LottoNumber(4),
+                        LottoNumber(5),
+                        LottoNumber(7),
+                    ),
+                ),
+                Lotto.create(
+                    mutableSetOf(
+                        LottoNumber(1),
+                        LottoNumber(2),
+                        LottoNumber(3),
+                        LottoNumber(4),
+                        LottoNumber(5),
+                        LottoNumber(6),
+                    ),
+                ),
+            )
+
+        val lottos = Lottos(value = lottoList)
+
+        Assertions.assertThat(lottos.size()).isEqualTo(4)
+    }
+
+    @Test
+    fun `lotto에 해당하는 Lotto들이 있는지 확인한다`() {
+        val checkLottoList =
+            listOf(
+                Lotto.create(
+                    mutableSetOf(
+                        LottoNumber(1),
+                        LottoNumber(2),
+                        LottoNumber(3),
+                        LottoNumber(7),
+                        LottoNumber(8),
+                        LottoNumber(9),
+                    ),
+                ),
+                Lotto.create(
+                    mutableSetOf(
+                        LottoNumber(1),
+                        LottoNumber(2),
+                        LottoNumber(3),
+                        LottoNumber(4),
+                        LottoNumber(7),
+                        LottoNumber(8),
+                    ),
+                ),
+            )
+
+        val lottoList: MutableList<Lotto> =
+            mutableListOf(
+                Lotto.create(
+                    mutableSetOf(
+                        LottoNumber(1),
+                        LottoNumber(2),
+                        LottoNumber(3),
+                        LottoNumber(4),
+                        LottoNumber(5),
+                        LottoNumber(7),
+                    ),
+                ),
+                Lotto.create(
+                    mutableSetOf(
+                        LottoNumber(1),
+                        LottoNumber(2),
+                        LottoNumber(3),
+                        LottoNumber(4),
+                        LottoNumber(5),
+                        LottoNumber(6),
+                    ),
+                ),
+            )
+
+        lottoList.addAll(checkLottoList)
+        val lottos = Lottos(value = lottoList)
+
+        Assertions.assertThat(lottos.contains(checkLottoList)).isTrue()
+    }
 }
