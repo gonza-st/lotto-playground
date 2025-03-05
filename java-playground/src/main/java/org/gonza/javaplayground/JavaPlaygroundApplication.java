@@ -9,6 +9,7 @@ import org.gonza.javaplayground.controller.LottoPurchaseService;
 import org.gonza.javaplayground.model.Lotto;
 import org.gonza.javaplayground.model.LottoNumber;
 import org.gonza.javaplayground.model.Money;
+import org.gonza.javaplayground.model.Rank;
 import org.gonza.javaplayground.view.io.InputManager;
 import org.gonza.javaplayground.view.io.OutputManager;
 
@@ -37,7 +38,13 @@ public class JavaPlaygroundApplication {
         }
 
         계산기.당첨번호_설정하기(당첨_번호);
-        Map<Integer, Integer> 당첨_통계 = 계산기.당첨_통계_계산하기(구매_로또_목록);
+
+        프린터.보너스_번호_입력_안내하기();
+        int 보너스_번호_값 = 입력관리자.정수_읽기();
+        LottoNumber 보너스_번호 = new LottoNumber(보너스_번호_값);
+        계산기.보너스번호_설정하기(보너스_번호);
+
+        Map<Rank, Integer> 당첨_통계 = 계산기.당첨_통계_계산하기(구매_로또_목록);
         double 수익률 = 계산기.수익률_계산하기(당첨_통계, 구매_금액.금액_가져오기());
 
         프린터.당첨_통계_출력하기(당첨_통계, 수익률);
