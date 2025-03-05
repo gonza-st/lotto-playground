@@ -94,7 +94,7 @@ class LottoTest {
     }
 
     @Test
-    fun `로또 번호가 5개 일치하고 보너스 볼이 일치하지 않으면 WON 상태가 된다`() {
+    fun `보너스 볼이 일치하지 않으면 플래그 false를 반환한다`() {
         val validLottoNumberList = mutableListOf<LottoNumber>()
         val answer = mutableListOf<LottoNumber>()
         val bonusBall = LottoNumber(number = 40, type = NumberType.BONUS)
@@ -107,11 +107,11 @@ class LottoTest {
         val lotto = Lotto(lottoNumberList = validLottoNumberList)
         lotto.compareAll(target = answer)
 
-        assertEquals(LottoStatus.WON, lotto.status)
+        assertFalse { lotto.isBonus }
     }
 
     @Test
-    fun `로또 번호가 5개 일치하고 보너스 볼이 일치하면 BONUS 상태가 된다`() {
+    fun `보너스 볼이 일치하면 플래그 true를 반환한다`() {
         val validLottoNumberList = mutableListOf<LottoNumber>()
         val answer = mutableListOf<LottoNumber>()
         val bonusBall = LottoNumber(number = 1, type = NumberType.BONUS)
@@ -124,6 +124,6 @@ class LottoTest {
         answer.add(bonusBall)
         lotto.compareAll(target = answer)
 
-        assertEquals(LottoStatus.BONUS, lotto.status)
+        assertTrue { lotto.isBonus }
     }
 }
