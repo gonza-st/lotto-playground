@@ -29,7 +29,8 @@ class LottoRunner(
         try {
             val totalInput = inputView.input().trim().toInt()
             val amount = Amount(total = totalInput)
-            val purchase = Purchase(amount = amount)
+            val manual = Manual(count = 0) // FIXME
+            val purchase = Purchase(amount = amount, manual = manual)
             printView.printWithLine("${purchase.totalPaper}${LottoStringConstants.AFTER_PURCHASE_INPUT_HELP_TEXT}")
 
             return purchase
