@@ -15,33 +15,34 @@ class LottoRunner(
     private val inputView: InputView,
 ) {
     fun run() {
-        val purchase: Purchase = purchaseLotto()
-        val lottoTickets: LottoTickets = getLottoTickets(totalPaper = purchase.totalPaper)
-        printLotto(lottoTickets = lottoTickets)
+        val amount: Amount = getAmount()
+        val manual: Manual = getManualLottoCount()
+        val purchase = Purchase(amount = amount, manual = manual)
+        val manualLotto = getManualLotto(manual = manual)
+        val lottoTickets: LottoTickets = getLottoTickets(manualLotto = manualLotto, purchase = purchase)
+        printLotto(purchase = purchase, lottoTickets = lottoTickets)
         val winningLotto = getWinningLotto()
         val bonusBall: LottoNumber = getBonusBall()
-        addBonusBall(winningNumber = winningLotto, bonusBall = bonusBall)
+        addBonusBall(userManualNumber = winningLotto, bonusBall = bonusBall)
         lottoStatistics(answer = winningLotto.numberList, lottoTickets = lottoTickets, purchase = purchase.totalPaper)
     }
 
-    private fun purchaseLotto(): Purchase {
+    private fun getAmount(): Amount {
         printView.printWithLine(LottoStringConstants.BEFORE_PURCHASE_INPUT_HELP_TEXT)
         try {
             val totalInput = inputView.input().trim().toInt()
             val amount = Amount(total = totalInput)
-            val manual = Manual(count = 0) // FIXME
-            val purchase = Purchase(amount = amount, manual = manual)
-            printView.printWithLine("${purchase.totalPaper}${LottoStringConstants.AFTER_PURCHASE_INPUT_HELP_TEXT}")
-
-            return purchase
+            return amount
         } catch (e: NumberFormatException) {
             throw NumberFormatException(LottoStringConstants.INVALID_PURCHASE_FORMAT)
         }
     }
 
-    private fun getLottoTickets(totalPaper: Int): LottoTickets {
+    private fun getLottoTickets(manualLotto: List<Lotto>, purchase: Purchase): LottoTickets {
         val lottoList: MutableList<Lotto> = mutableListOf()
-        repeat(totalPaper) {
+
+        lottoList.addAll(manualLotto)
+        repeat(purchase.autoCount) {
             val lottoNumberList: List<LottoNumber> = LottoNumberGenerator.generate(
                 range = LottoConstants.LOTTO_NUMBER_RANGE.toList(),
                 take = LottoConstants.MAX_LOTTO_NUMBER_HAVE_COUNT
@@ -55,17 +56,44 @@ class LottoRunner(
         return lottoTickets
     }
 
-    private fun printLotto(lottoTickets: LottoTickets) {
+    private fun getManualLottoCount(): Manual {
+        printView.printWithLine(LottoStringConstants.BEFORE_MANUAL_PURCHASE_INPUT_HELP_TEXT)
+        try {
+            val input = inputView.input().trim().toInt()
+            return Manual(count = input)
+        } catch (e: NumberFormatException) {
+            throw NumberFormatException(LottoStringConstants.INVALID_PURCHASE_FORMAT)
+        }
+    }
+
+    private fun getManualLotto(manual: Manual): List<Lotto> {
+        printView.printWithLine(LottoStringConstants.BEFORE_MANUAL_LOTTO_INPUT_HELP_TEXT)
+
+        val manualLottoList = mutableListOf<Lotto>()
+        for (i in 0 until manual.count) {
+            val input = inputView.input().trim()
+            val userManualNumber = UserManualNumber.from(input = input)
+            val lotto = Lotto(lottoNumberList = userManualNumber.numberList)
+
+            manualLottoList.add(lotto)
+        }
+
+        return manualLottoList
+    }
+
+    private fun printLotto(purchase: Purchase, lottoTickets: LottoTickets) {
+        printView.printWithLine(LottoStringConstants.EMPTY_TEXT)
+        printView.printWithLine("수동으로 ${purchase.manualCount}, 자동으로 ${purchase.autoCount}개를 구매했습니다.")
         printView.printWithLine(lottoTickets.toString())
         printView.printWithLine(LottoStringConstants.EMPTY_TEXT)
     }
 
-    private fun getWinningLotto(): WinningNumber {
+    private fun getWinningLotto(): UserManualNumber {
         printView.printWithLine(LottoStringConstants.WINNING_NUMBER_INPUT_HELP_TEXT)
         val winningNumberString = inputView.input()
-        val winningNumber = WinningNumber.from(input = winningNumberString)
+        val userManualNumber = UserManualNumber.from(input = winningNumberString)
 
-        return winningNumber
+        return userManualNumber
     }
 
     private fun getBonusBall(): LottoNumber {
@@ -76,8 +104,8 @@ class LottoRunner(
         return bonusBall
     }
 
-    private fun addBonusBall(winningNumber: WinningNumber, bonusBall: LottoNumber) {
-        winningNumber.numberList + bonusBall
+    private fun addBonusBall(userManualNumber: UserManualNumber, bonusBall: LottoNumber) {
+        userManualNumber.numberList + bonusBall
     }
 
     private fun lottoStatistics(
