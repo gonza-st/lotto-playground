@@ -27,8 +27,11 @@ public class LottoGameController {
 
     public void play() {
         try {
-            LottoTicket ticket = purchaseLottoTicket();
-            printTicketInfo(ticket);
+            Money purchaseAmount = getPurchaseAmount();
+            int manualCount = getManualLottoCount();
+            List<LottoNumber> manualLottoNumbers = getManualLottoNumbers(manualCount);
+            LottoTicket ticket = lottoMachine.generateLottoTicket(purchaseAmount, manualLottoNumbers);
+            printTicketInfo(ticket, manualCount);
             WinningStatistics statistics = getWinningStatistics(ticket, processWinningNumbers());
             outputView.printStatistics(statistics);
         } catch (IllegalArgumentException e) {
@@ -36,27 +39,44 @@ public class LottoGameController {
         }
     }
 
-    private LottoTicket purchaseLottoTicket() {
+    private Money getPurchaseAmount() {
         outputView.printPurchaseAmountRequest();
-        BigDecimal purchaseAmount = inputValidator.validateAndConvertPurchaseAmount(inputView.read());
-        return lottoMachine.generateLottoTicket(new Money(purchaseAmount));
+        BigDecimal amount = inputValidator.validateAndConvertPurchaseAmount(inputView.read());
+        return new Money(amount);
     }
 
-    private void printTicketInfo(LottoTicket ticket) {
-        outputView.printPurchasedTicketCount(ticket.lottoNumbers().size());
+    private int getManualLottoCount() {
+        outputView.printManualPurchaseCountRequest();
+        int manualCount = inputValidator.inputNumber(inputView.read());
+        return manualCount;
+    }
+
+    private List<LottoNumber> getManualLottoNumbers(int manualCount) {
+        if (manualCount <= 0) {
+            return List.of();
+        }
+
+        outputView.printManualNumbersRequest();
+        List<String> inputs = inputView.readMultipleLines(manualCount);
+
+        return LottoNumber.generateManualLottoNumbers(inputs);
+    }
+
+    private void printTicketInfo(LottoTicket ticket, int manualCount) {
+        int autoCount = ticket.lottoNumbers().size() - manualCount;
+        outputView.printPurchasedTicketSummary(manualCount, autoCount);
         outputView.printLottoNumbers(ticket.lottoNumbers());
     }
 
     private LottoNumber processWinningNumbers() {
         outputView.printWinningNumberRequest();
         List<Integer> winningNumbers = inputValidator.validateAndConvertWinningNumbers(inputView.read());
-
         return new LottoNumber(winningNumbers);
     }
 
     private WinningStatistics getWinningStatistics(LottoTicket ticket, LottoNumber winningNumber) {
         outputView.printBonusNumberRequest();
-        int inputBonusNumber = inputValidator.validateBonusNumber(inputView.read());
+        int inputBonusNumber = inputValidator.inputNumber(inputView.read());
         LottoNumber bonusLottoNumber = LottoNumber.createBonusLottoNumber(inputBonusNumber);
 
         return new WinningStatistics(ticket.lottoNumbers(), winningNumber, bonusLottoNumber);
