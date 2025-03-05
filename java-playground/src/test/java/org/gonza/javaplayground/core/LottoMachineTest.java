@@ -7,6 +7,9 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
@@ -56,11 +59,80 @@ class LottoMachineTest {
     }
 
     @Test
-    @DisplayName("당첨 숫자를 뽑을 수 있다.")
-    void generateWinningLottoNumberSuccess() throws Exception {
-        LottoNumber winningLottoNumber = lottoMachine.generateWinningLottoNumber();
+    @DisplayName("수동 구매와 자동 구매를 조합하여 로또 티켓을 생성할 수 있다")
+    void generateLottoTicketWithManualNumbersTest() {
+        // given
+        BigDecimal purchasePrice = new BigDecimal(5000);
+        List<LottoNumber> manualNumbers = Arrays.asList(
+                new LottoNumber(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                new LottoNumber(Arrays.asList(7, 8, 9, 10, 11, 12))
+        );
 
-        assertThat(winningLottoNumber).isNotNull();
-        winningLottoNumber.lottoNumbers().forEach(number -> assertThat(number).isBetween(1, 45));
+        // when
+        LottoTicket ticket = lottoMachine.generateLottoTicket(new Money(purchasePrice), manualNumbers);
+
+        // then
+        assertThat(ticket.lottoNumbers().size()).isEqualTo(5);
+        assertThat(ticket.lottoNumbers()).containsAll(manualNumbers);
+
+        long autoTicketCount = ticket.lottoNumbers().stream()
+                .filter(number -> !manualNumbers.contains(number))
+                .count();
+        assertThat(autoTicketCount).isEqualTo(3);
+    }
+
+    @Test
+    @DisplayName("수동 구매 수가 총 구매 가능 수를 초과하면 예외 발생")
+    void generateLottoTicketWithExcessiveManualNumbersTest() {
+        // given
+        BigDecimal purchasePrice = new BigDecimal(2000);
+        List<LottoNumber> manualNumbers = Arrays.asList(
+                new LottoNumber(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                new LottoNumber(Arrays.asList(7, 8, 9, 10, 11, 12)),
+                new LottoNumber(Arrays.asList(13, 14, 15, 16, 17, 18))
+        );
+
+        // then
+        assertThatThrownBy(() -> lottoMachine.generateLottoTicket(new Money(purchasePrice), manualNumbers))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage("수동 로또 수가 총 구매 가능한 로또 수를 초과합니다.");
+    }
+
+    @Test
+    @DisplayName("수동 구매 없이 자동으로만 구매할 수 있다")
+    void generateLottoTicketWithOnlyAutoNumbersTest() {
+        // given
+        BigDecimal purchasePrice = new BigDecimal(3000);
+        List<LottoNumber> emptyManualNumbers = new ArrayList<>();
+
+        // when
+        LottoTicket ticket = lottoMachine.generateLottoTicket(new Money(purchasePrice), emptyManualNumbers);
+
+        // then
+        assertThat(ticket.lottoNumbers().size()).isEqualTo(3);
+
+        for (LottoNumber number : ticket.lottoNumbers()) {
+            assertThat(number.lottoNumbers().size()).isEqualTo(6);
+            number.lottoNumbers().forEach(n -> assertThat(n).isBetween(1, 45));
+        }
+    }
+
+    @Test
+    @DisplayName("수동 구매만으로 로또 티켓을 구매할 수 있다")
+    void generateLottoTicketWithOnlyManualNumbersTest() {
+        // given
+        BigDecimal purchasePrice = new BigDecimal(3000);
+        List<LottoNumber> manualNumbers = Arrays.asList(
+                new LottoNumber(Arrays.asList(1, 2, 3, 4, 5, 6)),
+                new LottoNumber(Arrays.asList(7, 8, 9, 10, 11, 12)),
+                new LottoNumber(Arrays.asList(13, 14, 15, 16, 17, 18))
+        );
+
+        // when
+        LottoTicket ticket = lottoMachine.generateLottoTicket(new Money(purchasePrice), manualNumbers);
+
+        // then
+        assertThat(ticket.lottoNumbers().size()).isEqualTo(3);
+        assertThat(ticket.lottoNumbers()).containsExactlyElementsOf(manualNumbers);
     }
 }

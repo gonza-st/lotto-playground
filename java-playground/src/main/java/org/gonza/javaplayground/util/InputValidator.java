@@ -50,12 +50,7 @@ public class InputValidator {
         });
     }
 
-    public int validateBonusNumber(String bonusNumber) {
-        int number = Integer.parseInt(bonusNumber);
-        if (number < 1 || number > 45) {
-            throw new IllegalArgumentException("보너스 번호는 1부터 45 사이의 숫자여야 합니다.");
-        }
-
-        return number;
+    public int inputNumber(String number) {
+        return Integer.parseInt(number);
     }
 }
