@@ -5,7 +5,6 @@ import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
 
 import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class LottoFactory {
     private final LottoProperties lottoProperties;
@@ -34,20 +33,5 @@ public class LottoFactory {
                 .toList();
 
         return new Lotto(lottoLines);
-    }
-
-    public Lotto createLotto(BuyingCount buyingCount, List<List<Integer>> manualNumbers) {
-        Integer amount = buyingCount.calculate(lottoProperties.pricePerLottoLine());
-
-        Stream<LottoLine> lottoLinesStream = IntStream.range(0, amount)
-                .mapToObj((i) -> lottoLineFactory.create());
-
-        Stream<LottoLine> manualLinesStream = manualNumbers.stream()
-                .map(this::createLottoLine);
-
-        List<LottoLine> allLines = Stream.concat(manualLinesStream, lottoLinesStream)
-                .toList();
-
-        return new Lotto(allLines);
     }
 }
