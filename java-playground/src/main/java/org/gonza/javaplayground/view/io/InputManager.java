@@ -3,25 +3,35 @@ package org.gonza.javaplayground.view.io;
 import java.util.Scanner;
 
 public class InputManager {
-    private final Scanner 스캐너;
+    private final Scanner scanner;
 
     public InputManager() {
-        this.스캐너 = new Scanner(System.in);
+        this.scanner = new Scanner(System.in);
     }
 
     public int 정수_읽기() {
-        return 스캐너.nextInt();
+        try {
+            return scanner.nextInt();
+        } finally {
+            if (scanner.hasNextLine()) {
+                scanner.nextLine();
+            }
+        }
     }
 
     public String 문자열_읽기() {
-        return 스캐너.nextLine();
+        String 입력 = scanner.nextLine().trim();
+        while (입력.isEmpty() && scanner.hasNextLine()) {
+            입력 = scanner.nextLine().trim();
+        }
+        return 입력;
     }
 
-    public void 버퍼_비우기() {
-        스캐너.reset();
+    public boolean hasNextLine() {
+        return scanner.hasNextLine();
     }
 
     public void 종료하기() {
-        스캐너.close();
+        scanner.close();
     }
 }

@@ -34,6 +34,18 @@ public class OutputManager {
         System.out.println();
     }
 
+    public void 수동_구매_개수_입력_안내하기() {
+        System.out.println("\n수동으로 구매할 로또 수를 입력해 주세요.");
+    }
+
+    public void 수동_구매_번호_입력_안내하기() {
+        System.out.println("\n수동으로 구매할 번호를 입력해 주세요.");
+    }
+
+    public void 구매_결과_출력하기(int 수동구매수량, int 자동구매수량) {
+        System.out.printf("\n수동으로 %d장, 자동으로 %d개를 구매했습니다.\n", 수동구매수량, 자동구매수량);
+    }
+
     public void 당첨_통계_출력하기(Map<Rank, Integer> 당첨_통계, double 수익률) {
         System.out.println("\n당첨 통계\n---------");
         System.out.printf("3개 일치 (5,000원)- %d개\n", 당첨_통계.getOrDefault(Rank.FIFTH, 0));
