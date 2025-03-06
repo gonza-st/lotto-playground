@@ -27,7 +27,7 @@ public class SimpleLottoApplication implements Application {
         // 구매
         Integer buyingAmount = screen.purchaseAmount();
         List<List<Integer>> manualNumbers = screen.purchaseManual();
-        Lotto lotto = lottoService.issue(buyingAmount);
+        Lotto lotto = lottoService.issue(buyingAmount, manualNumbers);
         printer.showBuyingNumbers(lotto.getAllLottoNumbers());
 
         // 당첨번호 비교
