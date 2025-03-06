@@ -1,5 +1,6 @@
 package org.gonza.kotlinplayground.presentation
 
+import org.gonza.kotlinplayground.domain.lotto.LottoTicket
 import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
 
 class OutputView {
@@ -26,8 +27,11 @@ class OutputView {
         println("$ticketCount 개를 구매했습니다")
     }
 
-    fun printGeneratedLottoTicketList(ticketList: List<String>) {
-        ticketList.forEach { println(it) }
+    fun printGeneratedLottoTicketList(ticketList: List<LottoTicket>) {
+        ticketList.forEach {
+            val sortedNumberList = it.sortByAsc()
+            println("[${sortedNumberList.joinToString(", ")}]")
+        }
     }
 
     fun printRequestResultLottoTicket() {
