@@ -5,10 +5,7 @@ import org.gonza.javaplayground.framework.Summer;
 import org.gonza.javaplayground.framework.server.ConsoleServer;
 import org.gonza.javaplayground.framework.server.Server;
 import org.gonza.javaplayground.framework.server.ServerProperties;
-import org.gonza.javaplayground.lotto.LottoApplication;
-import org.gonza.javaplayground.lotto.controller.LottoKiosk;
-import org.gonza.javaplayground.framework.mapper.RouteMapper;
-import org.gonza.javaplayground.lotto.controller.Storage;
+import org.gonza.javaplayground.lotto.SimpleLottoApplication;
 import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoFactory;
 import org.gonza.javaplayground.lotto.domain.lotto.LottoProperties;
 import org.gonza.javaplayground.lotto.domain.lotto.NumberGenerator;
@@ -17,7 +14,7 @@ import org.gonza.javaplayground.lotto.domain.lotto.lotto.LottoNumberFactory;
 import org.gonza.javaplayground.lotto.domain.report.ReportFactory;
 import org.gonza.javaplayground.lotto.domain.report.WinningPrizeTable;
 import org.gonza.javaplayground.lotto.domain.utils.RandomNumberGenerator;
-import org.gonza.javaplayground.lotto.repository.USB;
+import org.gonza.javaplayground.lotto.service.LottoService;
 
 import java.io.IOException;
 import java.util.List;
@@ -52,11 +49,8 @@ public class JavaPlaygroundApplication {
         LottoLineFactory lottoLineFactory = new LottoLineFactory(properties, lottoNumberFactory);
         LottoFactory lottoFactory = new LottoFactory(properties, lottoLineFactory, lottoNumberFactory);
 
-        Storage usb = new USB();
-
-        LottoKiosk lottoKiosk = new LottoKiosk(lottoFactory, reportFactory, usb);
-        RouteMapper routeMapper = new RouteMapper(lottoKiosk);
-        return new LottoApplication(routeMapper);
+        LottoService service = new LottoService(lottoFactory, reportFactory);
+        return new SimpleLottoApplication(service);
     }
 
 
