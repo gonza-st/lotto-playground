@@ -2,7 +2,6 @@ package org.gonza.javaplayground.lotto.ui;
 
 import java.io.BufferedReader;
 import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
@@ -42,30 +41,6 @@ public class SimpleScreenReader {
 
         String rawAmount = scanStringInput();
         return Integer.parseInt(rawAmount);
-    }
-
-    public List<List<Integer>> purchaseManual() {
-        printer.println("==============================");
-        printer.println("수동으로 구매할 로또 수를 입력해 주세요.");
-        printer.println("==============================");
-
-        String rawManualCount = scanStringInput();
-        Integer manualCount = Integer.parseInt(rawManualCount);
-
-        List<List<Integer>> manualNumbers = new ArrayList<>();
-        if (manualCount > 0) {
-            printer.println("==============================");
-            printer.println("수동으로 구매할 로또 수를 입력해 주세요.");
-            printer.println("==============================");
-
-            for (int i = 0; i < manualCount; i++) {
-                String rawManualNumberInput = scanStringInput();
-                List<Integer> manualNumber = parseInputNumbers(rawManualNumberInput);
-                manualNumbers.add(manualNumber);
-            }
-        }
-
-        return manualNumbers;
     }
 
     private List<Integer> parseInputNumbers(String body) {

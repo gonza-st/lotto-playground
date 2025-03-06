@@ -21,12 +21,9 @@ public class LottoService {
         this.reportFactory = reportFactory;
     }
 
-    public Lotto issue(
-            Integer amount,
-            List<List<Integer>> manualNumbers
-    ) {
+    public Lotto issue(Integer amount) {
         Cash cash = Cash.of(amount);
-        return lottoFactory.createLotto(cash, manualNumbers);
+        return lottoFactory.createLotto(cash);
     }
 
     public Report report(
