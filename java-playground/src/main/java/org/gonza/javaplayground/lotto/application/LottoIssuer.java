@@ -1,6 +1,7 @@
 package org.gonza.javaplayground.lotto.application;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.gonza.javaplayground.lotto.LottoConstant;
@@ -13,14 +14,7 @@ import org.gonza.javaplayground.lotto.domain.Price;
 public class LottoIssuer {
 
     public static Lottos issue(Price price) {
-        int pages = getLottoPages(price);
-        List<LottoNumbers> lottoNumbers = new ArrayList<>();
-
-        for (int i = 0; i < pages; i++) {
-            lottoNumbers.add(RandomLottoNumbers.generate());
-        }
-
-        return Lottos.of(lottoNumbers);
+        return issue(price, Collections.emptyList());
     }
 
     public static Lottos issue(Price price, List<List<Integer>> manualNumbers) {

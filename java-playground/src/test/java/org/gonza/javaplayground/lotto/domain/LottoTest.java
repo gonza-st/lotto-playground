@@ -99,7 +99,7 @@ class LottoTest {
 
     @Test
     void 로또_타입은_수동일_수_있다() {
-        Lotto lotto = Lotto.of(LottoSupport.LOTTO_NUMBERS_OF_123456);
+        Lotto lotto = Lotto.of(LottoSupport.MANUAL_LOTTO_NUMBERS_OF_123456);
 
         assertTrue(lotto.isManual());
     }

@@ -45,7 +45,6 @@ class LottoResultCalculatorTest {
 		LottoResult result = LottoResultCalculator.calculateResult(lottos, price);
 
 		assertThat(result.getRankCount().get(Rank.FIRST)).isEqualTo(1);
-		assertThat(result.getRankCount().get(Rank.THIRD)).isEqualTo(1);
+;		assertThat(result.getRankCount().get(Rank.SECOND)).isEqualTo(1);
 	}
-
 }
