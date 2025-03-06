@@ -20,7 +20,7 @@ class BonusNumberMatcherTest {
             )
 
         val bonusStatistics = bonusNumberMatcher.getWinningStatistics(purchasedTicketList)
-        val prizeResult = bonusStatistics.totalPrizePayment()
+        val prizeResult = bonusStatistics.totalPrizePayment()!!
         val result = bonusStatistics.getWinningStatisticsList().first()
 
         assertEquals(prizeResult.getPaidMoney(), BonusLottoStatisticsSheet.BONUS_MATCHED.getAmount())

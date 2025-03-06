@@ -160,4 +160,26 @@ class LottoTicketTest {
 
         assertEquals(result, matchedNumber)
     }
+
+    @Test
+    fun `로또 티켓은 로또 숫자를 기준으로 오름차순 정렬을 할 수 있다`() {
+        val lottoTicket =
+            LottoTicket(
+                listOf(
+                    LottoNumber(6),
+                    LottoNumber(5),
+                    LottoNumber(4),
+                    LottoNumber(3),
+                    LottoNumber(2),
+                    LottoNumber(1),
+                ),
+            )
+
+        val result = lottoTicket.sortByAsc()
+        val expected = listOf(1, 2, 3, 4, 5, 6)
+
+        result.forEachIndexed { index, element ->
+            assertEquals(expected[index], element)
+        }
+    }
 }

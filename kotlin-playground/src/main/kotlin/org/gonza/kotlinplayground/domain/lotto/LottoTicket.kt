@@ -40,4 +40,6 @@ class LottoTicket(
     fun getMatchedNumber(other: LottoTicket): List<LottoNumber> = other.lottoNumberList.mapNotNull { getMatchedNumber(it) }
 
     fun getMatchedNumber(number: LottoNumber): LottoNumber? = lottoNumberList.find { it == number }
+
+    fun sortByAsc() = lottoNumberList.map { it.number }.sorted()
 }
