@@ -22,20 +22,18 @@ class LottoGameController(
         val manualAmount: Int = input.int()
         output.print()
 
-        output.print("수동으로 구매할 번호를 입력해 주세요.")
-        val manualNumberStringList: MutableList<String> = mutableListOf()
-
-        var manualTryCount = manualAmount
-        while (manualTryCount > 0) {
-            manualNumberStringList.add(input.string())
-            manualTryCount--
+        if (manualAmount < 0) {
+            throw IllegalArgumentException("음수는 입력할 수 없습니다.")
         }
+
+        output.print("수동으로 구매할 번호를 입력해 주세요.")
+        val manualNumberStringList = input.iterString(count = manualAmount)
         output.print()
 
         val manualLottoList: List<Lotto> = Lotto.bulkCreate(numberStringList = manualNumberStringList)
 
         val lottoIssuer = LottoIssuer()
-        val amount: Int = lottoIssuer.amount(money = cost)
+        val amount: Int = lottoIssuer.amount(money = cost) - manualAmount
         output.print("수동으로 ${manualAmount}장, 자동으로 ${amount}개를 구매했습니다.")
 
         val lottos: Lottos = lottoIssuer.buy(amount = amount, manualLottoList = manualLottoList)
