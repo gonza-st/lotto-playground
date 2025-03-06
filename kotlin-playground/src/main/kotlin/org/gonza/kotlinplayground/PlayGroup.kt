@@ -3,8 +3,10 @@ package org.gonza.kotlinplayground
 import org.gonza.kotlinplayground.domain.lotto.BonusNumber
 import org.gonza.kotlinplayground.domain.lotto.LottoNumber
 import org.gonza.kotlinplayground.domain.lotto.LottoTicket
+import org.gonza.kotlinplayground.domain.payment.BonusLottoStatisticsSheet
+import org.gonza.kotlinplayground.domain.payment.GeneralLottoStatisticsSheet
 import org.gonza.kotlinplayground.domain.payment.Payment
-import org.gonza.kotlinplayground.domain.payment.WinningStatistics
+import org.gonza.kotlinplayground.domain.payment.WinningStatisticsResult
 import org.gonza.kotlinplayground.presentation.InputView
 import org.gonza.kotlinplayground.presentation.OutputView
 import org.gonza.kotlinplayground.service.*
@@ -123,7 +125,7 @@ private fun getBonusNumber(
 private fun matchLottoResults(
     winningTicket: LottoTicket,
     purchasedTicketList: List<LottoTicket>,
-): WinningStatistics {
+): WinningStatisticsResult {
     val lottoMatcher = GeneralLottoMatcher(winningTicket)
     return lottoMatcher.getWinningStatistics(
         purchasedTicketList = purchasedTicketList,
@@ -134,7 +136,7 @@ private fun matchBonusLottoResults(
     winningTicket: LottoTicket,
     bonusNumber: BonusNumber,
     purchasedTicketList: List<LottoTicket>,
-): WinningStatistics {
+): WinningStatisticsResult {
     val bonusLottoMatcher = BonusNumberMatcher(winningTicket, bonusNumber)
     return bonusLottoMatcher.getWinningStatistics(
         purchasedTicketList = purchasedTicketList,
@@ -143,25 +145,25 @@ private fun matchBonusLottoResults(
 
 private fun printStatistics(
     outputView: OutputView,
-    winningStatistics: WinningStatistics,
+    winningStatisticsResult: WinningStatisticsResult,
 ) {
     outputView.printNoticeStatisticSheet()
-    val winningStatisticsList = winningStatistics.getWinningStatisticsList()
+    val totalStatistics = GeneralLottoStatisticsSheet.entries + BonusLottoStatisticsSheet.entries
 
-    winningStatisticsList.forEach {
-        val sheet = it.statisticsSheet
-        val matchedCount = it.count
+    totalStatistics.forEach {
+        val winningInfo = winningStatisticsResult.findWinningInfoBy(it)
+        val matchedCount = winningInfo?.count ?: 0
 
-        outputView.printStatisticSheet(sheet, matchedCount)
+        outputView.printStatisticSheet(it, matchedCount)
     }
 }
 
 private fun printReturnOnInvestment(
     outputView: OutputView,
     payment: Payment,
-    winningStatistics: WinningStatistics,
+    winningStatisticsResult: WinningStatisticsResult,
 ) {
-    val profitPayment = winningStatistics.totalPrizePayment() ?: return outputView.printReturnOnInvestment(0.00)
+    val profitPayment = winningStatisticsResult.totalPrizePayment() ?: return outputView.printReturnOnInvestment(0.00)
 
     val financialPolicy = LottoFinancialPolicy()
     val returnOnInvestment = financialPolicy.calculateReturnOnInvestment(payment, profitPayment)

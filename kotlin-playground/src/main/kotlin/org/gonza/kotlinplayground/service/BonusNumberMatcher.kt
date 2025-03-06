@@ -4,7 +4,7 @@ import org.gonza.kotlinplayground.domain.lotto.LottoNumber
 import org.gonza.kotlinplayground.domain.lotto.LottoTicket
 import org.gonza.kotlinplayground.domain.payment.BonusLottoStatisticsSheet
 import org.gonza.kotlinplayground.domain.payment.LottoStatisticsSheet
-import org.gonza.kotlinplayground.domain.payment.WinningStatistics
+import org.gonza.kotlinplayground.domain.payment.WinningStatisticsResult
 
 class BonusNumberMatcher(
     private val result: LottoTicket,
@@ -14,13 +14,13 @@ class BonusNumberMatcher(
         private val BONUS_STATISTICS_SHEET = BonusLottoStatisticsSheet.BONUS_MATCHED
     }
 
-    override fun getWinningStatistics(purchasedTicketList: List<LottoTicket>): WinningStatistics {
+    override fun getWinningStatistics(purchasedTicketList: List<LottoTicket>): WinningStatisticsResult {
         val matchedStatistics =
             purchasedTicketList.mapNotNull { ticket ->
                 findBonusStatistics(ticket)
             }
 
-        return WinningStatistics(
+        return WinningStatisticsResult(
             winningInfoList = createWinningCountList(matchedStatistics),
         )
     }

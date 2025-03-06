@@ -55,6 +55,6 @@ class OutputView {
     }
 
     fun printReturnOnInvestment(returnOnInvestment: Double) {
-        println("총 수익률은 $returnOnInvestment 입니다.")
+        println("총 수익률은 %.2f 입니다.".format(returnOnInvestment))
     }
 }

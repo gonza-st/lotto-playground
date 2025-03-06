@@ -2,7 +2,7 @@ package org.gonza.kotlinplayground.domain.payment
 
 import org.gonza.kotlinplayground.service.WinningInfo
 
-class WinningStatistics(
+class WinningStatisticsResult(
     private val winningInfoList: List<WinningInfo>,
 ) {
     fun totalPrizePayment(): Payment? {
@@ -21,11 +21,18 @@ class WinningStatistics(
 
     fun getWinningStatisticsList(): List<WinningInfo> = winningInfoList
 
-    fun add(winningStatistics: WinningStatistics): WinningStatistics {
-        val list = winningStatistics.getWinningStatisticsList()
+    fun add(winningStatisticsResult: WinningStatisticsResult): WinningStatisticsResult {
+        val list = winningStatisticsResult.getWinningStatisticsList()
 
-        return WinningStatistics(
+        return WinningStatisticsResult(
             winningInfoList = winningInfoList + list,
         )
     }
+
+    fun findWinningInfoBy(statisticsSheet: LottoStatisticsSheet): WinningInfo? =
+        winningInfoList.find {
+            val winningStatisticsSheet = it.statisticsSheet
+
+            winningStatisticsSheet.isMatched(statisticsSheet.getMatchedCount())
+        }
 }
