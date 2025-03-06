@@ -139,14 +139,14 @@ class LottoTest {
     @Test
     fun `우승 번호 입력 시 , 이외의 특수문자가 들어가면 에러가 발생한다`() {
         Assertions
-            .assertThatThrownBy { Lotto.create(winningLottoNumber = "1|2|3|4|5|6") }
+            .assertThatThrownBy { Lotto.create(numberString = "1|2|3|4|5|6") }
             .isInstanceOf(IllegalArgumentException::class.java)
             .hasMessage("로또 번호는 숫자와 쉼표(,)만 입력 가능합니다.")
     }
 
     @Test
     fun `우승 번호를 입력하면 로또를 생성한다`() {
-        val winningLotto = Lotto.create(winningLottoNumber = "1,2,3,4,5,6")
+        val winningLotto = Lotto.create(numberString = "1,2,3,4,5,6")
 
         val expectedValue = Lotto.create(numberList = listOf(1, 2, 3, 4, 5, 6))
 
@@ -157,13 +157,39 @@ class LottoTest {
     fun `보너스 번호를 포함하는지 확인한다`() {
         val bonus = LottoNumber(7)
 
-        val notMatchedLotto = Lotto.create(winningLottoNumber = "1,2,3,4,5,6")
-        val matchedLotto = Lotto.create(winningLottoNumber = "1,2,3,4,5,7")
+        val notMatchedLotto = Lotto.create(numberString = "1,2,3,4,5,6")
+        val matchedLotto = Lotto.create(numberString = "1,2,3,4,5,7")
 
         val notMatchedResult = notMatchedLotto.matchBonus(bonus = bonus)
         val matchedResult = matchedLotto.matchBonus(bonus = bonus)
 
         Assertions.assertThat(notMatchedResult).isFalse()
         Assertions.assertThat(matchedResult).isTrue()
+    }
+
+    @Test
+    fun `숫자 문자열 리스트를 받아서 Lotto를 벌크로 생성한다`() {
+        val numberStringList = listOf("1,2,3,4,5,6", "7,8,9,10,11,12")
+
+        val lottoList: List<Lotto> = Lotto.bulkCreate(numberStringList = numberStringList)
+
+        val expectedValue =
+            listOf(
+                Lotto.create(numberList = listOf(1, 2, 3, 4, 5, 6)),
+                Lotto.create(numberList = listOf(7, 8, 9, 10, 11, 12)),
+            )
+
+        Assertions.assertThat(lottoList).isEqualTo(expectedValue)
+    }
+
+    @Test
+    fun `빈 리스트의 numberStringLis가 들어오면 빈 리스트를 반환한다`() {
+        val numberStringList = emptyList<String>()
+
+        val lottoList: List<Lotto> = Lotto.bulkCreate(numberStringList = numberStringList)
+
+        val expectedValue = emptyList<String>()
+
+        Assertions.assertThat(lottoList).isEqualTo(expectedValue)
     }
 }

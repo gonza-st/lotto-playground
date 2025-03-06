@@ -12,4 +12,16 @@ class Input {
         val scanner = Scanner(System.`in`)
         return scanner.nextLine()
     }
+
+    fun iterString(count: Int): MutableList<String> {
+        val manualNumberStringList: MutableList<String> = mutableListOf()
+
+        var tryCount = count
+        while (tryCount > 0) {
+            manualNumberStringList.add(string())
+            tryCount--
+        }
+
+        return manualNumberStringList
+    }
 }

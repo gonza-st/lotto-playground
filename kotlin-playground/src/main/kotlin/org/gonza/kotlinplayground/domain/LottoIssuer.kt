@@ -27,4 +27,22 @@ class LottoIssuer {
         val lottos = Lottos(value = lottoList)
         return lottos
     }
+
+    fun buy(
+        amount: Int,
+        manualLottoList: List<Lotto>,
+    ): Lottos {
+        var tryCount: Int = amount
+        val lottoList: MutableList<Lotto> = mutableListOf()
+
+        while (tryCount > 0) {
+            val lotto = Lotto.create()
+            lottoList.add(lotto)
+            tryCount--
+        }
+
+        val mergedLottoList = manualLottoList.toMutableList() + lottoList
+        val lottos = Lottos(value = mergedLottoList)
+        return lottos
+    }
 }

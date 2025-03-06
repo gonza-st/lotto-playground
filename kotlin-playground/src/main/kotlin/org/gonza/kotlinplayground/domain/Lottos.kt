@@ -8,6 +8,10 @@ data class Lottos(
 ) {
     fun print(): List<String> = value.map { it.toString() }
 
+    fun size(): Int = value.size
+
+    fun contains(lottoList: List<Lotto>): Boolean = value.containsAll(lottoList)
+
     fun matchResult(
         winningLotto: Lotto,
         bonusBall: LottoNumber,
