@@ -24,13 +24,32 @@ public class JavaPlaygroundApplication {
         프린터.구매_금액_입력_안내하기();
         Money 구매_금액 = new Money(입력관리자.정수_읽기());
 
-        List<Lotto> 구매_로또_목록 = 로또구매서비스.로또_구매하기(구매_금액);
+        프린터.수동_구매_개수_입력_안내하기();
+        int 수동구매수량 = 입력관리자.정수_읽기();
 
+        List<Lotto> 수동구매로또 = new ArrayList<>();
+        String regex = ", ";
+        if (수동구매수량 > 0) {
+            프린터.수동_구매_번호_입력_안내하기();
+            for (int i = 0; i < 수동구매수량; i++) {
+                String[] 번호들 = 입력관리자.문자열_읽기().split(regex);
+                List<LottoNumber> 로또번호목록 = new ArrayList<>();
+                for (String 번호 : 번호들) {
+                    로또번호목록.add(new LottoNumber(Integer.parseInt(번호)));
+                }
+                수동구매로또.add(new Lotto(로또번호목록));
+            }
+        }
+
+        List<Lotto> 구매_로또_목록 = 로또구매서비스.로또_구매하기(구매_금액, 수동구매수량, 수동구매로또);
+        int 자동구매수량 = 구매_로또_목록.size() - 수동구매수량;
+
+        프린터.구매_결과_출력하기(수동구매수량, 자동구매수량);
         프린터.구매_로또_목록_출력하기(구매_로또_목록);
 
         프린터.당첨_번호_입력_안내하기();
         입력관리자.문자열_읽기();
-        String[] 당첨_번호_문자열 = 입력관리자.문자열_읽기().split(", ");
+        String[] 당첨_번호_문자열 = 입력관리자.문자열_읽기().split(regex);
 
         List<LottoNumber> 당첨_번호 = new ArrayList<>(6);
         for (String 번호 : 당첨_번호_문자열) {

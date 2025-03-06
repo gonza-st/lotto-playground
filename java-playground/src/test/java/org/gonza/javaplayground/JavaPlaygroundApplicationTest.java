@@ -1,84 +1,106 @@
 package org.gonza.javaplayground;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-import org.gonza.javaplayground.controller.Calculator;
 import org.gonza.javaplayground.controller.LottoMachine;
 import org.gonza.javaplayground.controller.LottoPurchaseService;
 import org.gonza.javaplayground.model.Lotto;
 import org.gonza.javaplayground.model.LottoNumber;
 import org.gonza.javaplayground.model.Money;
-import org.gonza.javaplayground.model.Rank;
-import org.gonza.javaplayground.view.io.OutputManager;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-class JavaPlaygroundApplicationTest {
-    private final ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-    private OutputManager 프린터;
-    private LottoMachine 로또기계;
+class LottoPurchaseServiceTest {
     private LottoPurchaseService 로또구매서비스;
-    private Calculator 계산기;
+    private static final int 로또_한장_가격 = 1000;
 
     @BeforeEach
     void setUp() {
-        System.setOut(new PrintStream(outputStream));
-        프린터 = new OutputManager();
-        로또기계 = new LottoMachine();
-        로또구매서비스 = new LottoPurchaseService(로또기계);
-        계산기 = new Calculator();
+        LottoMachine 로또머신 = new LottoMachine();
+        로또구매서비스 = new LottoPurchaseService(로또머신);
     }
 
     @Test
-    @DisplayName("전체 어플리케이션 통합 테스트 - 로또 구매 및 당첨 확인")
-    void 전체_어플리케이션_통합_테스트() {
-        Money 구매_금액 = new Money(8000);
-        List<Lotto> 구매_로또_목록 = 로또구매서비스.로또_구매하기(구매_금액);
+    @DisplayName("로또는 1000원으로 구매할 수 있다")
+    void 최소_구매_금액_테스트() {
+        Money 구매금액 = new Money(로또_한장_가격);
+        int 수동로또수 = 0;
+        List<Lotto> 수동로또목록 = new ArrayList<>();
 
-        List<LottoNumber> 당첨_번호 = List.of(
-                new LottoNumber(1),
-                new LottoNumber(2),
-                new LottoNumber(3),
-                new LottoNumber(4),
-                new LottoNumber(5),
-                new LottoNumber(6)
-        );
-        계산기.당첨번호_설정하기(당첨_번호);
+        List<Lotto> 구매한_로또_목록 = 로또구매서비스.로또_구매하기(구매금액, 수동로또수, 수동로또목록);
 
-        LottoNumber 보너스_번호 = new LottoNumber(7);
-        계산기.보너스번호_설정하기(보너스_번호);
+        assertEquals(1, 구매한_로또_목록.size());
+    }
 
-        Map<Rank, Integer> 당첨_통계 = 계산기.당첨_통계_계산하기(구매_로또_목록);
-        double 수익률 = 계산기.수익률_계산하기(당첨_통계, 구매_금액.금액_가져오기());
+    @ParameterizedTest
+    @ValueSource(ints = {500, 999})
+    @DisplayName("1000원 미만으로는 로또를 구매할 수 없다")
+    void 최소_구매_금액_미만_테스트(int 금액) {
+        Money 구매금액 = new Money(금액);
+        int 수동로또수 = 0;
+        List<Lotto> 수동로또목록 = new ArrayList<>();
 
-        assertEquals(8, 구매_로또_목록.size());
-        assertNotNull(당첨_통계);
-        assertTrue(수익률 >= 0.0);
-
-        프린터.당첨_통계_출력하기(당첨_통계, 수익률);
-        String 출력_결과 = outputStream.toString();
-        assertTrue(출력_결과.contains("당첨 통계"));
-        assertTrue(출력_결과.contains("3개 일치"));
-        assertTrue(출력_결과.contains("4개 일치"));
-        assertTrue(출력_결과.contains("5개 일치"));
-        assertTrue(출력_결과.contains("6개 일치"));
-        assertTrue(출력_결과.contains("총 수익률"));
+        assertThrows(IllegalArgumentException.class,
+                () -> 로또구매서비스.로또_구매하기(구매금액, 수동로또수, 수동로또목록));
     }
 
     @Test
-    @DisplayName("구매 금액에 따른 로또 수량 검증")
-    void 로또_구매_수량_검증() {
-        Money 금액_1000원 = new Money(1000);
-        List<Lotto> 구매_로또_1장 = 로또구매서비스.로또_구매하기(금액_1000원);
-        assertEquals(1, 구매_로또_1장.size());
+    @DisplayName("로또 구매 금액은 1000원 단위여야 한다")
+    void 구매_단위_테스트() {
+        Money 구매금액 = new Money(1500);
+        int 수동로또수 = 0;
+        List<Lotto> 수동로또목록 = new ArrayList<>();
 
-        Money 금액_5000원 = new Money(5000);
-        List<Lotto> 구매_로또_5장 = 로또구매서비스.로또_구매하기(금액_5000원);
-        assertEquals(5, 구매_로또_5장.size());
+        assertThrows(IllegalArgumentException.class,
+                () -> 로또구매서비스.로또_구매하기(구매금액, 수동로또수, 수동로또목록));
+    }
+
+    @Test
+    @DisplayName("구매 금액에 해당하는 만큼 로또를 발급해야 한다")
+    void 로또_수량_테스트() {
+        Money 구매금액 = new Money(5000);
+        int 수동로또수 = 0;
+        List<Lotto> 수동로또목록 = new ArrayList<>();
+
+        List<Lotto> 구매한_로또_목록 = 로또구매서비스.로또_구매하기(구매금액, 수동로또수, 수동로또목록);
+
+        assertEquals(5, 구매한_로또_목록.size());
+    }
+
+    @Test
+    @DisplayName("수동 로또와 자동 로또를 함께 구매할 수 있다")
+    void 수동_자동_혼합_구매_테스트() {
+        Money 구매금액 = new Money(3000);
+        int 수동로또수 = 2;
+        List<Lotto> 수동로또목록 = new ArrayList<>();
+
+        for (int i = 0; i < 수동로또수; i++) {
+            List<LottoNumber> lottoNumbers = new ArrayList<>();
+            for (int j = 1; j <= 6; j++) {
+                lottoNumbers.add(new LottoNumber(j));
+            }
+            수동로또목록.add(new Lotto(lottoNumbers));
+        }
+
+        List<Lotto> 구매한_로또_목록 = 로또구매서비스.로또_구매하기(구매금액, 수동로또수, 수동로또목록);
+
+        assertEquals(3, 구매한_로또_목록.size());
+    }
+
+    @Test
+    @DisplayName("수동 로또 수는 구매 가능한 전체 로또 수를 초과할 수 없다")
+    void 수동_로또_초과_테스트() {
+        Money 구매금액 = new Money(2000);
+        int 수동로또수 = 3;
+        List<Lotto> 수동로또목록 = new ArrayList<>();
+
+        assertThrows(IllegalArgumentException.class,
+                () -> 로또구매서비스.로또_구매하기(구매금액, 수동로또수, 수동로또목록));
     }
 }
