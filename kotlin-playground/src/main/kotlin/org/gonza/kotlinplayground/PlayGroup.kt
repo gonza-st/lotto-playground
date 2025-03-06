@@ -161,7 +161,8 @@ private fun printReturnOnInvestment(
     payment: Payment,
     winningStatistics: WinningStatistics,
 ) {
-    val profitPayment = winningStatistics.totalPrizePayment()
+    val profitPayment = winningStatistics.totalPrizePayment() ?: return outputView.printReturnOnInvestment(0.00)
+
     val financialPolicy = LottoFinancialPolicy()
     val returnOnInvestment = financialPolicy.calculateReturnOnInvestment(payment, profitPayment)
 

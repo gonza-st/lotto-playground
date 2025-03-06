@@ -35,13 +35,16 @@ class BonusNumberMatcher(
         return BONUS_STATISTICS_SHEET
     }
 
-    private fun createWinningCountList(bonusStatisticsList: List<LottoStatisticsSheet>): List<WinningInfo> =
-        listOf(
+    private fun createWinningCountList(bonusStatisticsList: List<LottoStatisticsSheet>): List<WinningInfo> {
+        if (bonusStatisticsList.isEmpty()) return emptyList()
+
+        return listOf(
             WinningInfo(
                 statisticsSheet = BONUS_STATISTICS_SHEET,
                 count = bonusStatisticsList.size,
             ),
         )
+    }
 
     private fun isBonus(matchedCount: Int): Boolean = BONUS_STATISTICS_SHEET.isMatched(matchedCount)
 

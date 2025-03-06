@@ -21,7 +21,7 @@ class WinningStatisticsTest {
             )
         val winningStatistics = WinningStatistics(winningInfoLists)
 
-        val totalPrizeMoney = winningStatistics.totalPrizePayment()
+        val totalPrizeMoney = winningStatistics.totalPrizePayment()!!
         val result = totalPrizeMoney.getPaidMoney()
 
         val expected = expectedTotalPrize.getPaidMoney()
@@ -58,5 +58,20 @@ class WinningStatisticsTest {
         val expectedSize = 1
 
         assertEquals(result.getWinningStatisticsList().size, expectedSize)
+    }
+
+    @Test
+    fun `당첨 되지 않았다면 총 보상금액은 null 이다`() {
+        // given
+        val matchedZero =
+            WinningStatistics(
+                winningInfoList = emptyList(),
+            )
+
+        // when
+        val totalPrizePayment = matchedZero.totalPrizePayment()
+
+        // then
+        assertNull(totalPrizePayment)
     }
 }

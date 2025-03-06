@@ -23,6 +23,8 @@ class GeneralLottoMatcher(
     }
 
     private fun getWinningCountList(matchedStatistics: List<LottoStatisticsSheet>): List<WinningInfo> {
+        if (matchedStatistics.isEmpty()) return emptyList()
+
         val groupedWonStatistics = matchedStatistics.groupingBy { it }
 
         return groupedWonStatistics

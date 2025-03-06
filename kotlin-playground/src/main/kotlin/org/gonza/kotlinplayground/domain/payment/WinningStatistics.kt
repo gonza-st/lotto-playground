@@ -5,7 +5,7 @@ import org.gonza.kotlinplayground.service.WinningInfo
 class WinningStatistics(
     private val winningInfoList: List<WinningInfo>,
 ) {
-    fun totalPrizePayment(): Payment {
+    fun totalPrizePayment(): Payment? {
         val totalPrizeMoney =
             winningInfoList.sumOf {
                 val sheet = it.statisticsSheet
@@ -13,6 +13,8 @@ class WinningStatistics(
 
                 sheet.getAmount() * matchedCount
             }
+
+        if (totalPrizeMoney == 0) return null
 
         return Payment(totalPrizeMoney)
     }
